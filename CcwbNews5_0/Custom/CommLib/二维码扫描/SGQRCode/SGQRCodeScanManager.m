@@ -65,6 +65,7 @@ static SGQRCodeScanManager *_instance;
     // 会话采集率: AVCaptureSessionPresetHigh
     _session.sessionPreset = AVCaptureSessionPresetHigh;
     
+    
     // 6、添加设备输入流到会话对象
     [_session addInput:deviceInput];
     
