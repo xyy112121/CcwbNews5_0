@@ -1,0 +1,159 @@
+//
+//  PrefixHeader.pch
+//  CcwbNews
+//
+//  Created by xyy520 on 16/5/17.
+//  Copyright © 2016年 谢 毅. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#ifdef __OBJC__
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+//*********************************
+#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "Header.h"
+#import "AFHTTPSessionManager.h"
+#import "AddInterface.h"
+#import "Interface.h"
+#import "ActionDelegate.h"
+#import "MBProgressHUD+Add.h"
+#import "AppDelegate.h"
+#import "Enum_set.h"
+#import "SMPageControl.h"
+#import "HomePageViewController.h"
+#import "UIImageView+AFNetworking.h"
+#import "UIImage+AFNetworking.h"
+#import "MBProgressHUD.h"
+#import "RequestInterface.h"
+#import "UIDevice+IdentifierAddition.h"
+#import "CLBottomCommentView.h"
+#import "CustomColor.h"
+#import "Masonry.h"
+#import "MJRefresh.h"
+#import "UIMyLabel.h"
+#import "HYSegmentControl.h"
+#import "UserInfo.h"
+#import "DiliWeiZhi.h"
+#import "JPhotoMagenage.h"
+#import "JQIndicatorView.h"
+#import "DiliWeiZhi.h"
+#import "UserInfo.h"
+#import "MJRefreshGifHeader.h"
+#import "VideoView.h"
+#import "BurstNewsView.h"
+#import "CustomNewsView.h"
+#import "CcwbNewsSaidView.h"
+#import "DiscorverView.h"
+#import "BottomView.h"
+#import "ActivityNow.h"
+#import "SecuritiesView.h"
+#import "UIImageView+AFNetworking.h"
+#import "MJChiBaoZiHeader.h"
+#import "MJChiBaoZiFooter.h"
+#import "YLImageView.h"
+#import "YLGIFImage.h"
+#import "CustomPageObject.h"
+#import "GuideView.h"
+#import "UIImage+AFNetworking.h"
+#import "UIButton+AFNetworking.h"
+#import "HpNavigateView.h"
+#import "FocusNewsView.h"
+#import "FunctionView.h"
+#import "XLsn0wLoop.h"
+#import "MoreNewsView.h"
+#import "ApplicationRecommendView.h"
+#import "TuJiView.h"
+#import "PersonalHeaderView.h"
+#import "PersonCenterViewController.h"
+#import <JavaScriptCore/JavaScriptCore.h>
+#import "WebViewCustomViewController.h"
+#import "LQXSwitch.h"
+#import "SettingViewController.h"
+#import "ZLCWebView.h"
+#import <WebKit/WebKit.h>
+#import "WkWebViewCustomViewController.h"
+#import "WkWebViewCustomView.h"
+#import "ApplicationMangerViewController.h"
+#import "URLTypeView.h"
+#import "SingleTuJiView.h"
+#import "GoodsCellView.h"
+#import "SearchViewController.h"
+#import "FYAlbumManager.h"
+#import "DBTakeVideoVC.h"
+#import <AVFoundation/AVFoundation.h>
+#import "UIWindow+YzdHUD.h"
+#import "lame.h"
+#import "AskBrokeViewController.h"
+#import "BrokeTableView.h"
+#import "BrokeWordView.h"
+#import "BrokePicView.h"
+#import "BrokeAudioView.h"
+#import "BrokeVideoView.h"
+#import "UIView+Extension.h"
+#import "MTInputToolbar.h"
+#import "BrokeDisplayPicView.h"
+#import <MediaPlayer/MediaPlayerDefines.h>
+#import "JMSGCommon.h"
+#import <JMessage/JMessage.h>
+#import "ScanQRCodeViewController.h"
+#import "OpenGLView.h"
+#import "PopAdView.h"
+#import <UMSocialCore/UMSocialCore.h>
+#import <UShareUI/UShareUI.h>
+#import "PlayViewController.h"
+#import "DirectionMPMoviePlayerViewController.h"
+#import <AVKit/AVKit.h>
+#import "LVMovieViewController.h"
+#import "WXApiRequestHandler.h"
+#import "WXApiManager.h"
+#import "SGQRCode.h"
+#import "ScanQRCodeARViewController.h"
+
+#endif /* PrefixHeader_pch */
+
+/**
+ *  弱引用
+ */
+#define BXWeakSelf __weak typeof(self) weakSelf = self;
+
+#define BXNoteCenter [NSNotificationCenter defaultCenter]
+
+#define BXScreenH [UIScreen mainScreen].bounds.size.height
+#define BXScreenW [UIScreen mainScreen].bounds.size.width
+#define BXScreenBounds [UIScreen mainScreen].bounds
+#define BXKeyWindow [UIApplication sharedApplication].keyWindow
+
+// 随机色
+#define BXRandomColor BXColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
+// 设置颜色
+#define BXColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+#define BXAlphaColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
+//保单显示文字颜色
+#define The_Prompt_Color_Nine [[UIColor alloc]initWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1]
+#define The_Prompt_Color_Six [[UIColor alloc]initWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1]
+#define The_Prompt_Color_Three [[UIColor alloc]initWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1]
+
+#define The_MainColor BXColor(51, 153, 255)
+#define BXGlobalBg BXColor(242, 242, 242)
+// 自定义log
+#ifdef DEBUG
+
+#define BXLog(...) NSLog(@"%s %d \n %@\n\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
+
+#else
+
+#define BXLog(...)
+
+#endif
+
+
+#endif /* PrefixHeader_pch */
+
+
