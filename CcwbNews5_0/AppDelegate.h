@@ -34,6 +34,7 @@ static BOOL isProduction = FALSE;
 	BMKGeoCodeSearch* geocodesearch;
 	
 }
+@property(nonatomic,strong)NSString *cwtoken;
 @property (atomic) bool active;
 @property(nonatomic,strong)UINavigationController *gnctl;
 @property(nonatomic,strong)NSString *pushflag;

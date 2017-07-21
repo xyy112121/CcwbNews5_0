@@ -22,7 +22,10 @@ typedef enum{
 	EnCellTypeBiz,     //商城
 	EnCellTypeUrl,     //url类型
 	EnCellTypePhoto,   //单图集多图片
-	EnCellTypePhotoGroup  //图集
+	EnCellTypePhotoGroup,  //图集
+    EnCellTypeSortFanKui,//排行榜与反馈
+    EnCellTypeAddApplication//添加就用
+    
 }EnCellType;
 
 

@@ -91,9 +91,16 @@
 	userinfo.usertel =  [userdic objectForKey:@"usertel"];
 	userinfo.userstate = [userdic objectForKey:@"userstate"];
 
-	
 	self.arrapprecommend = [[NSMutableArray alloc] init];
 	self.arrayfixedapplication= [[NSMutableArray alloc] init];
+    
+}
+
+-(void)initcwtoken
+{
+    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+    NSString *nowtoken = [userDefaultes stringForKey:DefaultCWToken];
+    self.cwtoken = nowtoken;
 }
 
 -(void)initJMessage:(NSDictionary *)launchOptions
@@ -171,6 +178,11 @@
 	//地理位置定位
 	[self getnowlocation];
 	
+    //初始化token
+    [self initcwtoken];
+    
+    DLog(@"cwtoken===%@",self.cwtoken);
+    
 	//极光IM JMessage
 //	[self initJMessage:launchOptions];
 	//极光推送

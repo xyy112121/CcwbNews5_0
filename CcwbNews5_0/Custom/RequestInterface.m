@@ -34,6 +34,7 @@
 +(void)doGetJsonWithParametersNoAn:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)())always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
 {
 	AFHTTPSessionManager *manager = [RequestInterface getHTTPManager];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",app.cwtoken] forHTTPHeaderField:@"authorization"];
 	NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:parameters];
 	params[@"cw_version"] = CwVersion;
 	params[@"cw_device"] = CwDevice;
@@ -54,8 +55,10 @@
 	NSDictionary *decoded = [Jwt decodeWithToken:token andKey:TYJWTKey andVerify:true andError:&error];
 	DLog(@"token===%@,%@",token,decoded);
 	
-	
-	[manager POST:[URLHeader stringByAppendingString:requrl] parameters:params progress:^(NSProgress * _Nonnull uploadProgress)
+    NSString *urlstr;
+
+        urlstr = URLHeader;
+	[manager POST:[urlstr stringByAppendingString:requrl] parameters:params progress:^(NSProgress * _Nonnull uploadProgress)
 	 {
 		 
 	 }

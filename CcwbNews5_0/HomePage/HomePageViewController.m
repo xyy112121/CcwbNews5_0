@@ -43,6 +43,7 @@
 
 -(void)initparament:(id)sender
 {
+    
 	nowpage = 1;
 	repatcount = 0;
 	strchannelid = @"";
@@ -62,13 +63,12 @@
 		[self.view addSubview:scrollviewbg];
 		[self addtableview];
 		
-		if([app.window viewWithTag:EnGuideViewTag]==nil)
-		{
-			[self getappdefaultapplist];
-		}
+		
 	}
 	
-	[CustomPageObject adddefaultpath];
+    [self getAppToken];
+    [CustomPageObject adddefaultpath];
+	
 	
 	//版本更新
 	[self getAppUpdata];
@@ -582,7 +582,7 @@
 	{
 		bottomview.frame = CGRectMake(0, SCREEN_HEIGHT-47, SCREEN_WIDTH, 47);
 		[self.navigationController setNavigationBarHidden:YES];
-		
+        
 		NSString *requeststring = [clickapp objectForKey:@"url"];
 		requeststring = [CustomPageObject getrequesturlstring:requeststring App:app];
 		
@@ -622,24 +622,40 @@
 		[[self.view viewWithTag:EnHpChannelViewTAG] removeFromSuperview];
 		bottomview.frame = CGRectMake(0, SCREEN_HEIGHT-47, SCREEN_WIDTH, 47);
 		[self.navigationController setNavigationBarHidden:YES];
-		NSString *str = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",URLGetAppList,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-		str = [URLHTTPHeader stringByAppendingString:str];
-		WkWebViewCustomView *webdetail = [[WkWebViewCustomView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-bottomview.frame.size.height) StrUrl:str];
-		webdetail.tag = EnAddApplicationWebViewTag;
-		webdetail.delegate1 = self;
-		webdetail.alpha = 0;
-		[self.view insertSubview:webdetail belowSubview:bottomview];
-		SelectedApp = @"AddApplication";
-		[UIView animateWithDuration:0.1 // 动画时长
-							  delay:0.1 // 动画延迟
-							options:UIViewAnimationOptionCurveLinear // 动画过渡效果
-						 animations:^{
-							 // code...
-							 webdetail.alpha = 1;
-						 }
-						 completion:^(BOOL finished) {
-							 
-						 }];
+        
+        ApplicationHpView *application = [[ApplicationHpView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-bottomview.frame.size.height)];
+        application.tag = EnAddApplicationWebViewTag;
+        [self.view insertSubview:application belowSubview:bottomview];
+        SelectedApp = @"AddApplication";
+        [UIView animateWithDuration:0.1 // 动画时长
+                              delay:0.1 // 动画延迟
+                            options:UIViewAnimationOptionCurveLinear // 动画过渡效果
+                         animations:^{
+                             // code...
+                             application.alpha = 1;
+                         }
+                         completion:^(BOOL finished) {
+                             
+                         }];
+        
+//		NSString *str = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",URLGetAppList,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
+//		str = [URLHTTPHeader stringByAppendingString:str];
+//		WkWebViewCustomView *webdetail = [[WkWebViewCustomView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-bottomview.frame.size.height) StrUrl:str];
+//		webdetail.tag = EnAddApplicationWebViewTag;
+//		webdetail.delegate1 = self;
+//		webdetail.alpha = 0;
+//		[self.view insertSubview:webdetail belowSubview:bottomview];
+//		SelectedApp = @"AddApplication";
+//		[UIView animateWithDuration:0.1 // 动画时长
+//							  delay:0.1 // 动画延迟
+//							options:UIViewAnimationOptionCurveLinear // 动画过渡效果
+//						 animations:^{
+//							 // code...
+//							 webdetail.alpha = 1;
+//						 }
+//						 completion:^(BOOL finished) {
+//							 
+//						 }];
 	}
 }
 
@@ -969,7 +985,13 @@
 {
 	NSDictionary *dictemp = [arraydata objectAtIndex:indexPath.row];
 	
-	if([[dictemp objectForKey:@"show_type"] isEqualToString:@"LiveVideo"])
+    if([[dictemp objectForKey:@"show_type"] isEqualToString:@"more"])//当是显示更我推荐新闻cell是进
+    {
+        NewsListViewController *newslist = [[NewsListViewController alloc] init];
+        newslist.fccw_type = [dictemp objectForKey:@"id"];
+        [self.navigationController pushViewController:newslist animated:YES];
+    }
+    else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"LiveVideo"])
 	{
 		NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 		
@@ -983,22 +1005,26 @@
 	}
 	else
 	{
-		WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
-		webviewcustom.delegate1 = self;
-		NSString *requeststring = [dictemp objectForKey:@"url"];
-		if([requeststring length]>0)
-		{
-			if([requeststring rangeOfString:@"?"].location !=NSNotFound)
-			{
-				requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-			}
-			else
-			{
-				requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-			}
-			webviewcustom.strurl = requeststring;
-			[self.navigationController pushViewController:webviewcustom animated:YES];
-		}
+        
+        WkWebViewLocationHtmlViewController *wkwebview = [[WkWebViewLocationHtmlViewController alloc] init];
+        [self.navigationController pushViewController:wkwebview animated:YES];
+//		WkWebViewLocationHtmlViewController *webviewcustom = [[WkWebViewLocationHtmlViewController alloc] init];
+//		webviewcustom.delegate1 = self;
+//        [self.navigationController pushViewController:webviewcustom animated:YES];
+//		NSString *requeststring = [dictemp objectForKey:@"url"];
+//		if([requeststring length]>0)
+//		{
+//			if([requeststring rangeOfString:@"?"].location !=NSNotFound)
+//			{
+//				requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
+//			}
+//			else
+//			{
+//				requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
+//			}
+//			webviewcustom.strurl = requeststring;
+//			[self.navigationController pushViewController:webviewcustom animated:YES];
+//		}
 	}
 }
 #pragma 引导页
@@ -1038,6 +1064,45 @@
 
 
 #pragma mark 接口
+//获取token
+-(void)getAppToken
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@"123" forKey:@"key"];
+    [params setObject:@"321" forKey:@"secret"];
+    [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceUploadAuthToken ShowView:app.window alwaysdo:^{
+        
+    } Success:^(NSDictionary *dic) {
+        DLog(@"dic====%@",dic);
+        if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+        {
+            if([[dic objectForKey:@"data"] length]>0)
+                app.cwtoken = [dic objectForKey:@"data"];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setValue:app.cwtoken forKey:DefaultCWToken];
+            [userDefaults synchronize];
+            if([app.window viewWithTag:EnGuideViewTag]==nil)
+            {
+                [self getappdefaultapplist];
+            }
+        }
+        else
+        {
+            if([app.cwtoken length]>0)
+            {
+                [self getappdefaultapplist];
+            }
+            [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+        }
+    } Failur:^(NSString *strmsg) {
+        if([app.cwtoken length]>0)
+        {
+            [self getappdefaultapplist];
+        }
+        [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
+    }];
+}
+
 
 //列表
 -(void)gethpapplist:(NSString *)page ChannelId:(NSString *)channelid City:(NSString *)city Header:(NSString *)header CW_Time:(NSString *)cw_time
@@ -1299,6 +1364,9 @@
 }
 
 
+
+
+
 -(void)getAppUpdata
 {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -1365,7 +1433,7 @@
 	 {
 		 
 	 }
-										  Success:^(NSDictionary *dic)
+      Success:^(NSDictionary *dic)
 	 {
 		 DLog(@"dic====%@",dic);
 		 if([[dic objectForKey:@"success"] isEqualToString:@"true"])
@@ -1374,7 +1442,7 @@
 		 }
 		 else
 		 {
-			 [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+			// [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
 		 }
 	 } Failur:^(NSString *strmsg) {
 		 [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
@@ -1407,7 +1475,7 @@
 		 }
 		 else
 		 {
-			 [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+		//	 [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
 		 }
 	 } Failur:^(NSString *strmsg) {
 		 [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];

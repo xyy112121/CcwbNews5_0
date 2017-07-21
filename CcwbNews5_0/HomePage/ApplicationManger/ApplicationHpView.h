@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ApplicationHpView : UIView
+@interface ApplicationHpView : UIView<ActionDelegate,UITableViewDelegate,UITableViewDataSource>
 {
 	AppDelegate *app;
+    UITableView *tableview;
+    NSMutableArray *arrayheight;
 }
+
+
 @end

@@ -1,8 +1,9 @@
-#define InterfaceAppInit     @"/NewInterfaces/index/appInit.html"   //初始化
-#define InterfaceAppLicationList @"/NewInterfaces/appNews/newsList.html" //应用列表
-#define InterfaceAppChannelList @"/NewInterfaces/appChannel/getAppInfo.html"  //获取应用下的频道
-#define InterfaceAddApp    @"/NewInterfaces/appChannel/addUserApp.html"  //添加应用
-#define InterfaceDeleteApp  @"/NewInterfaces/appChannel/delUserApp.html"  // 删除应用
+#define InterfaceAppInit     @"/api/appApi/appInit.html"   //初始化  
+#define InterfaceAppLicationList @"/api/appApi/getNewsList.html" //应用列表
+#define InterfaceAppChannelList @"/api/appApi/getAppInfo.html"  //获取应用下的频道
+#define InterfaceAddApp    @"/api/appApi/addUserApp.html"  //添加应用
+#define InterfaceDeleteApp  @"/api/appApi/delUserApp.html"  // 删除应用
+#define InterfaceMoreNewsRecommand @"/api/appApi/moreNewsRecommendList.html"  // 更多推荐新闻
 #define InterfaceSortApp    @"/NewInterfaces/appChannel/updateAppSortIndex.html" //排序应用
 #define InterfaceGetUserInfo  @"/NewInterfaces/user/getUserCenterInfo.html"  // 请求个人信息
 #define InterfaceGetWeatherInfo   @"/NewInterfaces/user/getWeatherInfo.html"  //请求天气
@@ -15,9 +16,12 @@
 #define InterfaceUploadBrokeInfo  @"/NewBroke/MyBroke/addcontetnt.html"  //上传爆料信息
 #define InterfaceShare   @"/NewInterfaces/appNews/newsShare.html" //请求分享信息
 #define Interfacegetjpushinfo  @"/NewInterfaces/AppPush/getPushInfo.html"  //获取推送消息
-#define Interfaceupdataregiestid  @"/NewInterfaces/AppPush/userRegistration.html"  //上传极光的推送id
-#define Interfaceupdatelocation @"/NewInterfaces/user/userPosition.html" // 上传地理位置
-#define InterfaceUpdataApp  @"/NewInterfaces/AppVersion/getIosVersionInfo.html"  //版本更新提醒
+#define Interfaceupdataregiestid  @"/api/appApi/setPushTag.html"  //上传极光的推送id
+#define Interfaceupdatelocation @"/api/appApi/setPosition.html" // 上传地理位置
+#define InterfaceUpdataApp  @"/api/appApi/getIosVersionInfo.html"  //版本更新提醒
+#define InterfaceUploadAuthToken @"/api/AppApi/auth.html" //获取token  key.  123    secret.    321
+#define InterfaceNewsDetailContent @"/api/WebApi/getNewsDetail.html"  //新闻详细内容
+
 
 #define URLLogin      @"/User/Login/index.html"   //登录页面
 #define URLGetAppList  @"/NewHome/AppChannel/appList.html"   //获取应用列表

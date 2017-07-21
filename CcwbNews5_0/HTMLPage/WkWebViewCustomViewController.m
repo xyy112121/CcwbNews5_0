@@ -77,11 +77,6 @@
 	self.app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	[self initWKWebView];
 	
-	
-	
-	
-
-	
 	UISwipeGestureRecognizer *recognizer;
 	recognizer = [[ UISwipeGestureRecognizer alloc ] initWithTarget : self action : @selector (handleSwipeFrom:)];
 	[recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
@@ -114,72 +109,81 @@
 	[userContentController addScriptMessageHandler:self name:@"setWebviewWindows"];//设置webview是单个窗口内打开还是多个窗口push进入
 	[userContentController addScriptMessageHandler:self name:@"cwOrderInfo"];//支付发起
 	[userContentController addScriptMessageHandler:self name:@"cwHeadBarConfig"];//获取导航 栏信息
-	
+	[userContentController addScriptMessageHandler:self name:@"getiostoke"];
 	
 	WKPreferences *preferences = [WKPreferences new];
 	preferences.javaScriptCanOpenWindowsAutomatically = YES;
 	preferences.minimumFontSize = 40.0;
 	configuration.preferences = preferences;
 	
-	self.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-											configuration:configuration];
+//	self.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+//											configuration:configuration];
 	
 	
+    self.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)
+                                        configuration:configuration];
+    
+    
 
+    NSString* urlpath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+    NSURL *url = [NSURL fileURLWithPath:urlpath];
+    [self.wkwebview loadFileURL:url allowingReadAccessToURL:url];
+    self.wkwebview.navigationDelegate = self;
+    self.wkwebview.UIDelegate = self;
+    [self.view addSubview:self.wkwebview];
+    
 	//商城的用单页 判断商城域名
-	if([self.strurl rangeOfString:@"ccwbshop.ccwb.cn"].location !=NSNotFound)
-	{
-		webviewtype = EnWebViewSingle;
-	}
-	
-//	self.strurl = @"http://172.16.5.12:82/cwapp/NewHome/appPush/pushList.html?cw_push_id=20170531093057YH5Z59&cw_version=5.0&cw_device=ios&cw_machine_id=7d978482d6e4c9e382d4e76d133a162c&cw_user_id=oVhFCvz9zf-nXKWEDOvXE7aX7ajs";
-	__weak typeof(self) weakSelf = self;
-	[self.wkwebview evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
-		__strong typeof(weakSelf) strongSelf = weakSelf;
-		
-		NSString *userAgent = result;
-		if([result rangeOfString:@"ccwb_app/ios"].location ==NSNotFound)
-		{
-			NSString *newUserAgent = [userAgent stringByAppendingString:@";ccwb_app/ios"];
-			
-			NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
-			[[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-		}
-		strongSelf.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-													 configuration:configuration];
-		NSURL *fileURL = [NSURL URLWithString:strongSelf.strurl];
-		NSURLRequest *request  = [NSURLRequest requestWithURL:fileURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
-		[strongSelf.wkwebview loadRequest:request];
-		strongSelf.wkwebview.navigationDelegate = self;
-		strongSelf.wkwebview.UIDelegate = self;
-		[strongSelf.view addSubview:self.wkwebview];
-		
-		UIScrollView *scroller = [strongSelf.wkwebview.subviews objectAtIndex:0];
-		if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
-		{
-			scroller.bounces = NO;
-			scroller.alwaysBounceVertical = NO;
-			scroller.alwaysBounceHorizontal = NO;
-		}
-		YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
-		imageViewgif.tag = EnYLImageViewTag;
-		imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
-		[strongSelf.view insertSubview:imageViewgif aboveSubview:self.wkwebview];
-	}];
-	
-	self.wkwebview.backgroundColor = [UIColor clearColor];
-	self.wkwebview.scrollView.showsVerticalScrollIndicator = NO;
-	self.wkwebview.scrollView.showsHorizontalScrollIndicator = NO;
-	UIScrollView *scroller = [self.wkwebview.subviews objectAtIndex:0];
-	if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
-	{
-		scroller.bounces = NO;
-		scroller.alwaysBounceVertical = NO;
-		scroller.alwaysBounceHorizontal = NO;
-	}
-	
+//	if([self.strurl rangeOfString:@"ccwbshop.ccwb.cn"].location !=NSNotFound)
+//	{
+//		webviewtype = EnWebViewSingle;
+//	}
+//	
+//
+//	__weak typeof(self) weakSelf = self;
+//	[self.wkwebview evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+//		__strong typeof(weakSelf) strongSelf = weakSelf;
+//		
+//		NSString *userAgent = result;
+//		if([result rangeOfString:@"ccwb_app/ios"].location ==NSNotFound)
+//		{
+//			NSString *newUserAgent = [userAgent stringByAppendingString:@";ccwb_app/ios"];
+//			
+//			NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
+//			[[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+//		}
+//		strongSelf.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+//													 configuration:configuration];
+//		NSURL *fileURL = [NSURL URLWithString:strongSelf.strurl];
+//		NSURLRequest *request  = [NSURLRequest requestWithURL:fileURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+//		[strongSelf.wkwebview loadRequest:request];
+//		strongSelf.wkwebview.navigationDelegate = self;
+//		strongSelf.wkwebview.UIDelegate = self;
+//		[strongSelf.view addSubview:self.wkwebview];
+//		
+//		UIScrollView *scroller = [strongSelf.wkwebview.subviews objectAtIndex:0];
+//		if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
+//		{
+//			scroller.bounces = NO;
+//			scroller.alwaysBounceVertical = NO;
+//			scroller.alwaysBounceHorizontal = NO;
+//		}
+//		YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
+//		imageViewgif.tag = EnYLImageViewTag;
+//		imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
+//		[strongSelf.view insertSubview:imageViewgif aboveSubview:self.wkwebview];
+//	}];
+//	
+//	self.wkwebview.backgroundColor = [UIColor clearColor];
+//	self.wkwebview.scrollView.showsVerticalScrollIndicator = NO;
+//	self.wkwebview.scrollView.showsHorizontalScrollIndicator = NO;
+//	UIScrollView *scroller = [self.wkwebview.subviews objectAtIndex:0];
+//	if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
+//	{
+//		scroller.bounces = NO;
+//		scroller.alwaysBounceVertical = NO;
+//		scroller.alwaysBounceHorizontal = NO;
+//	}
 
-	
 }
 
 - (void)dealloc
@@ -321,6 +325,10 @@
 	{
 		[self setnctlview:message.body];
 	}
+    else if([message.name isEqualToString:@"getiostoke"])
+    {
+        DLog(@"123");
+    }
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
@@ -330,7 +338,7 @@
 // 当内容开始返回时调用
 - (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation
 {
-
+    
 	DLog(@"加载完成");
 }
 
@@ -341,6 +349,7 @@
 	else
 		self.wkwebview.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	
+    
 //	NSString *JsStr = @"(document.getElementsByTagName(\"video\")[0]).src";
 //	[webView evaluateJavaScript:JsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
 //		if(![response isEqual:[NSNull null]] && response != nil){

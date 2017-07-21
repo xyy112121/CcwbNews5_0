@@ -1,0 +1,497 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<title>新闻详情</title>
+<link rel="stylesheet" href="amazeui.min.css">
+<link rel="stylesheet" href="common.css">
+<link rel="stylesheet" href="news_detailed.css">
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="amazeui.min.js"></script>
+
+
+
+
+
+<style type="text/css">
+
+.newsTitle
+{
+	font-size: 21px;
+	font-weight: bold;
+}
+.info
+{
+
+}
+.info img
+{
+	max-width:100%;
+}
+.info p
+{
+	font-size: 16px !important;
+	line-height: 1.6 !important;
+}
+.info span
+{
+	font-size: 16px !important;
+	line-height: 1.6 !important;
+}
+.info a
+{
+	font-size: 16px !important;
+	line-height: 1.6 !important;
+}
+
+</style>
+</head>
+
+<body>
+	<div class="am-g">
+        <!--主体内容-->
+        <div class="am-u-sm-12 am-padding-horizontal-0 main">
+        	<!--新闻内容-->
+            <div class="am-u-sm-12 news_content am-padding-0">
+            	<!--标题-->
+            	<div class="am-u-sm-12 news_tit color00 am-padding-horizontal am-margin-top">
+                	<span id="news_title"></span>
+                </div>
+                <!--来源-->
+                <div class="am-u-sm-12 news_msg am-padding-horizontal">
+                	<span class="time color80" id="news_add_time"></span>
+                 	<span class="source_tag color80" id="news_add_source"></span>
+                   	<span class="read_num colorcc">
+                      	<img src="icon_look.png" alt="浏览" class="am-img-responsive" />
+                       	<div id="news_click_num">0</div>
+                  	</span>
+               	</div>
+                 <!--新闻图文-->
+                <div class="am-u-sm-12 am-padding-0 am-margin-vertical">
+                	<!--
+                	<div class="am-u-sm-12 am-padding-0">
+                        <img src="__WXPAGE__/images/img_news_content.jpg" alt="新闻图" class="am-img-responsive am-center" />
+                    </div> -->
+                    <div class="am-u-sm-12 am-padding-horizontal am-margin-top-sm">
+                       	<div id="news_info" class="info" data-pswp-uid="1"></div>
+                    </div>
+                </div>
+
+            </div>
+            <!--二维码-->
+            <div class="am-u-sm-12 erweima">
+            	<img src="img_erweima.png" alt="二维码" class="am-img-responsive am-center" />
+            </div>
+            <!--分隔线-->
+            <div class="am-u-sm-12 am-padding-0 line_gray_1"></div>
+            <!--新闻点赞开始-->
+             <div class="am-u-sm-12 am-padding-0">
+             <ul class="am-avg-sm-4 facial">
+             <li class="am-padding-vertical-sm" id="good_click_1">
+             <div class="colorf6 am-text-center"><span id="good1">0</span></div>
+             <div class="am-padding-horizontal">
+             <img src="img_face01.png" alt="喜欢" class="am-img-responsive am-center am-circle  am-margin-vertical-xs" id="good_img_1"/>
+             </div>
+             <div class="am-text-center am-text-sm" id="good_title_1">喜欢</div>
+             </li>
+             <li class="am-padding-vertical-sm" id="good_click_2">
+             <a>
+             <div class="colorf6 am-text-center"><span id="good2">0</span></div>
+             <div class="am-padding-horizontal">
+             <img src="img_face02.png" alt="呵呵" class="am-img-responsive am-center am-circle  am-margin-vertical-xs" id="good_img_2"/>
+             </div>
+             <div class="am-text-center am-text-sm"  id="good_title_2">呵呵</div>
+             </a>
+             </li>
+             <li class="am-padding-vertical-sm" id="good_click_3">
+             <a>
+             <div class="colorf6 am-text-center" id="good3"><span id="good3">0</span></div>
+             <div class="am-padding-horizontal">
+             <img src="img_face03.png" alt="走悲伤" class="am-img-responsive am-center am-circle am-margin-vertical-xs" id="good_img_3"/>
+             </div>
+             <div class="am-text-center am-text-sm"  id="good_title_3">走悲伤</div>
+             </a>
+             </li>
+             <li class="am-padding-vertical-sm" id="good_click_4">
+             <a>
+             <div class="colorf6 am-text-center"><span id="good4">0</span></div>
+             <div class="am-padding-horizontal">
+             <img src="img_face04.png" alt="什么鬼" class="am-img-responsive am-center am-circle am-margin-vertical-xs" id="good_img_4"/>
+             </div>
+             <div class="am-text-center am-text-sm"  id="good_title_4">什么鬼</div>
+             </a>
+             </li>
+             </ul>
+             </div>
+            <!--新闻点赞结束-->
+            <!--推广-->
+            <div class="am-u-sm-12 am-padding-horizontal-0 popularize">
+                <img src="img_popularize02.jpg" alt="推广" class="am-img-responsive am-center" />
+                <div class="p_label colorff">推广</div>
+            </div>
+            
+            <!--相关推荐-->
+            <div class="am-u-sm-12 am-padding-0 recommend am-margin-top-sm">
+            	<div class="am-u-sm-12 am-header colore8 am-padding-horizontal">
+                 	<span class="am-padding-left-sm">相关推荐</span>
+               	</div>
+          	</div>
+            <div class="am-u-sm-12 am-padding-0 recommend_list">
+                <ul class="am-u-sm-12 color00 am-padding-horizontal">
+                    <li class="am-padding-bottom-xs am-margin-left">
+                        <a class="color00">我省国企职工可停职停薪创业啦，心动了吗？我省国企职工可停职停薪创业啦，心动了吗？</a>
+                    </li>
+                    <li class="am-padding-bottom-xs am-margin-left">
+                        <a class="color00">废水瓶变泉水，你的“三月三”可以这样</a>
+                    </li>
+                </ul>
+            </div>
+            <!--热门评论-->
+            <div class="am-u-sm-12 am-padding-0">
+                <div class="am-u-sm-12 am-padding-0 hot_review">
+                    <div class="am-u-sm-12 am-header colorf6">
+                        <span class="am-padding-left-sm">热门评论</span>
+                    </div>
+                </div>
+                <div class="am-u-sm-12 am-padding-0 hot_review_list" id="review_list">
+                    
+                </div>
+                
+                <div class="am-u-sm-12 am-padding-0 more_msg am-margin-bottom-sm">
+                    <div class="am-u-sm-12 am-text-center am-padding-vertical-sm am-text-sm">
+                        <a href="comment.html?cw_id={$cw_id}" class="color99">显示全部评论</a>
+                    </div>
+                </div>
+                
+            </div>
+            <!--热门结束-->
+
+        </div>
+        <!--底部开始-->
+		<!--{include file="wx_comment" /}-->
+		<!--底部结束-->
+
+    </div>
+	<!--图片查看开始-->
+	<!--{include file="wx_pswp" /}-->
+	<!--图片查看结束-->
+    <script type="text/javascript" src="wx_news.js"></script>
+    
+    <script type="text/javascript">
+        $(function(){
+          getNewsPraise();
+          });
+          //异步加载新闻点赞
+          function getNewsPraise(){
+              $.ajax({
+                     type: 'post',
+                     url:"http://172.16.5.12:82/app/public/api/WebApi/getNewsPraiseInfo.html",
+                     data:{
+                     "cw_id":"20170629160614DGLWZL",
+                     "cw_user_id":"2001001"
+                     },
+                     success: function(data) {
+                     if(data.success=="true"){
+                     encapsulation(data);
+                     }else{
+                     //alert(data.msg);
+                     }
+                     },
+                     });
+          }
+    function encapsulation(data){
+        if(data.good1_num=="0"){
+            $("#good1").html(data.good1_num);
+        }else{
+            $("#good1").html("+"+data.good1_num);
+        }
+        if(data.good2_num=="0"){
+            $("#good2").html(data.good2_num);
+        }else{
+            $("#good2").html("+"+data.good2_num);
+        }
+        if(data.good3_num=="0"){
+            $("#good3").html(data.good3_num);
+        }else{
+            $("#good3").html("+"+data.good3_num);
+        }
+        if(data.good4_num=="0"){
+            $("#good4").html(data.good4_num);
+        }else{
+            $("#good4").html("+"+data.good4_num);
+        }
+        /*
+         $("#good2").html(data.good2_num);
+         $("#good3").html(data.good3_num);
+         $("#good4").html(data.good4_num);
+         */
+        
+        if(data.good1_praised=="true"){
+            $("#good_img_1").attr("src","img_face011.png");
+            $("#good_img_1").attr("onclick","cancelNewsPraise(1,'')");
+            $("#good_title_1").css("color","#f66d09");
+        }else{
+            $("#good_img_1").attr("src","img_face01.png");
+            $("#good_img_1").attr("onclick","addLike(1,'')");
+            $("#good_title_1").css("color","#333");
+        }
+        if(data.good2_praised=="true"){
+            $("#good_img_2").attr("src","img_face021.png");
+            $("#good_img_2").attr("onclick","cancelNewsPraise(2,'')");
+            $("#good_title_2").css("color","#f66d09");
+        }else{
+            $("#good_img_2").attr("onclick","addLike(2,'')");
+            $("#good_img_2").attr("src","img_face02.png");
+            $("#good_title_2").css("color","#333");
+        }
+        if(data.good3_praised=="true"){
+            $("#good_img_3").attr("src","img_face031.png");
+            $("#good_img_3").attr("onclick","cancelNewsPraise(3,'')");
+            $("#good_title_3").css("color","#f66d09");
+        }else{
+            $("#good_img_3").attr("onclick","addLike(3,'')");
+            $("#good_img_3").attr("src","img_face03.png");
+            $("#good_title_3").css("color","#333");
+        }
+        if(data.good4_praised=="true"){
+            $("#good_img_4").attr("src","img_face041.png");
+            $("#good_img_4").attr("onclick","cancelNewsPraise(4,'')");
+            $("#good_title_4").css("color","#f66d09");
+        }else{
+            $("#good_img_4").attr("onclick","addLike(4,'')");
+            $("#good_img_4").attr("src","img_face04.png");
+            $("#good_title_4").css("color","#333");
+        }
+    }
+    //新闻点赞
+    function addLike(type,id)
+    {
+        
+        $.ajax({
+               type: "POST",
+               url: "http://172.16.5.12:82/app/public/api/WebApi/addNewsPraise.html",
+               data:{
+               cw_user_id:'2001001',
+               cw_id:"20170629160614DGLWZL",
+               cw_type:type
+               },
+               async: true,
+               dataType: "json",
+               success: function (data) {
+               //alert(data);
+               if(data.success=="true")
+               {
+               //encapsulation(data);
+               getNewsPraise();
+               
+               }
+               else
+               {
+               alert(data.msg);
+               }
+               }, error: function (e) {
+               alert("服务器正忙，请稍候再试");
+               }
+               });
+    }
+    //新闻取消点赞
+    function cancelNewsPraise(type,id)
+    {
+        $.ajax({
+               type: "POST",
+               url: "http://172.16.5.12:82/app/public/api/WebApi/cancelNewsPraise.html",
+               data:{
+               cw_user_id:'2001001',
+               cw_id:"20170629160614DGLWZL",
+               cw_type:type
+               },
+               async: true,
+               dataType: "json",
+               success: function (data) {
+               //alert(data);
+               if(data.success=="true")
+               {
+               //encapsulation(data);
+               getNewsPraise();
+               }
+               else
+               {
+               alert(data.msg);
+               }
+               }, error: function (e) {
+               alert("服务器正忙，请稍候再试");
+               }
+               });
+    }
+    
+    
+        </script>
+    
+    <script type="text/javascript">
+        function reFormart(obj){
+            
+            var childstr='';
+            for(var x in obj.replyList)
+            {
+                var child=obj.replyList[x];
+                childstr=childstr+ reFormartChilds(child);
+            }
+            
+            
+            var dd="";
+            if(obj.praised){
+                dd="icon_praise_ok.png";
+            }else{
+                dd="icon_praise.png";
+            }
+            
+            dd='<img src="'+dd+'" alt="点赞" class="praise am-img-responsive am-fr" onclick="praiseClick(this,\''+obj.id+'\')"/>';
+            alert(obj.user_name);
+            return ['<div class="am-u-sm-12 am-padding-0 hot_review_list">',
+                    '					<div class="am-u-sm-12 am-padding-0 hot_review_list_item hot_first_review">',
+                    '						<div class="am-u-sm-2 am-padding-left am-padding-right-0">',
+                    '							<div class="am-circle user_head am-center" style="background:url('+obj.head_pic_path+'); background-size: cover; background-repeat: no-repeat; background-position: center center;"></div>',
+                    '						</div>',
+                    '						<div class="am-u-sm-7">',
+                    '							<div class="am-text-sm color33">'+obj.user_name+'</div>',
+                    '							<div class="am-text-xs color80">'+obj.add_time+'</div>',
+                    '						</div>',
+                    '						<div class="am-u-sm-3 am-padding-top-sm am-padding-right">',
+                    '							<span class="am-fr am-padding-left-xs color80">'+obj.good_num+'</span>'+dd+'',
+                    '						</div>',
+                    '						<div class="am-u-sm-10 am-u-sm-offset-2 color33">',
+                    '							'+obj.content+'',
+                    '						</div>',
+                    '					</div>'+childstr+'</div>'].join("");
+                    
+        
+            
+        }
+    
+    function reFormartChilds(obj){
+        return ['<div class="am-u-sm-10 am-u-sm-offset-2">',
+                '						<div class="am-u-sm-12 am-padding-0 hot_review_list_item hot_secondary_review">',
+                '							<div class="am-u-sm-2 am-padding-right-0">',
+                '								<div class="am-circle user_head am-center" style="background:url('+obj.head_pic_path+'); background-size: cover; background-repeat: no-repeat; background-position: center center;"></div>',
+                '							</div>',
+                '							<div class="am-u-sm-10">',
+                '								<div class="am-text-sm color33">',
+                '									<span class="review_editor color48">'+obj.admin_name+'</span>',
+                '									<span class="colore8">回复</span>',
+                '									<span class="review_user color48">'+obj.user_name+'</span>',
+                '								</div>',
+                '							</div>',
+                '							<div class="am-u-sm-12 am-margin-top-xs color48">',
+                '								'+obj.content+'',
+                '							</div>',
+                '						</div>',
+                '					</div>'].join("");
+                
+    }
+    
+    //点赞事件
+    function praiseClick(obj,replyid){
+        alert(1);
+        var src=obj.src.lastIndexOf("/");
+        var image=obj.src.substring(src+1);
+        
+        if(image=="icon_praise_ok.png"){
+            cancelPraise(obj,replyid);
+        }else{
+            addPraise(obj,replyid);
+        }
+    }
+    //评论点赞
+    function addPraise(obj,replyid){
+        
+        $.ajax({
+               type: 'post',
+               url:"http://172.16.5.12:82/app/public/api/WebApi/addReplyPraise.html",
+               data:{
+               reply_id:replyid,
+               cw_user_id:'2001001'
+               },
+               success: function(data) {
+               if(data.success=="true"){
+               var ps=obj.previousSibling; //得到s的上一个兄弟节点 //alert(ps.innerHTML);
+               ps.innerText=data.good_num;
+               obj.src="icon_praise_ok.png";
+               }else{
+               //$("#collect").attr("src","__IMG__/icon_collect.png");
+               }
+               },
+               
+               });
+    }
+    //取消点赞
+    function cancelPraise(obj,replyid){
+        $.ajax({
+               type: 'post',
+               url:"http://172.16.5.12:82/app/public/api/WebApi/cancelReplyPraise.html",
+               data:{
+               reply_id:replyid,
+               cw_user_id:'2001001'
+               },
+               success: function(data) {
+               //data=JSON.parse(data);
+               if(data.success=="true"){
+               var ps=obj.previousSibling;
+               ps.innerText=data.good_num;
+               obj.src="icon_praise.png";
+               }else{
+               //$("#collect").attr("src","__IMG__/icon_collect.png");
+               }
+               },
+               
+               });
+    }
+    
+        </script>
+    
+    <script type="text/javascript">
+        
+        //页面加载完获取评论列表
+        function loadRepayHotList(){
+            
+            $.ajax({
+                   type: 'post',
+                   url:"http://172.16.5.12:82/app/public/api/WebApi/getReplyList.html",
+                   data:{cw_id:"20170629160614DGLWZL"},
+                   success: function(data)
+                   {
+                   if(data.success=="true")
+                   {
+                   for(var x in data.list)
+                   {
+                   
+                   var obj=data.list[x];
+                   var strhtml = reFormart(obj);
+//                   alert(strhtml);
+                   $("#review_list").append(strhtml);
+                   }
+                   }
+                   }
+                   });
+        }
+    </script>
+    
+    <script type="text/javascript">
+        
+        function getnewsidfunc(newsid)
+        {
+            alert(1);
+            load_news_detail(newsid);
+        }
+        
+    //    $(function(){
+        //  loadRepayHotList();
+        //  load_news_detail('20170629160614DGLWZL');
+          
+      //    });
+    </script>
+    
+    
+    
+</body>
+</html>

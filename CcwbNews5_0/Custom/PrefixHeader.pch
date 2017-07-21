@@ -113,7 +113,10 @@
 #import "WXApiManager.h"
 #import "SGQRCode.h"
 #import "ScanQRCodeARViewController.h"
-
+#import "FocusApplicationView.h"
+#import "ApplicationHpView.h"
+#import "WkWebViewLocationHtmlViewController.h"
+#import "NewsListViewController.h"
 #endif /* PrefixHeader_pch */
 
 /**

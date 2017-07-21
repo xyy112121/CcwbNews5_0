@@ -1,19 +1,19 @@
 
 
-//#define URLHeader @"http://172.16.5.12:82/cwapp"
+#define URLHeader @"http://172.16.5.12:82/app/public"
 //接口
-#define URLHeader @"http://cwapp.ccwb.cn"
+//#define URLHeader @"http://cwapp.ccwb.cn"
 
 //资源库n
 #define URLResouceHeader @"http://cwresource.ccwb.cn/"
 
 //页面内容
-#define URLHTTPHeader @"http://cwapp.ccwb.cn"
-//#define URLHTTPHeader @"http://172.16.5.12:82/cwapp"
+//#define URLHTTPHeader @"http://cwapp.ccwb.cn"
+#define URLHTTPHeader @"http://172.16.5.12:82/cwapp"
 
 //用户中心
-#define URLUserHeader  @"http://cwuser.ccwb.cn"
-//#define URLUserHeader @"http://172.16.5.12:82/cwuser"
+//#define URLUserHeader  @"http://cwuser.ccwb.cn"
+#define URLUserHeader @"http://172.16.5.12:82/cwuser"
 
 //商城
 #define URLShopHeader @"http://ccwbshop.ccwb.cn" 
@@ -24,6 +24,8 @@
 #define CwQRCodeRule  @"http://cwapp.ccwb.cn"  //二维码扫描规则，只有符合这个规则的才判断
 #define APP_KEY @"AijaDHgBnG7q9GEUwBQVsNAv"
 #define DefaultUserInfo @"defaultuserinfo"
+#define DefaultCWToken   @"defaultcwtoken"
+
 #define TYImageText @"imagetext"  //图文 视频，直播，活动，发现
 #define TYImage @"image"     //推广，广告
 #define TYSudden @"sudden"    //突发

@@ -1,0 +1,207 @@
+@charset "UTF-8";
+/* CSS Document */
+/*顶部条*/
+.news_top_bar{
+	padding:0 16px;
+	height:44px;
+}
+.news_top_bar img.back{
+	display:inline-block;
+	height:19px;
+	float:left;
+	margin-top:12px;
+}
+.news_top_bar .news_ap_icon{
+	height: 44px;
+}
+.news_top_bar .news_ap_icon img{
+	margin-top:6px;
+	height:74%;
+}
+@media(max-width:375px){
+	.news_top_bar .news_ap_icon img{
+		height:70%;
+	}
+}
+@media(max-width:320px){
+	.news_top_bar .news_ap_icon img{
+		height:72%;
+	}
+}
+.news_top_bar .news_ap_name{
+	line-height:18px;
+	margin-top:4px;
+	margin-left:-10px;
+	font-size:15px;
+}
+.news_top_bar.state02 .news_ap_name{
+	line-height: 44px;
+	margin-top:0;
+	font-size:15px;
+	text-align: center;
+}
+[class*=am-u-]+[class*=am-u-]:last-child{
+	float: left;
+}
+.news_top_bar .news_ap_intro{
+	height:22px;
+	overflow:hidden;
+	font-size:12px;
+	margin-left:-10px;
+}
+.news_top_bar .news_ap_add{
+	border:1px solid #e83831;
+	text-align:center;
+	font-size:13px;
+	border-radius:20px;
+	padding:1px 0;
+	margin-top:10px;
+	width:90%;
+}
+/*主体内容*/
+/*新闻标题*/
+.news_tit{
+	font-size:18px;
+}
+/*新闻来源*/
+.news_msg{
+	line-height:22px;
+	margin:10px 0;
+}
+.news_msg .source_tag{
+	font-size:14px;
+	margin-right:5px;
+}
+.news_msg .time{
+	font-size:14px;
+}
+.news_msg .read_num{
+	font-size:12px;
+	line-height:25px;
+	margin-left:20px;
+}
+.news_msg .read_num img{
+	display:inline-block;
+	height:12px;
+	margin-top:-1px;
+}
+
+/*二维码*/
+.erweima img{
+	width:94%;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+/*推广*/
+.popularize img{
+	position:relative;
+}
+.popularize .p_label{
+	position:absolute;
+	bottom:10px;
+	right:10px;
+	background-color:#4c4c4c;
+	font-size:12px;
+	padding:0 5px;
+	border-radius:2px;
+}
+/*相关推荐*/
+.recommend span{
+	border-left:3px solid #e8382f;
+	font-size:14px;
+}
+.recommend_list li{
+	color:#e8382f;
+}
+.recommend_list a{
+	color:#000;
+	font-size:14px;
+}
+/*更多评论*/
+.more_msg{
+	background-color:#f4f4f4;
+}
+.more_msg a:hover,.more_msg a:focus{
+	color:#999;
+}
+/*底部*/
+.bottom_bar{
+	background-color:#fff;
+	position:fixed;
+	bottom:0;
+	padding:10px 0;
+	border-top:1px solid #e6e6e6;
+	height:50px;
+}
+.bottom_bar > div{
+	display:inline-block;
+	text-align:center;
+}
+.bottom_bar > div.btn_write{
+	width:10%;
+}
+.bottom_bar > div.btn_input{
+	width:52%;
+}
+.bottom_bar > div.btn_message{
+	width:10%;
+}
+.bottom_bar > div.btn_collect{
+	width:10%;
+}
+.bottom_bar > div.btn_share{
+	width:10%;
+}
+.bottom_bar > div img{
+	display:inline-block;
+	height:24px;
+}
+.btn_input input{
+	display:inline-block;
+	width:96%;
+	line-height:24px;
+	padding-left:8px;
+	font-size:12px;
+	background-color:#eee;
+	border:1px solid #eee;
+	border-radius:3px;
+	outline:none;
+}
+/*弹出评论*/
+.cover{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.5);
+	position:fixed;
+	bottom: 0;
+	z-index: 99;
+}
+.review{
+	position:fixed;
+	background-color: rgba(255,255,255,.95);
+	padding: 12px;
+	z-index: 100;
+	bottom: 0;
+}
+.cover_btn_write img{
+	width: 22px;
+	margin-top: 2px;
+}
+.cover_btn_send span{
+	background-color: #e8382f;
+	font-size: 13px;
+	padding: 3px 15px;
+	border-radius: 20px;
+	letter-spacing: 1px;
+}
+.text_input textarea{
+	width: 100%;
+	font-size: 12px;
+	border:1px solid #a6a6a6;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	outline: none;
+	padding: 5px 12px;
+	margin-top: 5px;
+	height: 86px;
+}
