@@ -91,6 +91,14 @@
 	{
 		return EnCellTypePhoto;
 	}
+    else if([strtype isEqualToString:@"addapp"])
+    {
+        return EnCellTypeApplicationapp;
+    }
+    else if([strtype isEqualToString:@"adurl"])
+    {
+        return EnCellTypeAdUrl;
+    }
 	return EnCellTypeNews;
 }
 

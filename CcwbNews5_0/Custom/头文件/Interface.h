@@ -1,9 +1,10 @@
 #define InterfaceAppInit     @"/api/appApi/appInit.html"   //初始化  
-#define InterfaceAppLicationList @"/api/appApi/getNewsList.html" //应用列表
+#define InterfaceAppNewsList @"/api/appApi/getNewsList.html" //新闻列表列表
 #define InterfaceAppChannelList @"/api/appApi/getAppInfo.html"  //获取应用下的频道
-#define InterfaceAddApp    @"/api/appApi/addUserApp.html"  //添加应用
-#define InterfaceDeleteApp  @"/api/appApi/delUserApp.html"  // 删除应用
+#define InterfaceAddApp    @"/api/AppApi/addUserApp.html"  //添加应用
+#define InterfaceDeleteApp  @"/api/AppApi/delUserApp.html"  // 删除应用
 #define InterfaceMoreNewsRecommand @"/api/appApi/moreNewsRecommendList.html"  // 更多推荐新闻
+#define InterfaceApplicationList @"/api/appApi/getAppList.html"  //添加应用列表
 #define InterfaceSortApp    @"/NewInterfaces/appChannel/updateAppSortIndex.html" //排序应用
 #define InterfaceGetUserInfo  @"/NewInterfaces/user/getUserCenterInfo.html"  // 请求个人信息
 #define InterfaceGetWeatherInfo   @"/NewInterfaces/user/getWeatherInfo.html"  //请求天气
@@ -21,7 +22,7 @@
 #define InterfaceUpdataApp  @"/api/appApi/getIosVersionInfo.html"  //版本更新提醒
 #define InterfaceUploadAuthToken @"/api/AppApi/auth.html" //获取token  key.  123    secret.    321
 #define InterfaceNewsDetailContent @"/api/WebApi/getNewsDetail.html"  //新闻详细内容
-
+#define InterfaceMoreNewsList   @"/api/AppApi/moreNewsList.html"  //更多新闻
 
 #define URLLogin      @"/User/Login/index.html"   //登录页面
 #define URLGetAppList  @"/NewHome/AppChannel/appList.html"   //获取应用列表

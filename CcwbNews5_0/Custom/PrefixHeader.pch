@@ -117,6 +117,9 @@
 #import "ApplicationHpView.h"
 #import "WkWebViewLocationHtmlViewController.h"
 #import "NewsListViewController.h"
+#import "ApplicationViewCell.h"
+#import "ApplicationAdView.h"
+
 #endif /* PrefixHeader_pch */
 
 /**

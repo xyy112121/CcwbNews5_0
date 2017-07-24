@@ -416,10 +416,21 @@
     params[@"cw_page"] = page;
     params[@"cw_city"] = city;
     params[@"cw_time"] = cw_time;
-    params[@"cw_type"] = cw_type;
+    if([self.fcfromflag isEqualToString:@"1"])//表示点击更多的列表
+    {
+        posturl = InterfaceMoreNewsList;
+        params[@"cw_id"] = cw_type;
+    }
+    else
+    {
+        posturl = InterfaceMoreNewsRecommand;
+        params[@"cw_type"] = cw_type;
+    }
     
     
-    [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceMoreNewsRecommand ShowView:self.view alwaysdo:^
+    
+    
+    [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:posturl ShowView:self.view alwaysdo:^
      {
          
      }

@@ -479,9 +479,13 @@
 	[self gotowkwebview:goodsurl];
 }
 
--(void)DGClickMoreNewsUrl:(NSString *)moreurl
+-(void)DGClickMoreNewsUrl:(NSDictionary *)moredic
 {
-	[self gotowkwebview:moreurl];
+//	[self gotowkwebview:moreurl];
+    NewsListViewController *newslist = [[NewsListViewController alloc] init];
+    newslist.fccw_type = [moredic objectForKey:@"id"];
+    newslist.fcfromflag = @"1";
+    [self.navigationController pushViewController:newslist animated:YES];
 }
 
 -(void)DGClickBurstNews:(NSDictionary *)sender
@@ -625,6 +629,7 @@
         
         ApplicationHpView *application = [[ApplicationHpView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-bottomview.frame.size.height)];
         application.tag = EnAddApplicationWebViewTag;
+        application.delegate1 = self;
         [self.view insertSubview:application belowSubview:bottomview];
         SelectedApp = @"AddApplication";
         [UIView animateWithDuration:0.1 // 动画时长
@@ -989,6 +994,7 @@
     {
         NewsListViewController *newslist = [[NewsListViewController alloc] init];
         newslist.fccw_type = [dictemp objectForKey:@"id"];
+         newslist.fcfromflag = @"2";
         [self.navigationController pushViewController:newslist animated:YES];
     }
     else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"LiveVideo"])
@@ -1114,7 +1120,7 @@
 	params[@"cw_time"] = cw_time;
 	
 	
-	[RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceAppLicationList ShowView:self.view alwaysdo:^
+	[RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceAppNewsList ShowView:self.view alwaysdo:^
 	 {
 		 
 	 }

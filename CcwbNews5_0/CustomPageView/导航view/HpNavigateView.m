@@ -19,6 +19,8 @@
 		app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 		if([fromflag isEqualToString:@"1"])
 			[self initview]; //首页导航 栏上布局
+        else if([fromflag isEqualToString:@"100"]) //应用列表导航
+            [self initapplicationview];
 		else
 			[self initviewsearch];
 	}
@@ -93,6 +95,41 @@
 	[buttonQrcode addTarget:self action:@selector(gotoqrcode:) forControlEvents:UIControlEventTouchUpInside];
 	[self addSubview:buttonQrcode];
 
+}
+
+-(void)initapplicationview
+{
+    self.backgroundColor = [UIColor whiteColor];
+    
+    
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(10, (self.frame.size.height-28)/2, SCREEN_WIDTH-70, 28)];
+    imageview.layer.cornerRadius = 14.0f;
+    imageview.clipsToBounds = YES;
+    
+    imageview.layer.borderColor = COLORNOW(232, 56, 47).CGColor;
+    imageview.layer.borderWidth = 1.0f;
+    [self addSubview:imageview];
+    
+    UIImageView *imageviewsearch = [[UIImageView alloc] initWithFrame:CGRectMake(imageview.frame.origin.x+10,imageview.frame.origin.y+6, 16, 16)];
+    imageviewsearch.image = LOADIMAGE(@"hp_searchicon", @"png");
+    [self addSubview:imageviewsearch];
+    
+    
+    UITextField *textfield = [[UITextField alloc] initWithFrame:CGRectMake(imageviewsearch.frame.origin.x+imageviewsearch.frame.size.width+3, imageview.frame.origin.y+2, imageview.frame.size.width-imageviewsearch.frame.size.width-10, 24)];
+    textfield.backgroundColor = [UIColor clearColor];
+    textfield.delegate = self;
+    textfield.font = FONTN(14.0f);
+    textfield.placeholder = @"搜索你感兴趣的内容";
+    [self addSubview:textfield];
+    
+    UIButton *buttonmanger = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonmanger.layer.borderColor = [UIColor clearColor].CGColor;
+    buttonmanger.frame= CGRectMake(SCREEN_WIDTH-60, 2, 50, 40);
+    [buttonmanger setTitle:@"确定" forState:UIControlStateNormal];
+    buttonmanger.titleLabel.font = FONTN(16.0f);
+    [buttonmanger setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [buttonmanger addTarget:self action:@selector(gotoqrcode:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:buttonmanger];
 }
 
 -(void)initviewsearch

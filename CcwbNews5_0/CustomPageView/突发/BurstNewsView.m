@@ -135,10 +135,10 @@
 
 -(void)gotomoreandmorenews:(id)sender
 {
-	NSString *strmoreurl = [dicsrc objectForKey:@"more_url"];
+//	NSString *strmoreurl = [dicsrc objectForKey:@"more_url"];
 	if([delegate1 respondsToSelector:@selector(DGClickMoreNewsUrl:)])
 	{
-		[delegate1 DGClickMoreNewsUrl:strmoreurl];
+		[delegate1 DGClickMoreNewsUrl:dicsrc];
 	}
 }
 

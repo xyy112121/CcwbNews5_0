@@ -13,7 +13,9 @@
 	AppDelegate *app;
     UITableView *tableview;
     NSMutableArray *arrayheight;
+    NSMutableArray *arraydata;
 }
 
+@property(nonatomic,strong)id<ActionDelegate>delegate1;
 
 @end

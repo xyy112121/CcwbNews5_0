@@ -24,8 +24,9 @@ typedef enum{
 	EnCellTypePhoto,   //单图集多图片
 	EnCellTypePhotoGroup,  //图集
     EnCellTypeSortFanKui,//排行榜与反馈
-    EnCellTypeAddApplication//添加就用
-    
+    EnCellTypeAddApplication,//添加就用
+    EnCellTypeApplicationapp,//添加就用列表类型
+    EnCellTypeAdUrl //普通url类型
 }EnCellType;
 
 

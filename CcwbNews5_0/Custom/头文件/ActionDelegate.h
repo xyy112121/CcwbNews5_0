@@ -23,7 +23,7 @@
 -(void)DGClickSingleTuJipic:(id)sender;//点击 单个图集
 -(void)DGClickActivityPic:(id)sender;//点击
 -(void)DGClickBurstNews:(NSDictionary *)dictemp; // 点击突发新闻
--(void)DGClickMoreNewsUrl:(NSString *)moreurl;//点击 更多
+-(void)DGClickMoreNewsUrl:(NSDictionary *)moreurl;//点击 更多
 -(void)DGClickwkwebviewCustomview:(NSString *)clickurl;//在view不是viewcontroller上点击开连接
 -(void)DGClickHpFunctionView:(NSDictionary *)funcitem;//点击首页function
 -(void)DGClickWkWebViewAlert:(id)sender;

@@ -19,6 +19,9 @@
     
     NSString *strcw_time;
     int nowpage;
+    
+    NSString *posturl;
 }
+@property(nonatomic,strong)NSString *fcfromflag;
 @property(nonatomic,strong)NSString *fccw_type;
 @end

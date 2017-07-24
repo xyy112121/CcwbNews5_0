@@ -1,6 +1,6 @@
 
 
-#define URLHeader @"http://172.16.5.12:82/app/public"
+#define URLHeader @"http://172.16.5.30:82/app/public"
 //接口
 //#define URLHeader @"http://cwapp.ccwb.cn"
 
@@ -9,11 +9,11 @@
 
 //页面内容
 //#define URLHTTPHeader @"http://cwapp.ccwb.cn"
-#define URLHTTPHeader @"http://172.16.5.12:82/cwapp"
+#define URLHTTPHeader @"http://172.16.5.30:82/cwapp"
 
 //用户中心
 //#define URLUserHeader  @"http://cwuser.ccwb.cn"
-#define URLUserHeader @"http://172.16.5.12:82/cwuser"
+#define URLUserHeader @"http://172.16.5.30:82/cwuser"
 
 //商城
 #define URLShopHeader @"http://ccwbshop.ccwb.cn" 

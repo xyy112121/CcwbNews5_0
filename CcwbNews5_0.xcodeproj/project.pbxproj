@@ -583,6 +583,14 @@
 		08FFF8D11ED66C9900D32145 /* WXApiResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FFF8C81ED66C9800D32145 /* WXApiResponseHandler.m */; };
 		08FFF8D21ED66C9900D32145 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FFF8CA1ED66C9900D32145 /* libWeChatSDK.a */; };
 		08FFF8D31ED66C9900D32145 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 08FFF8CB1ED66C9900D32145 /* README.txt */; };
+		7401C5531F25E5BD00E2BA06 /* ApplicationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7401C5521F25E5BD00E2BA06 /* ApplicationViewCell.m */; };
+		7401C5581F25EA7D00E2BA06 /* 添加red.png in Resources */ = {isa = PBXBuildFile; fileRef = 7401C5551F25EA7D00E2BA06 /* 添加red.png */; };
+		7401C5591F25EA7D00E2BA06 /* 添加red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7401C5561F25EA7D00E2BA06 /* 添加red@2x.png */; };
+		7401C55A1F25EA7D00E2BA06 /* 添加red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7401C5571F25EA7D00E2BA06 /* 添加red@3x.png */; };
+		7401C55E1F25EBEE00E2BA06 /* 添加gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 7401C55B1F25EBEE00E2BA06 /* 添加gray.png */; };
+		7401C55F1F25EBEE00E2BA06 /* 添加gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7401C55C1F25EBEE00E2BA06 /* 添加gray@2x.png */; };
+		7401C5601F25EBEE00E2BA06 /* 添加gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7401C55D1F25EBEE00E2BA06 /* 添加gray@3x.png */; };
+		7401C5641F25EEBA00E2BA06 /* ApplicationAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7401C5631F25EEBA00E2BA06 /* ApplicationAdView.m */; };
 		7435B24E1F1301B700D0454E /* ScanQRCodeARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435B24D1F1301B700D0454E /* ScanQRCodeARViewController.m */; };
 		7435B25F1F13029E00D0454E /* UIImage+SGHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435B2541F13029E00D0454E /* UIImage+SGHelper.m */; };
 		7435B2601F13029E00D0454E /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7435B2551F13029E00D0454E /* SGQRCode.bundle */; };
@@ -1551,6 +1559,16 @@
 		08FFF8CC1ED66C9900D32145 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		08FFF8CD1ED66C9900D32145 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		08FFF8CE1ED66C9900D32145 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		7401C5511F25E5BD00E2BA06 /* ApplicationViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationViewCell.h; sourceTree = "<group>"; };
+		7401C5521F25E5BD00E2BA06 /* ApplicationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationViewCell.m; sourceTree = "<group>"; };
+		7401C5551F25EA7D00E2BA06 /* 添加red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加red.png"; sourceTree = "<group>"; };
+		7401C5561F25EA7D00E2BA06 /* 添加red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加red@2x.png"; sourceTree = "<group>"; };
+		7401C5571F25EA7D00E2BA06 /* 添加red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加red@3x.png"; sourceTree = "<group>"; };
+		7401C55B1F25EBEE00E2BA06 /* 添加gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加gray.png"; sourceTree = "<group>"; };
+		7401C55C1F25EBEE00E2BA06 /* 添加gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加gray@2x.png"; sourceTree = "<group>"; };
+		7401C55D1F25EBEE00E2BA06 /* 添加gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加gray@3x.png"; sourceTree = "<group>"; };
+		7401C5621F25EEBA00E2BA06 /* ApplicationAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationAdView.h; sourceTree = "<group>"; };
+		7401C5631F25EEBA00E2BA06 /* ApplicationAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationAdView.m; sourceTree = "<group>"; };
 		7435B24C1F1301B700D0454E /* ScanQRCodeARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanQRCodeARViewController.h; sourceTree = "<group>"; };
 		7435B24D1F1301B700D0454E /* ScanQRCodeARViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanQRCodeARViewController.m; sourceTree = "<group>"; };
 		7435B2531F13029E00D0454E /* UIImage+SGHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SGHelper.h"; sourceTree = "<group>"; };
@@ -1737,6 +1755,8 @@
 		080C66751E53F81000970B90 /* CustomPageView */ = {
 			isa = PBXGroup;
 			children = (
+				7401C5611F25EE9C00E2BA06 /* 应用广告 */,
+				7401C5501F25E5A700E2BA06 /* 应用列表 */,
 				08B20BA21EB838E9002505D6 /* 弹窗广告 */,
 				0835BDF61EA49DAD00493D32 /* 爆料相关 */,
 				08F61C1A1E7248D30091CDD7 /* 商品列表 */,
@@ -3575,6 +3595,7 @@
 		08EA5E641E56F8870075D3FF /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				7401C5541F25EA6E00E2BA06 /* 应用列表 */,
 				08A430E61EADDEF600695876 /* 扫码 */,
 				0824769C1E729DA1007C530E /* 商品列表 */,
 				08F7A1D31E640829004E51A5 /* 个人中心 */,
@@ -3983,6 +4004,37 @@
 			path = SDKExport;
 			sourceTree = "<group>";
 		};
+		7401C5501F25E5A700E2BA06 /* 应用列表 */ = {
+			isa = PBXGroup;
+			children = (
+				7401C5511F25E5BD00E2BA06 /* ApplicationViewCell.h */,
+				7401C5521F25E5BD00E2BA06 /* ApplicationViewCell.m */,
+			);
+			path = "应用列表";
+			sourceTree = "<group>";
+		};
+		7401C5541F25EA6E00E2BA06 /* 应用列表 */ = {
+			isa = PBXGroup;
+			children = (
+				7401C55B1F25EBEE00E2BA06 /* 添加gray.png */,
+				7401C55C1F25EBEE00E2BA06 /* 添加gray@2x.png */,
+				7401C55D1F25EBEE00E2BA06 /* 添加gray@3x.png */,
+				7401C5551F25EA7D00E2BA06 /* 添加red.png */,
+				7401C5561F25EA7D00E2BA06 /* 添加red@2x.png */,
+				7401C5571F25EA7D00E2BA06 /* 添加red@3x.png */,
+			);
+			name = "应用列表";
+			sourceTree = "<group>";
+		};
+		7401C5611F25EE9C00E2BA06 /* 应用广告 */ = {
+			isa = PBXGroup;
+			children = (
+				7401C5621F25EEBA00E2BA06 /* ApplicationAdView.h */,
+				7401C5631F25EEBA00E2BA06 /* ApplicationAdView.m */,
+			);
+			path = "应用广告";
+			sourceTree = "<group>";
+		};
 		7435B2511F13029E00D0454E /* SGQRCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -4150,6 +4202,7 @@
 				083E31C11EA5AD6F008728AD /* liaotian_ic_biaoqing_press.png in Resources */,
 				083E31E71EA5F813008728AD /* 爆料视频icon.png in Resources */,
 				083E31B71EA5AD6F008728AD /* mic_0@2x.png in Resources */,
+				7401C55E1F25EBEE00E2BA06 /* 添加gray.png in Resources */,
 				08EA5EAD1E5700840075D3FF /* addappicon2.png in Resources */,
 				083E31C21EA5AD6F008728AD /* liaotian_ic_biaoqing_press@2x.png in Resources */,
 				74AE4A901F21D9C400994C4D /* common.js in Resources */,
@@ -4185,6 +4238,7 @@
 				081DDE531EA7479C00263B52 /* brokeaudioicon@3x.png in Resources */,
 				081152BA1E5E92B5005BC84E /* 查看次数@3x.png in Resources */,
 				0838F9B61E514820007FE55A /* dropdown_loading1_01@3x.png in Resources */,
+				7401C5601F25EBEE00E2BA06 /* 添加gray@3x.png in Resources */,
 				08EFD9221EAD9B2C00B6BD1C /* QRCodeScanLine.png in Resources */,
 				08EA5E931E56F8870075D3FF /* pagebg2.png in Resources */,
 				0890D9531E690A7400C11539 /* 三横线@3x.png in Resources */,
@@ -4197,6 +4251,7 @@
 				083E31D31EA5AD6F008728AD /* liaotian_ic_yuyin_nor.png in Resources */,
 				082476AD1E72A425007C530E /* 购物车@2x.png in Resources */,
 				08C6268B1EC1597B00623DF7 /* UMSocialSDKResources.bundle in Resources */,
+				7401C55F1F25EBEE00E2BA06 /* 添加gray@2x.png in Resources */,
 				74AE4A741F218B9800994C4D /* icon_praise.png in Resources */,
 				08EA5E941E56F8870075D3FF /* pagebg2@2x.png in Resources */,
 				083E31BE1EA5AD6F008728AD /* liaotian_ic_biaoqing_nor.png in Resources */,
@@ -4275,6 +4330,7 @@
 				081152AF1E5E8150005BC84E /* addapplication@2x.png in Resources */,
 				0835BE1D1EA4C3A100493D32 /* CWHeader.png in Resources */,
 				0838F9B41E514820007FE55A /* dropdown_loading1_01.png in Resources */,
+				7401C5581F25EA7D00E2BA06 /* 添加red.png in Resources */,
 				0838F9B51E514820007FE55A /* dropdown_loading1_01@2x.png in Resources */,
 				08EA5EA21E56FA230075D3FF /* default_1334.png in Resources */,
 				083E31CA1EA5AD6F008728AD /* liaotian_ic_jianpan_nor.png in Resources */,
@@ -4305,6 +4361,7 @@
 				0838F74E1E514495007FE55A /* LaunchScreen.storyboard in Resources */,
 				08A431301EADDF0500695876 /* QRCode未选中icon@2x.png in Resources */,
 				08F7A21D1E641F49004E51A5 /* my_卡券icon@2x.png in Resources */,
+				7401C5591F25EA7D00E2BA06 /* 添加red@2x.png in Resources */,
 				0879B36D1E6523230007518B /* my_问吧redicon.png in Resources */,
 				08F7A1F21E640872004E51A5 /* p_头像登录_icon.png in Resources */,
 				0844B55C1E70F9A4006EA3F0 /* noimage@3x.png in Resources */,
@@ -4342,6 +4399,7 @@
 				08EA5E841E56F8870075D3FF /* guidepage1_1.png in Resources */,
 				0879B36A1E6523230007518B /* my_收藏redicon.png in Resources */,
 				0854B7D01EE93F5A00A2F301 /* 未搜索到@2x.png in Resources */,
+				7401C55A1F25EA7D00E2BA06 /* 添加red@3x.png in Resources */,
 				0879B3711E6523230007518B /* my_应用redicon@2x.png in Resources */,
 				083E31591EA5AD6E008728AD /* chatBar_recordSelectedBg.png in Resources */,
 				74AE4A811F219FD900994C4D /* img_face011.png in Resources */,
@@ -4456,6 +4514,7 @@
 				08008D961E6E528C00CF1D33 /* SingleTuJiView.m in Sources */,
 				0838F9C31E514820007FE55A /* UIScrollView+MJExtension.m in Sources */,
 				0838F9891E514820007FE55A /* UIWebView+AFNetworking.m in Sources */,
+				7401C5531F25E5BD00E2BA06 /* ApplicationViewCell.m in Sources */,
 				0838F9C11E514820007FE55A /* MJRefreshConst.m in Sources */,
 				089EF94A1EC0166A009FB4F5 /* Jwt.m in Sources */,
 				74F8B2F71F15B80D00EFA513 /* FocusApplicationView.m in Sources */,
@@ -4600,6 +4659,7 @@
 				08171C481E5AE4850005B0C5 /* FunctionView.m in Sources */,
 				0838F9AB1E514820007FE55A /* MJRefreshAutoGifFooter.m in Sources */,
 				08150CEE1EDFC1D200B77D31 /* ARVideoViewController.m in Sources */,
+				7401C5641F25EEBA00E2BA06 /* ApplicationAdView.m in Sources */,
 				080C66981E53FFAE00970B90 /* HomePagePopView.m in Sources */,
 				0838FA1D1E514821007FE55A /* PhotoFooter.m in Sources */,
 				08B20BA51EB8397E002505D6 /* PopAdView.m in Sources */,

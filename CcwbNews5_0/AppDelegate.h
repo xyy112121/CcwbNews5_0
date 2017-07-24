@@ -44,7 +44,7 @@ static BOOL isProduction = FALSE;
 @property(nonatomic,strong)NSString *Gmachid;  //machid
 @property(nonatomic,strong)NSMutableArray *arrapprecommend;  //首页的应用推荐列表   用于存储首页应用推荐
 @property(nonatomic,strong)NSMutableArray *arrayallapplication;
-@property(nonatomic,strong)NSMutableArray *arrayaddapplication;
+@property(nonatomic,strong)NSMutableArray *arrayaddapplication; //用户添加的应用列表
 @property(nonatomic,strong)NSMutableArray *arrayfixedapplication;//表示前排固定的application
 @property (assign, nonatomic)BOOL isDBMigrating;
 @property (nonatomic, assign) NSInteger allowRotation;
