@@ -9,11 +9,14 @@
 
 //页面内容
 //#define URLHTTPHeader @"http://cwapp.ccwb.cn"
-#define URLHTTPHeader @"http://172.16.5.30:82/cwapp"
+#define URLHTTPHeader @"http://172.16.5.37:80/cwapp"
 
 //用户中心
 //#define URLUserHeader  @"http://cwuser.ccwb.cn"
-#define URLUserHeader @"http://172.16.5.30:82/cwuser"
+#define URLUserHeader @"http://172.16.5.37:80/cwuser"
+
+//新闻连接
+#define URLNewsDetailHref @"http://172.16.5.45/app/public/apppage/AppPage/detail.html?cw_id="
 
 //商城
 #define URLShopHeader @"http://ccwbshop.ccwb.cn" 

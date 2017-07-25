@@ -243,10 +243,10 @@
 
 -(void)gotomoreandmorenews:(id)sender
 {
-	NSString *strmoreurl = [dicdata objectForKey:@"more_url"];
+//	NSString *strmoreurl = [dicdata objectForKey:@"more_url"];
 	if([self.delegate1 respondsToSelector:@selector(DGClickMoreNewsUrl:)])
 	{
-		[self.delegate1 DGClickMoreNewsUrl:strmoreurl];
+		[self.delegate1 DGClickMoreNewsUrl:dicdata];
 	}
 }
 

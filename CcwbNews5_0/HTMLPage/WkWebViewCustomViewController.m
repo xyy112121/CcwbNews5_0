@@ -125,64 +125,64 @@
     
     
 
-    NSString* urlpath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSURL *url = [NSURL fileURLWithPath:urlpath];
-    [self.wkwebview loadFileURL:url allowingReadAccessToURL:url];
-    self.wkwebview.navigationDelegate = self;
-    self.wkwebview.UIDelegate = self;
-    [self.view addSubview:self.wkwebview];
+//    NSString* urlpath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+//    NSURL *url = [NSURL fileURLWithPath:urlpath];
+//    [self.wkwebview loadFileURL:url allowingReadAccessToURL:url];
+//    self.wkwebview.navigationDelegate = self;
+//    self.wkwebview.UIDelegate = self;
+//    [self.view addSubview:self.wkwebview];
     
 	//商城的用单页 判断商城域名
-//	if([self.strurl rangeOfString:@"ccwbshop.ccwb.cn"].location !=NSNotFound)
-//	{
-//		webviewtype = EnWebViewSingle;
-//	}
-//	
-//
-//	__weak typeof(self) weakSelf = self;
-//	[self.wkwebview evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
-//		__strong typeof(weakSelf) strongSelf = weakSelf;
-//		
-//		NSString *userAgent = result;
-//		if([result rangeOfString:@"ccwb_app/ios"].location ==NSNotFound)
-//		{
-//			NSString *newUserAgent = [userAgent stringByAppendingString:@";ccwb_app/ios"];
-//			
-//			NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
-//			[[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-//		}
-//		strongSelf.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-//													 configuration:configuration];
-//		NSURL *fileURL = [NSURL URLWithString:strongSelf.strurl];
-//		NSURLRequest *request  = [NSURLRequest requestWithURL:fileURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
-//		[strongSelf.wkwebview loadRequest:request];
-//		strongSelf.wkwebview.navigationDelegate = self;
-//		strongSelf.wkwebview.UIDelegate = self;
-//		[strongSelf.view addSubview:self.wkwebview];
-//		
-//		UIScrollView *scroller = [strongSelf.wkwebview.subviews objectAtIndex:0];
-//		if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
-//		{
-//			scroller.bounces = NO;
-//			scroller.alwaysBounceVertical = NO;
-//			scroller.alwaysBounceHorizontal = NO;
-//		}
-//		YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
-//		imageViewgif.tag = EnYLImageViewTag;
-//		imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
-//		[strongSelf.view insertSubview:imageViewgif aboveSubview:self.wkwebview];
-//	}];
-//	
-//	self.wkwebview.backgroundColor = [UIColor clearColor];
-//	self.wkwebview.scrollView.showsVerticalScrollIndicator = NO;
-//	self.wkwebview.scrollView.showsHorizontalScrollIndicator = NO;
-//	UIScrollView *scroller = [self.wkwebview.subviews objectAtIndex:0];
-//	if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
-//	{
-//		scroller.bounces = NO;
-//		scroller.alwaysBounceVertical = NO;
-//		scroller.alwaysBounceHorizontal = NO;
-//	}
+	if([self.strurl rangeOfString:@"ccwbshop.ccwb.cn"].location !=NSNotFound)
+	{
+		webviewtype = EnWebViewSingle;
+	}
+	
+
+	__weak typeof(self) weakSelf = self;
+	[self.wkwebview evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+		__strong typeof(weakSelf) strongSelf = weakSelf;
+		
+		NSString *userAgent = result;
+		if([result rangeOfString:@"ccwb_app/ios"].location ==NSNotFound)
+		{
+			NSString *newUserAgent = [userAgent stringByAppendingString:@";ccwb_app/ios"];
+			
+			NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
+			[[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+		}
+		strongSelf.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+													 configuration:configuration];
+		NSURL *fileURL = [NSURL URLWithString:strongSelf.strurl];
+		NSURLRequest *request  = [NSURLRequest requestWithURL:fileURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+		[strongSelf.wkwebview loadRequest:request];
+		strongSelf.wkwebview.navigationDelegate = self;
+		strongSelf.wkwebview.UIDelegate = self;
+		[strongSelf.view addSubview:self.wkwebview];
+		
+		UIScrollView *scroller = [strongSelf.wkwebview.subviews objectAtIndex:0];
+		if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
+		{
+			scroller.bounces = NO;
+			scroller.alwaysBounceVertical = NO;
+			scroller.alwaysBounceHorizontal = NO;
+		}
+		YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
+		imageViewgif.tag = EnYLImageViewTag;
+		imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
+		[strongSelf.view insertSubview:imageViewgif aboveSubview:self.wkwebview];
+	}];
+	
+	self.wkwebview.backgroundColor = [UIColor clearColor];
+	self.wkwebview.scrollView.showsVerticalScrollIndicator = NO;
+	self.wkwebview.scrollView.showsHorizontalScrollIndicator = NO;
+	UIScrollView *scroller = [self.wkwebview.subviews objectAtIndex:0];
+	if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
+	{
+		scroller.bounces = NO;
+		scroller.alwaysBounceVertical = NO;
+		scroller.alwaysBounceHorizontal = NO;
+	}
 
 }
 
@@ -250,18 +250,12 @@
 		}
 		else
 		{
-			
 			[self.navigationController popViewControllerAnimated:YES];
 		}
 	}
 	else if([message.name isEqualToString:@"getAppUserInfo"])  //从用户端获取个人信息
 	{
-		NSMutableDictionary *dictemp = [[NSMutableDictionary alloc] init];
-		[dictemp setValue:@"true" forKey:@"success"];
-		[dictemp setValue:@"获取信息成功" forKey:@"msg"];
-		[dictemp setValue:self.app.Gmachid forKey:@"cw_machine_id"];
-		[dictemp setValue:self.app.userinfo.userid forKey:@"cw_user_id"];
-		[self gotoreturnjs:dictemp JSFunction:@"getAppUserInfoIOS"];
+		
 	}
 	else if([message.name isEqualToString:@"loginsucessIOS"])  //登录成功后返回用户信息
 	{
@@ -344,21 +338,28 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
+    
+    NSMutableDictionary *dictemp = [[NSMutableDictionary alloc] init];
+    [dictemp setValue:@"true" forKey:@"success"];
+    [dictemp setValue:@"获取信息成功" forKey:@"msg"];
+    [dictemp setValue:self.app.Gmachid forKey:@"cw_machine_id"];
+    [dictemp setValue:self.app.userinfo.userid==nil?@"":self.app.userinfo.userid forKey:@"cw_user_id"];
+    [self gotoreturnjs:dictemp JSFunction:@"getAppUserInfoIOS"];
 	if(ennctl==EnNavigateionYES)
 		self.wkwebview.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64);
 	else
 		self.wkwebview.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	
     
-//	NSString *JsStr = @"(document.getElementsByTagName(\"video\")[0]).src";
-//	[webView evaluateJavaScript:JsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
-//		if(![response isEqual:[NSNull null]] && response != nil){
-//			//截获到视频地址了
-//			NSLog(@"response == %@",response);
-//		}else{
-//			//没有视频链接
-//		}
-//	}];
+	NSString *JsStr = @"(document.getElementsByTagName(\"video\")[0]).src";
+	[webView evaluateJavaScript:JsStr completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+		if(![response isEqual:[NSNull null]] && response != nil){
+			//截获到视频地址了
+			NSLog(@"response == %@",response);
+		}else{
+			//没有视频链接
+		}
+	}];
 	
 	__block WkWebViewCustomViewController *weakSelf = self;
 	dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC));
@@ -524,6 +525,20 @@
 		//TODO
 		NSLog(@"responsec %@ %@",response,error);
 	}];
+}
+
+-(void)DGClickWebViewAddApp:(NSDictionary *)dictemp
+{
+    [self clickaddapplication:dictemp];
+}
+
+-(void)DGClickWebViewOpenApp:(NSString *)srcid
+{
+    if([self.delegate1 respondsToSelector:@selector(DGClickOpenApplication:)])
+    {
+        [self.delegate1 DGClickOpenApplication:srcid];
+    }
+    [self returnback];
 }
 
 #pragma mark IBAction

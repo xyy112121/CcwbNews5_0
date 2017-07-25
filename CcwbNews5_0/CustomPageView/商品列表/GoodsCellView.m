@@ -248,7 +248,7 @@
 	NSDictionary *dictemp = [arrayfocuslist objectAtIndex:tagnow];
 	if([self.delegate1 respondsToSelector:@selector(DGGotoGoodsDetailView:)])
 	{
-		[self.delegate1 DGGotoGoodsDetailView:[dictemp objectForKey:@"url"]];
+		[self.delegate1 DGGotoGoodsDetailView:dictemp];
 	}
 	DLog(@"tagnow====%d",tagnow);
 	
@@ -256,10 +256,10 @@
 
 -(void)gotomoreandmorenews:(id)sender
 {
-	NSString *strmoreurl = [dicsrc objectForKey:@"more_url"];
+//	NSString *strmoreurl = [dicsrc objectForKey:@"more_url"];
 	if([self.delegate1 respondsToSelector:@selector(DGClickMoreNewsUrl:)])
 	{
-		[self.delegate1 DGClickMoreNewsUrl:strmoreurl];
+		[self.delegate1 DGClickMoreNewsUrl:dicsrc];
 	}
 }
 

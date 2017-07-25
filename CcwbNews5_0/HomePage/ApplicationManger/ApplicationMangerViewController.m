@@ -74,6 +74,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
 	app.gnctl = self.navigationController;
+    UIColor* color = [UIColor blackColor];
+    NSDictionary* dict=[NSDictionary dictionaryWithObject:color forKey:NSForegroundColorAttributeName];
+    self.navigationController.navigationBar.titleTextAttributes= dict;
 }
 
 

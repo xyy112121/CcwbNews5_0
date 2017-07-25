@@ -5,7 +5,7 @@
 #define InterfaceDeleteApp  @"/api/AppApi/delUserApp.html"  // 删除应用
 #define InterfaceMoreNewsRecommand @"/api/appApi/moreNewsRecommendList.html"  // 更多推荐新闻
 #define InterfaceApplicationList @"/api/appApi/getAppList.html"  //添加应用列表
-#define InterfaceSortApp    @"/NewInterfaces/appChannel/updateAppSortIndex.html" //排序应用
+#define InterfaceSortApp    @"/api/appApi/updateAppSortIndex.html" //排序应用
 #define InterfaceGetUserInfo  @"/NewInterfaces/user/getUserCenterInfo.html"  // 请求个人信息
 #define InterfaceGetWeatherInfo   @"/NewInterfaces/user/getWeatherInfo.html"  //请求天气
 #define InterfaceGetHotWord   @"/NewInterfaces/appNews/searchNewsPage.html"  //搜索热词

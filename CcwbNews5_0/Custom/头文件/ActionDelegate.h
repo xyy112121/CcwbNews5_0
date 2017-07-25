@@ -40,12 +40,15 @@
 -(void)DGPlayVideo:(NSString *)videopath;//爆料播放视频
 -(void)DGClickgotoqrcode:(id)sender;//点击跳转到二维码
 -(void)DGGotoPopAdView:(NSString *)popadurl;//弹窗点击跳转
--(void)DGGotoGoodsDetailView:(NSString *)goodsurl;//点击进入商品页面
+-(void)DGGotoGoodsDetailView:(NSDictionary *)goodsurl;//点击进入商品页面
 -(void)DGClickShare:(NSString *)sender;//点击分享
 -(void)DGclickNewsZuPic:(NSDictionary *)sender;//点击新闻组
 -(void)DGCLickNctlEvent:(NSString *)jsevent;//导航栏点击事件
 -(void)DGClickSearchTextField:(NSString *)strsearch;//搜索的时候点击 搜索
 -(void)DGDeleteSearchTextfield:(NSString *)strsearch;//搜索删除
+-(void)DGClickWebViewOpenApp:(NSString *)srcid;  //新闻详情页打开app
+-(void)DGClickApplicationHpViewManger:(id)sender;  //应用管理页打开
+-(void)DGClickWebViewAddApp:(NSString *)dictemp;
 
 
 -(void)clickchangeapplication:(int)sender ClickApp:(NSDictionary *)clickapp;  //点击 选择不同的应用

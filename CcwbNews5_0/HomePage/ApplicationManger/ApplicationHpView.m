@@ -31,10 +31,15 @@
     tableview.backgroundColor = [UIColor clearColor];
     tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addSubview:tableview];
+    
     [self commitgetapplist:@"1" PageSize:@"10"];
 
     [self addSubview:[self addnctl]];
+    YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
     
+    imageViewgif.tag = EnYLImageViewTag;
+    imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
+    [app.window addSubview:imageViewgif];
 }
 
 -(UIView *)addnctl
@@ -44,7 +49,6 @@
     
     HpNavigateView *hpna = [[HpNavigateView alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 44) FromFlag:@"100"];
     hpna.delegate1 = self;
-    hpna.tag = EnHpNctlViewTag;
     [view addSubview:hpna];
     
     return view;
@@ -278,6 +282,15 @@
 {
 }
 
+#pragma mark ACtiondelegate
+-(void)DGClickApplicationHpViewManger:(id)sender
+{
+    if([self.delegate1 respondsToSelector:@selector(DGClickOpenAppManger:)])
+    {
+        [self.delegate1 DGClickOpenAppManger:sender];
+    }
+}
+
 #pragma mark IBaction
 -(void)gotomoreandmorenews:(id)sender
 {
@@ -312,8 +325,10 @@
              
              [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
          }
+         [[app.window viewWithTag:EnYLImageViewTag] removeFromSuperview];
      }Failur:^(NSString *strmsg) {
          [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
+         [[app.window viewWithTag:EnYLImageViewTag] removeFromSuperview];
      }];
 }
 

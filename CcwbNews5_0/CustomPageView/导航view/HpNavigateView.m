@@ -36,9 +36,9 @@
 		app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 		if([[dicfrom objectForKey:@"type"] isEqualToString:@"1"])
 			[self initnctltype1:dicfrom];
-		else if([[dicfrom objectForKey:@"type"] isEqualToString:@"2"])
+		else if([[dicfrom objectForKey:@"type"] isEqualToString:@"2"])    //左边是图片  中间是名称
 			[self initnctltype2:dicfrom];
-		else if([[dicfrom objectForKey:@"type"] isEqualToString:@"3"])
+		else if([[dicfrom objectForKey:@"type"] isEqualToString:@"3"])   //表示右边是打开
 			[self initnctltype3:dicfrom];
 	}
 	return self;
@@ -125,10 +125,10 @@
     UIButton *buttonmanger = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonmanger.layer.borderColor = [UIColor clearColor].CGColor;
     buttonmanger.frame= CGRectMake(SCREEN_WIDTH-60, 2, 50, 40);
-    [buttonmanger setTitle:@"确定" forState:UIControlStateNormal];
+    [buttonmanger setTitle:@"管理" forState:UIControlStateNormal];
     buttonmanger.titleLabel.font = FONTN(16.0f);
     [buttonmanger setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [buttonmanger addTarget:self action:@selector(gotoqrcode:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonmanger addTarget:self action:@selector(gotoapplicationmanger:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:buttonmanger];
 }
 
@@ -245,6 +245,14 @@
 }
 
 
+-(void)gotoapplicationmanger:(id)sender
+{
+    if([self.delegate1 respondsToSelector:@selector(DGClickApplicationHpViewManger:)])
+    {
+        [self.delegate1 DGClickApplicationHpViewManger:sender];
+    }
+}
+
 //{"type":"0"}//显示空
 //{"type":"1","title":"全球最大双机"}//显示标题
 //{"type":"2","icon_path":"www.path","title":"全球最大双机"}   //显示标题和图标
@@ -313,6 +321,16 @@
 	[viewnctl addSubview:subtitle];
 	
 	
+    NSString *strname = @"添加";
+    for(int i=0;i<[app.arrayaddapplication count];i++)
+    {
+        NSDictionary *dictemp = [app.arrayaddapplication objectAtIndex:i];
+        if([[dictemp objectForKey:@"id"] isEqualToString:[dic objectForKey:@"id"]])
+        {
+            strname = @"打开";
+        }
+    }
+    
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 	button.frame = CGRectMake(SCREEN_WIDTH-80-50, 9, 70, 26);
 	button.layer.cornerRadius = 13.0f;
@@ -321,7 +339,7 @@
 	button.clipsToBounds = YES;
 	[button setTitleColor:COLORNOW(232, 56, 47) forState:UIControlStateNormal];
 	button.titleLabel.font = FONTN(15.0f);
-	[button setTitle:[dic objectForKey:@"rb_title"] forState:UIControlStateNormal];
+	[button setTitle:strname forState:UIControlStateNormal];
 	[button addTarget:self action:@selector(clickbutevent:) forControlEvents:UIControlEventTouchUpInside];
 	[viewnctl addSubview:button];
 	
@@ -332,10 +350,63 @@
 
 -(void)clickbutevent:(id)sender
 {
-	if([self.delegate1 respondsToSelector:@selector(DGCLickNctlEvent:)])
-	{
-		[self.delegate1 DGCLickNctlEvent:[dicsrc objectForKey:@"rb_jsevent"]];
-	}
+    UIButton *button = (UIButton *)sender;
+    NSString *strname = [button currentTitle];
+    if([strname isEqualToString:@"打开"])
+    {
+        if([self.delegate1 respondsToSelector:@selector(DGClickWebViewOpenApp:)])
+        {
+            [self.delegate1 DGClickWebViewOpenApp:[dicsrc objectForKey:@"id"]];
+        }
+    }
+    else
+    {
+        [self addappmachine:[dicsrc objectForKey:@"id"] Button:button];
+    }
+//	if([self.delegate1 respondsToSelector:@selector(DGCLickNctlEvent:)])
+//	{
+//		[self.delegate1 DGCLickNctlEvent:[dicsrc objectForKey:@"rb_jsevent"]];
+//	}
+}
+
+-(void)addappmachine:(NSString *)appid Button:(UIButton *)button
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"cw_app_id"] = appid;
+    
+    [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceAddApp ShowView:app.window alwaysdo:^
+     {
+         
+     }
+                                          Success:^(NSDictionary *dic)
+     {
+         DLog(@"dic====%@",dic);
+         if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+         {
+             [button setTitle:@"打开" forState:UIControlStateNormal];
+             
+             NSArray *arrayapp = [dic objectForKey:@"appList"];
+             if([arrayapp count]>0)
+             {
+                 
+                 if([self.delegate1 respondsToSelector:@selector(DGClickWebViewAddApp:)])
+                 {
+                     [self.delegate1 DGClickWebViewAddApp:[arrayapp objectAtIndex:0]];
+                 }
+                 
+             }
+             
+             [MBProgressHUD showSuccess:[dic objectForKey:@"msg"] toView:app.window];
+             
+         }
+         else
+         {
+             [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+         }
+     } Failur:^(NSString *strmsg) {
+         [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
+     }];
+    
 }
 
 
