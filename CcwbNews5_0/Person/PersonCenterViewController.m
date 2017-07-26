@@ -98,7 +98,10 @@
 	}
 	else
 	{
-		[self gotowkwebview:URLLogin URLType:URLUserHeader];
+        LoginViewController *login = [[LoginViewController alloc] init];
+        UINavigationController *nctl  = [[UINavigationController alloc] initWithRootViewController:login];
+        
+        [self presentViewController:nctl animated:YES completion:nil];
 	}
 }
 
@@ -106,6 +109,7 @@
 {
 	AskBrokeViewController *askbroke;
 	UINavigationController *nctl;
+    ApplicationMangerViewController *appmanger;
 	switch (sender)
 	{
 		case 0://收藏
@@ -115,12 +119,15 @@
 			[self gotowkwebview:URLUserMyReview URLType:URLUserHeader];
 			break;
 		case 2://问吧
-			askbroke = [[AskBrokeViewController alloc] init];
-			nctl = [[UINavigationController alloc] initWithRootViewController:askbroke];
-			[self.navigationController presentViewController:nctl animated:YES completion:nil];
+		//	askbroke = [[AskBrokeViewController alloc] init];
+		//	nctl = [[UINavigationController alloc] initWithRootViewController:askbroke];
+		//	[self.navigationController presentViewController:nctl animated:YES completion:nil];
 			break;
 		case 3://应用
-			
+            appmanger = [[ApplicationMangerViewController alloc] init];
+            appmanger.delegate1 = self;
+            UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:appmanger];
+            [self.navigationController presentViewController:nctl animated:YES completion:nil];
 			break;
 
 	}
@@ -357,7 +364,8 @@
 {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	
-	[RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceGetUserInfo ShowView:app.window alwaysdo:^{
+    
+	[RequestInterface doGetJsonWithParametersForUser:params App:app ReqUrl:InterfaceUserGetInfo ShowView:app.window alwaysdo:^{
 		
 	} Success:^(NSDictionary *dic) {
 		DLog(@"dic====%@",dic);

@@ -15,7 +15,7 @@
 +(NSString *)computeheight:(NSDictionary *)dic; // 计算单个元素高度
 +(NSMutableArray *)computeheight:(NSDictionary *)dic ArrayHeght:(NSMutableArray *)arrayheight;  //讲算列表的高度
 
-+(void)getUserInfo:(AppDelegate *)app StrJson:(NSString *)strjson;//获取userinfo
++(void)CUgetUserInfo:(AppDelegate *)app StrJson:(NSString *)strjson;//获取userinfo
 
 +(NSString *)getrequesturlstring:(NSString *)strsrc App:(AppDelegate *)app;//获取请求url
 

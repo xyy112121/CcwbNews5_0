@@ -6,8 +6,7 @@
 #define InterfaceMoreNewsRecommand @"/api/appApi/moreNewsRecommendList.html"  // 更多推荐新闻
 #define InterfaceApplicationList @"/api/appApi/getAppList.html"  //添加应用列表
 #define InterfaceSortApp    @"/api/appApi/updateAppSortIndex.html" //排序应用
-#define InterfaceGetUserInfo  @"/NewInterfaces/user/getUserCenterInfo.html"  // 请求个人信息
-#define InterfaceGetWeatherInfo   @"/NewInterfaces/user/getWeatherInfo.html"  //请求天气
+#define InterfaceGetWeatherInfo   @"/api/AppApi/getWeatherInfo.html"  //请求天气
 #define InterfaceGetHotWord   @"/NewInterfaces/appNews/searchNewsPage.html"  //搜索热词
 #define InterfaceGetSearchList   @"/NewInterfaces/appNews/searchNewsList.html"  //获取搜索列表
 #define InterfaceBrokeUploadImage @"/NewInterfaces/resImage/uploadImage.html"//爆料上传图片
@@ -23,19 +22,29 @@
 #define InterfaceUploadAuthToken @"/api/AppApi/auth.html" //获取token  key.  123    secret.    321
 #define InterfaceNewsDetailContent @"/api/WebApi/getNewsDetail.html"  //新闻详细内容
 #define InterfaceMoreNewsList   @"/api/AppApi/moreNewsList.html"  //更多新闻
+#define InterfaceUserLogin   @"/api/user/phone_auth.html" //用户登录
+#define InterfaceUserRegiest   @"/api/user/phone_register.html" //用户注册
+#define InterfaceUserThreeLogin   @"/api/user/thirdUserLogin.html" //第三方登录
+#define InterfaceUserGetInfo   @"/api/user/getUserCenterInfo.html" //获取用户信息
+#define InterfaceUserVerifyCode   @"/api/user/send_verifycode_register.html" //获取验证码
+#define InterfaceUserForgetPwdVerifyCode @"/api/user/send_verifycode_findpwd.html"  //忘记密码验证码
+#define InterfaceUserModifyPwd @"/api/user/password_modify.html"  //忘记密码验证码
 
-#define URLLogin      @"/User/Login/index.html"   //登录页面
-#define URLGetAppList  @"/NewHome/AppChannel/appList.html"   //获取应用列表
-#define URLUserCollection @"/User/Collection/index.html"   //收藏
-#define URLUserReadHistory  @"/User/History/index.html"   //阅读历史
-#define URLUserActivityList  @"/User/Activity/index.html"  //活动列表
-#define URLUserFeedback @"/User/Feedback/index.html" //意见反馈
-#define URLUsernotification @"/User/notification/index.html"  //通知
-#define URLUserMyReview @"/User/review/index.html"  //我的评论
+
+
+#define URLUserCollection @"/AppUser/collect.html"   //收藏
+#define URLInfoSetHtml   @"/AppUser/manage.html"//个人信息设置
+#define URLUserReadHistory  @"/AppUser/comment.html"   //阅读历史
+#define URLUserActivityList  @"/AppUser/activity.html"  //活动列表
+#define URLUserFeedback @"/AppUser/feedback.html" //意见反馈
+#define URLUsernotification @"/AppUser/notification.html"  //通知
+#define URLUserMyReview @"/AppUser/comment.html"  //我的评论
+#define URLKaQuanHtml   @"/AppUser/card.html"  //卡券页面
+
 #define URLAskBrokeViewHtml  @"/NewBroke/MyBroke/brokeindex.html" //爆料
 #define URLAskQuestViewHtml @"/NewHome/AppAsk/ask_index.html" //问吧
-#define URLInfoSetHtml   @"/User/User/infoset.html"//个人信息设置
-#define URLKaQuanHtml   @"/User/Ticket/index.html"  //卡券页面
+
+
 
 
 //商城

@@ -128,4 +128,10 @@ typedef enum
 #define EnHpUserHeaderPic  51500 //首页头像pic
 #define EnSearchTextFieldTag 51600 //搜索框textfield
 #define EnNoSearchImageview   51700//搜索框
+#define EnLoginAccountBtTag   51710//
+#define EnRegiestAccountBtTag   51720//
 
+#define EnThreeLoginWXImageTag  51730
+#define EnThreeLoginWBImageTag  51430
+#define EnThreeLoginQQImageTag  51750
+#define EnGetVerCodeBtTag   51800

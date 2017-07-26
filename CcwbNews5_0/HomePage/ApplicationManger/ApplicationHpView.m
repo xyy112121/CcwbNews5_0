@@ -302,8 +302,6 @@
 -(void)commitgetapplist:(NSString *)page PageSize:(NSString *)pagesize
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//    params[@"page"] = page;
-//    params[@"pagesize"] = pagesize;
     [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceApplicationList ShowView:app.window alwaysdo:^
      {
          

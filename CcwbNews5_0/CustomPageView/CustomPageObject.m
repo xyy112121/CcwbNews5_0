@@ -141,7 +141,7 @@
 	}
 }
 
-+(void)getUserInfo:(AppDelegate *)app StrJson:(NSString *)strjson
++(void)CUgetUserInfo:(AppDelegate *)app StrJson:(NSString *)strjson
 {
 	if (![strjson isKindOfClass:[NSString class]]) {
 		return;

@@ -70,7 +70,7 @@
 	self.navigationItem.leftBarButtonItem = barButtonItem;
 	
 	// Do any additional setup after loading the view.
-	
+	self.title = self.strtitle;
 	flagloading = 0;
 	webviewtype = EnWebViewMuli;
 	self.view.backgroundColor = [UIColor whiteColor];
@@ -259,7 +259,7 @@
 	}
 	else if([message.name isEqualToString:@"loginsucessIOS"])  //登录成功后返回用户信息
 	{
-		[CustomPageObject getUserInfo:self.app StrJson:message.body];
+		[CustomPageObject CUgetUserInfo:self.app StrJson:message.body];
 		[self returnback];
 	}
 	else if([message.name isEqualToString:@"addApp"])  //添加app

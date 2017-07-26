@@ -591,6 +591,8 @@
 		7401C55F1F25EBEE00E2BA06 /* 添加gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7401C55C1F25EBEE00E2BA06 /* 添加gray@2x.png */; };
 		7401C5601F25EBEE00E2BA06 /* 添加gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7401C55D1F25EBEE00E2BA06 /* 添加gray@3x.png */; };
 		7401C5641F25EEBA00E2BA06 /* ApplicationAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7401C5631F25EEBA00E2BA06 /* ApplicationAdView.m */; };
+		743129501F28281900AB17AC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7431294F1F28281900AB17AC /* LoginViewController.m */; };
+		743129531F28282600AB17AC /* RegiestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743129521F28282600AB17AC /* RegiestViewController.m */; };
 		7435B24E1F1301B700D0454E /* ScanQRCodeARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435B24D1F1301B700D0454E /* ScanQRCodeARViewController.m */; };
 		7435B25F1F13029E00D0454E /* UIImage+SGHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435B2541F13029E00D0454E /* UIImage+SGHelper.m */; };
 		7435B2601F13029E00D0454E /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7435B2551F13029E00D0454E /* SGQRCode.bundle */; };
@@ -627,6 +629,16 @@
 		74B0D3951F1C59D200984D26 /* icon_look.png in Resources */ = {isa = PBXBuildFile; fileRef = 74B0D3921F1C59D200984D26 /* icon_look.png */; };
 		74B0D3961F1C59D200984D26 /* img_erweima.png in Resources */ = {isa = PBXBuildFile; fileRef = 74B0D3931F1C59D200984D26 /* img_erweima.png */; };
 		74B0D3971F1C59D200984D26 /* img_popularize02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 74B0D3941F1C59D200984D26 /* img_popularize02.jpg */; };
+		74C7E84B1F28477300EEC32E /* 微博icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 74C7E8421F28477300EEC32E /* 微博icon.png */; };
+		74C7E84C1F28477300EEC32E /* 微博icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74C7E8431F28477300EEC32E /* 微博icon@2x.png */; };
+		74C7E84D1F28477300EEC32E /* 微博icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74C7E8441F28477300EEC32E /* 微博icon@3x.png */; };
+		74C7E84E1F28477300EEC32E /* 微信icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 74C7E8451F28477300EEC32E /* 微信icon.png */; };
+		74C7E84F1F28477300EEC32E /* 微信icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74C7E8461F28477300EEC32E /* 微信icon@2x.png */; };
+		74C7E8501F28477300EEC32E /* 微信icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74C7E8471F28477300EEC32E /* 微信icon@3x.png */; };
+		74C7E8511F28477300EEC32E /* QQicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 74C7E8481F28477300EEC32E /* QQicon.png */; };
+		74C7E8521F28477300EEC32E /* QQicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74C7E8491F28477300EEC32E /* QQicon@2x.png */; };
+		74C7E8531F28477300EEC32E /* QQicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74C7E84A1F28477300EEC32E /* QQicon@3x.png */; };
+		74C7E8561F288CBD00EEC32E /* ForGetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C7E8551F288CBD00EEC32E /* ForGetPwdViewController.m */; };
 		74F8B2F71F15B80D00EFA513 /* FocusApplicationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F8B2F61F15B80D00EFA513 /* FocusApplicationView.m */; };
 /* End PBXBuildFile section */
 
@@ -1569,6 +1581,10 @@
 		7401C55D1F25EBEE00E2BA06 /* 添加gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加gray@3x.png"; sourceTree = "<group>"; };
 		7401C5621F25EEBA00E2BA06 /* ApplicationAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationAdView.h; sourceTree = "<group>"; };
 		7401C5631F25EEBA00E2BA06 /* ApplicationAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationAdView.m; sourceTree = "<group>"; };
+		7431294E1F28281900AB17AC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		7431294F1F28281900AB17AC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		743129511F28282600AB17AC /* RegiestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegiestViewController.h; sourceTree = "<group>"; };
+		743129521F28282600AB17AC /* RegiestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegiestViewController.m; sourceTree = "<group>"; };
 		7435B24C1F1301B700D0454E /* ScanQRCodeARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanQRCodeARViewController.h; sourceTree = "<group>"; };
 		7435B24D1F1301B700D0454E /* ScanQRCodeARViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanQRCodeARViewController.m; sourceTree = "<group>"; };
 		7435B2531F13029E00D0454E /* UIImage+SGHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SGHelper.h"; sourceTree = "<group>"; };
@@ -1614,6 +1630,17 @@
 		74B0D3921F1C59D200984D26 /* icon_look.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_look.png; sourceTree = "<group>"; };
 		74B0D3931F1C59D200984D26 /* img_erweima.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_erweima.png; sourceTree = "<group>"; };
 		74B0D3941F1C59D200984D26 /* img_popularize02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img_popularize02.jpg; sourceTree = "<group>"; };
+		74C7E8421F28477300EEC32E /* 微博icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微博icon.png"; sourceTree = "<group>"; };
+		74C7E8431F28477300EEC32E /* 微博icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微博icon@2x.png"; sourceTree = "<group>"; };
+		74C7E8441F28477300EEC32E /* 微博icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微博icon@3x.png"; sourceTree = "<group>"; };
+		74C7E8451F28477300EEC32E /* 微信icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微信icon.png"; sourceTree = "<group>"; };
+		74C7E8461F28477300EEC32E /* 微信icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微信icon@2x.png"; sourceTree = "<group>"; };
+		74C7E8471F28477300EEC32E /* 微信icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微信icon@3x.png"; sourceTree = "<group>"; };
+		74C7E8481F28477300EEC32E /* QQicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QQicon.png; sourceTree = "<group>"; };
+		74C7E8491F28477300EEC32E /* QQicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QQicon@2x.png"; sourceTree = "<group>"; };
+		74C7E84A1F28477300EEC32E /* QQicon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QQicon@3x.png"; sourceTree = "<group>"; };
+		74C7E8541F288CBD00EEC32E /* ForGetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForGetPwdViewController.h; sourceTree = "<group>"; };
+		74C7E8551F288CBD00EEC32E /* ForGetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForGetPwdViewController.m; sourceTree = "<group>"; };
 		74F8B2F51F15B80D00EFA513 /* FocusApplicationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FocusApplicationView.h; sourceTree = "<group>"; };
 		74F8B2F61F15B80D00EFA513 /* FocusApplicationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FocusApplicationView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3595,6 +3622,7 @@
 		08EA5E641E56F8870075D3FF /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				74C7E8411F28475700EEC32E /* 账户 */,
 				7401C5541F25EA6E00E2BA06 /* 应用列表 */,
 				08A430E61EADDEF600695876 /* 扫码 */,
 				0824769C1E729DA1007C530E /* 商品列表 */,
@@ -3874,6 +3902,7 @@
 		08F7A1C91E6404B2004E51A5 /* Person */ = {
 			isa = PBXGroup;
 			children = (
+				7431294D1F2827F800AB17AC /* account */,
 				0835BDEF1EA463EF00493D32 /* ask_broke */,
 				08F7A1CA1E6404CF004E51A5 /* PersonCenterViewController.h */,
 				08F7A1CB1E6404CF004E51A5 /* PersonCenterViewController.m */,
@@ -4035,6 +4064,19 @@
 			path = "应用广告";
 			sourceTree = "<group>";
 		};
+		7431294D1F2827F800AB17AC /* account */ = {
+			isa = PBXGroup;
+			children = (
+				7431294E1F28281900AB17AC /* LoginViewController.h */,
+				7431294F1F28281900AB17AC /* LoginViewController.m */,
+				743129511F28282600AB17AC /* RegiestViewController.h */,
+				743129521F28282600AB17AC /* RegiestViewController.m */,
+				74C7E8541F288CBD00EEC32E /* ForGetPwdViewController.h */,
+				74C7E8551F288CBD00EEC32E /* ForGetPwdViewController.m */,
+			);
+			path = account;
+			sourceTree = "<group>";
+		};
 		7435B2511F13029E00D0454E /* SGQRCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -4109,6 +4151,22 @@
 				74B0D3861F1C4BDC00984D26 /* wx_news.html */,
 			);
 			path = newsdetail;
+			sourceTree = "<group>";
+		};
+		74C7E8411F28475700EEC32E /* 账户 */ = {
+			isa = PBXGroup;
+			children = (
+				74C7E8421F28477300EEC32E /* 微博icon.png */,
+				74C7E8431F28477300EEC32E /* 微博icon@2x.png */,
+				74C7E8441F28477300EEC32E /* 微博icon@3x.png */,
+				74C7E8451F28477300EEC32E /* 微信icon.png */,
+				74C7E8461F28477300EEC32E /* 微信icon@2x.png */,
+				74C7E8471F28477300EEC32E /* 微信icon@3x.png */,
+				74C7E8481F28477300EEC32E /* QQicon.png */,
+				74C7E8491F28477300EEC32E /* QQicon@2x.png */,
+				74C7E84A1F28477300EEC32E /* QQicon@3x.png */,
+			);
+			name = "账户";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4196,6 +4254,7 @@
 				08A4313B1EADF36B00695876 /* QRCode选中icon.png in Resources */,
 				0890D9521E690A7400C11539 /* 三横线@2x.png in Resources */,
 				0838F9C81E514820007FE55A /* LTInputAccessoryView.xib in Resources */,
+				74C7E8521F28477300EEC32E /* QQicon@2x.png in Resources */,
 				08EA5E811E56F8870075D3FF /* guidebt.png in Resources */,
 				74B0D3971F1C59D200984D26 /* img_popularize02.jpg in Resources */,
 				0879B3691E6523230007518B /* my_评论redicon@3x.png in Resources */,
@@ -4214,6 +4273,7 @@
 				0835BE1F1EA4C3A100493D32 /* CWHeader@3x.png in Resources */,
 				083E31EC1EA5F813008728AD /* 爆料图片icon@3x.png in Resources */,
 				0882A5191EC54E300010332A /* stepbackward@2x.png in Resources */,
+				74C7E84E1F28477300EEC32E /* 微信icon.png in Resources */,
 				74B0D3891F1C4BDC00984D26 /* common.css in Resources */,
 				08171C3D1E5A8B730005B0C5 /* hp_souicon@2x.png in Resources */,
 				0890D9511E690A7400C11539 /* 三横线.png in Resources */,
@@ -4236,7 +4296,9 @@
 				083E31B81EA5AD6F008728AD /* mic_1@2x.png in Resources */,
 				74AE4A8B1F21D96200994C4D /* index.css in Resources */,
 				081DDE531EA7479C00263B52 /* brokeaudioicon@3x.png in Resources */,
+				74C7E84D1F28477300EEC32E /* 微博icon@3x.png in Resources */,
 				081152BA1E5E92B5005BC84E /* 查看次数@3x.png in Resources */,
+				74C7E8531F28477300EEC32E /* QQicon@3x.png in Resources */,
 				0838F9B61E514820007FE55A /* dropdown_loading1_01@3x.png in Resources */,
 				7401C5601F25EBEE00E2BA06 /* 添加gray@3x.png in Resources */,
 				08EFD9221EAD9B2C00B6BD1C /* QRCodeScanLine.png in Resources */,
@@ -4280,6 +4342,7 @@
 				0879B36E1E6523230007518B /* my_问吧redicon@2x.png in Resources */,
 				083E31BA1EA5AD6F008728AD /* mic_3@2x.png in Resources */,
 				7435B2601F13029E00D0454E /* SGQRCode.bundle in Resources */,
+				74C7E8501F28477300EEC32E /* 微信icon@3x.png in Resources */,
 				0835BE111EA4A38400493D32 /* 气泡right.png in Resources */,
 				083E31E61EA5F813008728AD /* 爆料拍照icon@3x.png in Resources */,
 				083E31B31EA5AD6F008728AD /* img_defaulthead_nor.png in Resources */,
@@ -4354,8 +4417,10 @@
 				082476A71E729DB1007C530E /* dianblack@3x.png in Resources */,
 				083E31B41EA5AD6F008728AD /* img_defaulthead_nor@2x.png in Resources */,
 				08EA5E8E1E56F8870075D3FF /* guidepage1_4@2x.png in Resources */,
+				74C7E84C1F28477300EEC32E /* 微博icon@2x.png in Resources */,
 				08A4310F1EADDF0500695876 /* AR选中icon@3x.png in Resources */,
 				74B0D38E1F1C505B00984D26 /* wx_news.js in Resources */,
+				74C7E84B1F28477300EEC32E /* 微博icon.png in Resources */,
 				08EA5E981E56F8870075D3FF /* pagebg3@3x.png in Resources */,
 				08EA5E831E56F8870075D3FF /* guidebt@3x.png in Resources */,
 				0838F74E1E514495007FE55A /* LaunchScreen.storyboard in Resources */,
@@ -4384,6 +4449,7 @@
 				0892AC991E5D39A3007BB944 /* arrowrightred@2x.png in Resources */,
 				0854B7D11EE93F5A00A2F301 /* 未搜索到@3x.png in Resources */,
 				0838FA251E514821007FE55A /* 选中.png in Resources */,
+				74C7E8511F28477300EEC32E /* QQicon.png in Resources */,
 				74B0D38A1F1C4BDC00984D26 /* jquery.min.js in Resources */,
 				74B0D3961F1C59D200984D26 /* img_erweima.png in Resources */,
 				08F7A1D11E640582004E51A5 /* arrowleft@2x.png in Resources */,
@@ -4464,6 +4530,7 @@
 				08EA5E9B1E56F8870075D3FF /* pagebg4@3x.png in Resources */,
 				74B0D3871F1C4BDC00984D26 /* amazeui.min.css in Resources */,
 				74AE4A721F218B9800994C4D /* icon_praise_ok.png in Resources */,
+				74C7E84F1F28477300EEC32E /* 微信icon@2x.png in Resources */,
 				08EA5E961E56F8870075D3FF /* pagebg3.png in Resources */,
 				08F7A1E31E640836004E51A5 /* my_收藏icon.png in Resources */,
 				74AE4A801F219FD900994C4D /* img_face04.png in Resources */,
@@ -4559,16 +4626,19 @@
 				0838FA521E514821007FE55A /* ViewController+MASAdditions.m in Sources */,
 				7435B25F1F13029E00D0454E /* UIImage+SGHelper.m in Sources */,
 				0838FA1B1E514821007FE55A /* PHFetchResult+PhotoObject.m in Sources */,
+				743129501F28281900AB17AC /* LoginViewController.m in Sources */,
 				08FFF8D01ED66C9900D32145 /* WXApiRequestHandler.m in Sources */,
 				0838FA9B1E5153CB007FE55A /* JQCyclingCycleAnimation.m in Sources */,
 				08EFD9191EAD9B2C00B6BD1C /* UIColor+HEX.m in Sources */,
 				0838F9C61E514820007FE55A /* UIView+Extension.m in Sources */,
 				080C66AD1E54062400970B90 /* GuidePage3.m in Sources */,
 				083E314B1EA5AD6E008728AD /* EmojiCollectionViewCell.m in Sources */,
+				74C7E8561F288CBD00EEC32E /* ForGetPwdViewController.m in Sources */,
 				0838F9BC1E514820007FE55A /* MJChiBaoZiHeader.m in Sources */,
 				0838F97C1E514820007FE55A /* AFNetworkReachabilityManager.m in Sources */,
 				0838F9CE1E514820007FE55A /* SVProgressHUD.m in Sources */,
 				0835BE021EA49E0C00493D32 /* BrokeAudioView.m in Sources */,
+				743129531F28282600AB17AC /* RegiestViewController.m in Sources */,
 				08F7A1C81E64047A004E51A5 /* PersonalHeaderView.m in Sources */,
 				08EFD91F1EAD9B2C00B6BD1C /* qrspec.c in Sources */,
 				0882A5181EC54E300010332A /* PlayViewController.m in Sources */,

@@ -31,4 +31,5 @@
 @property(nonatomic,strong)id<ActionDelegate>delegate1;
 @property(nonatomic,strong)AppDelegate *app;
 @property(nonatomic,strong)NSString *strurl;
+@property(nonatomic,strong)NSString *strtitle;
 @end

@@ -119,7 +119,9 @@
 #import "NewsListViewController.h"
 #import "ApplicationViewCell.h"
 #import "ApplicationAdView.h"
-
+#import "LoginViewController.h"
+#import "RegiestViewController.h"
+#import "ForGetPwdViewController.h"
 #endif /* PrefixHeader_pch */
 
 /**
