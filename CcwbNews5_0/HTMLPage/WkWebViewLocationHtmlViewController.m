@@ -84,8 +84,8 @@
     [userContentController addScriptMessageHandler:self name:@"getiostoke"];
     
     WKPreferences *preferences = [WKPreferences new];
-    preferences.javaScriptCanOpenWindowsAutomatically = YES;
-    preferences.minimumFontSize = 40.0;
+    preferences.javaScriptCanOpenWindowsAutomatically = NO;
+ //   preferences.minimumFontSize = 10.0;
     configuration.preferences = preferences;
     
     self.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, SCREEN_HEIGHT-20)
@@ -96,8 +96,10 @@
     NSString* urlpath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
     NSURL *url = [NSURL fileURLWithPath:urlpath];
     [self.wkwebview loadFileURL:url allowingReadAccessToURL:url];
+//    NSURL *url = [NSURL URLWithString:@"https://minisite.msxiaobing.com/ChunCheng/"];
     self.wkwebview.navigationDelegate = self;
     self.wkwebview.UIDelegate = self;
+//    [self.wkwebview loadRequest:[NSURLRequest requestWithURL:url]];
     [self.view addSubview:self.wkwebview];
     
 }

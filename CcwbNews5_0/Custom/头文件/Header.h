@@ -1,26 +1,24 @@
 
 
-#define URLHeader @"http://172.16.5.30:82/app/public"
+//#define URLHeader @"http://172.16.5.30:82/app/public"
 //接口
-//#define URLHeader @"http://cwapp.ccwb.cn"
+#define URLHeader @"http://newapp.ccwb.cn/"
 
 //资源库n
 #define URLResouceHeader @"http://cwresource.ccwb.cn/"
 
-//页面内容
-//#define URLHTTPHeader @"http://cwapp.ccwb.cn"
-#define URLHTTPHeader @"http://172.16.5.12:82/cwapp"
+#define URLResouceUpLoadHeader @"http://res.ccwb.cn/"
+
 
 //用户中心
-//#define URLUserHeader  @"http://cwuser.ccwb.cn"
-#define URLInterFaceHeader @"http://172.16.5.12:82/UserApp/public"
-#define URLUserHeader @"http://172.16.5.12:82/app/public/apppage"
+#define URLInterFaceHeader  @"http://newuser.ccwb.cn/"
+//#define URLInterFaceHeader @"http://172.16.5.45/UserApp/public"
 
-#define URLGetForGotPWDHeader @"http://172.16.5.12:82/app/public/wxuser/main/findpwd.html"
 
 //新闻连接
-#define URLNewsDetailHref @"http://172.16.5.45/app/public/apppage/AppPage/detail.html?cw_id="
-//#define URLNewsDetailHref  @"http://172.16.5.15:8888/apppage/AppPage/detail?cw_id="
+#define URLDetailhtml  @"/apppage/AppPage/detail.html?cw_id="
+#define URLNewsDetailHref  [NSString stringWithFormat:@"%@%@",URLHeader,URLDetailhtml]
+
 //商城
 #define URLShopHeader @"http://ccwbshop.ccwb.cn" 
 

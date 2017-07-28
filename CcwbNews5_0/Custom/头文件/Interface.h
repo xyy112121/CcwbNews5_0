@@ -7,14 +7,16 @@
 #define InterfaceApplicationList @"/api/appApi/getAppList.html"  //添加应用列表
 #define InterfaceSortApp    @"/api/appApi/updateAppSortIndex.html" //排序应用
 #define InterfaceGetWeatherInfo   @"/api/AppApi/getWeatherInfo.html"  //请求天气
-#define InterfaceGetHotWord   @"/NewInterfaces/appNews/searchNewsPage.html"  //搜索热词
-#define InterfaceGetSearchList   @"/NewInterfaces/appNews/searchNewsList.html"  //获取搜索列表
-#define InterfaceBrokeUploadImage @"/NewInterfaces/resImage/uploadImage.html"//爆料上传图片
-#define InterfaceBrokeUploadVideo @"/NewInterfaces/resVideo/uploadVideo.html"  //上传视频
-#define InterfaceBrokeUploadAudio @"/NewInterfaces/resAudio/uploadAudio.html"  //上传音频
-#define InterfaceBrokeList  @"/NewBroke/MyBroke/getbrokelist.html" //获取爆料列表
-#define InterfaceUploadBrokeInfo  @"/NewBroke/MyBroke/addcontetnt.html"  //上传爆料信息
-#define InterfaceShare   @"/NewInterfaces/appNews/newsShare.html" //请求分享信息
+#define InterfaceGetHotWord   @"/api/appApi/newsSearchHot.html"  //搜索热词
+#define InterfaceGetSearchList   @"api/appApi/newsSearch.html"  //获取搜索列表
+#define InterfaceBrokeUploadImage @"/api/AppApi/uploadImage.html"//爆料上传图片
+#define InterfaceBrokeUploadVideo @"/api/AppApi/uploadVideo.html"  //上传视频
+#define InterfaceBrokeUploadAudio @"/api/AppApi/uploadAudio.html"  //上传音频
+#define InterfaceBrokeUploadResource  @"/resource/upload/uploadFile.html"  //上传资源文件
+#define InterfaceBrokeList  @"/Api/AppBroke/getBrokeList.html" //获取爆料列表
+#define InterfaceUploadBrokeInfo  @"/Api/AppBroke/addBroke.html"  //上传爆料信息
+#define InterfaceShare   @"/api/appApi/newsShare.html" //请求分享信息
+#define InterfaceShareCallBack   @"/api/appApi/newsShareCallBack.html" //请求分享信息
 #define Interfacegetjpushinfo  @"/NewInterfaces/AppPush/getPushInfo.html"  //获取推送消息
 #define Interfaceupdataregiestid  @"/api/appApi/setPushTag.html"  //上传极光的推送id
 #define Interfaceupdatelocation @"/api/appApi/setPosition.html" // 上传地理位置
@@ -32,17 +34,17 @@
 
 
 
-#define URLUserCollection @"/AppUser/collect.html"   //收藏
-#define URLInfoSetHtml   @"/AppUser/manage.html"//个人信息设置
-#define URLUserReadHistory  @"/AppUser/comment.html"   //阅读历史
-#define URLUserActivityList  @"/AppUser/activity.html"  //活动列表
-#define URLUserFeedback @"/AppUser/feedback.html" //意见反馈
-#define URLUsernotification @"/AppUser/notification.html"  //通知
-#define URLUserMyReview @"/AppUser/comment.html"  //我的评论
-#define URLKaQuanHtml   @"/AppUser/card.html"  //卡券页面
+#define URLUserCollection @"/apppage/AppUser/collect.html"   //收藏
+#define URLInfoSetHtml   @"/apppage/AppUser/manage.html"//个人信息设置
+#define URLUserReadHistory  @"/apppage/AppUser/comment.html"   //阅读历史
+#define URLUserActivityList  @"/apppage/AppUser/activity.html"  //活动列表
+#define URLUserFeedback @"/apppage/AppUser/feedback.html" //意见反馈
+#define URLUsernotification @"/apppage/AppUser/notification.html"  //通知
+#define URLUserMyReview @"/apppage/AppUser/comment.html"  //我的评论
+#define URLKaQuanHtml   @"/apppage/AppUser/card.html"  //卡券页面
 
 #define URLAskBrokeViewHtml  @"/NewBroke/MyBroke/brokeindex.html" //爆料
-#define URLAskQuestViewHtml @"/NewHome/AppAsk/ask_index.html" //问吧
+#define URLAskQuestViewHtml @"/apppage/AppAsk/ask_index.html" //问吧
 
 
 

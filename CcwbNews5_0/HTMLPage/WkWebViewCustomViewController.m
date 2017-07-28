@@ -72,7 +72,7 @@
 	// Do any additional setup after loading the view.
 	self.title = self.strtitle;
 	flagloading = 0;
-	webviewtype = EnWebViewMuli;
+	webviewtype = EnWebViewSingle;
 	self.view.backgroundColor = [UIColor whiteColor];
 	self.app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	[self initWKWebView];
@@ -85,13 +85,26 @@
 	recognizer = [[ UISwipeGestureRecognizer alloc ] initWithTarget : self action : @selector (handleSwipeFrom:)];
 	[recognizer setDirection :( UISwipeGestureRecognizerDirectionLeft)];
 	[self.view addGestureRecognizer :recognizer];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(begainFullScreen) name:UIWindowDidBecomeVisibleNotification object:nil];//进入全屏
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];//退出全屏
 }
 
 - (void)initWKWebView
 {
+//    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);";
+//    
+//    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+//    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
+//    [wkUController addUserScript:wkUScript];
+    
+
+    
 	userContentController = [[WKUserContentController alloc] init];
 	WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+//    configuration.allowsInlineMediaPlayback = YES;
 	configuration.userContentController = userContentController;
+    
 	[userContentController addScriptMessageHandler:self name:@"commonBack"];
 	[userContentController addScriptMessageHandler:self name:@"getAppUserInfo"];
 	[userContentController addScriptMessageHandler:self name:@"addApp"];
@@ -113,7 +126,7 @@
 	
 	WKPreferences *preferences = [WKPreferences new];
 	preferences.javaScriptCanOpenWindowsAutomatically = YES;
-	preferences.minimumFontSize = 40.0;
+//	preferences.minimumFontSize = 10.0;
 	configuration.preferences = preferences;
 	
 //	self.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -133,9 +146,9 @@
 //    [self.view addSubview:self.wkwebview];
     
 	//商城的用单页 判断商城域名
-	if([self.strurl rangeOfString:@"ccwbshop.ccwb.cn"].location !=NSNotFound)
+	if(([self.strurl rangeOfString:@"newapp.ccwb.cn"].location !=NSNotFound)||([self.strurl rangeOfString:@"newuser.ccwb.cn"].location !=NSNotFound))
 	{
-		webviewtype = EnWebViewSingle;
+		webviewtype = EnWebViewMuli;
 	}
 	
 
@@ -323,6 +336,21 @@
     {
         DLog(@"123");
     }
+    else if([message.name isEqualToString:@"ShowNewsDetail"]) //第三方网页显示新闻连接
+    {
+        NSString *strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,message.body];
+        WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
+        if([strurl rangeOfString:@"?"].location !=NSNotFound)
+        {
+            strurl = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",strurl,CwVersion,CwDevice,self.app.Gmachid,[self.app.userinfo.userid length]>0?self.app.userinfo.userid:@""];
+        }
+        else
+        {
+            strurl = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",strurl,CwVersion,CwDevice,self.app.Gmachid,[self.app.userinfo.userid length]>0?self.app.userinfo.userid:@""];
+        }
+        webviewcustom.strurl = strurl;
+        [self.navigationController pushViewController:webviewcustom animated:YES];
+    }
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
@@ -420,10 +448,14 @@
 	NSLog(@"%@",navigationAction.request.URL.absoluteString);
 	NSString *requestString = navigationAction.request.URL.absoluteString;
 	
+    
 	if((webviewtype == EnWebViewSingle)||([requestString rangeOfString:@"cw_redirect=true"].location !=NSNotFound))
 	{
-		
-		if(([requestString rangeOfString:@"cw_user_id"].location ==NSNotFound)&&([requestString rangeOfString:@"cw_machine_id"].location == NSNotFound))
+		if(([requestString rangeOfString:@"favicon"].location !=NSNotFound))
+        {
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }
+		else if(([requestString rangeOfString:@"cw_user_id"].location ==NSNotFound)&&([requestString rangeOfString:@"cw_machine_id"].location == NSNotFound))
 		{
 			decisionHandler(WKNavigationActionPolicyCancel);
 			if([requestString rangeOfString:@"?"].location !=NSNotFound)
@@ -878,10 +910,10 @@
 	UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
 	
 	//创建网页内容对象
-	NSString* thumbURL =  [dicfrom objectForKey:@"pic_path"];
+	NSString* thumbURL =  [dicfrom objectForKey:@"share_pic_path"];
 	UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:[dicfrom objectForKey:@"title"] descr:[dicfrom objectForKey:@"summary"] thumImage:thumbURL];
 	//设置网页地址
-	shareObject.webpageUrl = [dicfrom objectForKey:@"url"];
+	shareObject.webpageUrl = [dicfrom objectForKey:@"share_url"];
 	
 	//分享消息对象设置分享内容对象
 	messageObject.shareObject = shareObject;
@@ -896,6 +928,29 @@
 			if ([data isKindOfClass:[UMSocialShareResponse class]])
 			{
 				UMSocialShareResponse *resp = data;
+                NSString *sharetype;
+                if(platformType==UMSocialPlatformType_Sina)
+                {
+                    sharetype = @"sina";
+                }
+                else if(platformType==UMSocialPlatformType_WechatSession)
+                {
+                    sharetype = @"wechat";
+                }
+                else if(platformType==UMSocialPlatformType_WechatTimeLine)
+                {
+                    sharetype = @"wxcircle";
+                }
+                else if(platformType==UMSocialPlatformType_QQ)
+                {
+                    sharetype = @"qq";
+                }
+                else if(platformType==UMSocialPlatformType_Qzone)
+                {
+                    sharetype = @"qzone";
+                }
+                
+                [self getShareInfoCallBack:[dicfrom objectForKey:@"cw_id"] ShareType:sharetype];
 				//分享结果消息
 				UMSocialLogInfo(@"response message is %@",resp.message);
 				//第三方原始返回的数据
@@ -945,7 +1000,7 @@
 -(void)getShareInfo:(NSString *)sender
 {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
-	params[@"jwt"] = sender;
+	params[@"cw_id"] = sender;
 	
 	
 	[RequestInterface doGetJsonWithParametersNoAn:params App:self.app ReqUrl:InterfaceShare ShowView:self.app.window alwaysdo:^{
@@ -965,6 +1020,30 @@
 		[MBProgressHUD showError:@"请求失败,请检查网络" toView:self.view];
 
 	}];
+}
+
+-(void)getShareInfoCallBack:(NSString *)sender ShareType:(NSString *)sharetype
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"cw_id"] = sender;
+    params[@"cw_type"] = sharetype;
+    
+    [RequestInterface doGetJsonWithParametersNoAn:params App:self.app ReqUrl:InterfaceShareCallBack ShowView:self.app.window alwaysdo:^{
+        
+    } Success:^(NSDictionary *dic) {
+        DLog(@"dic====%@",dic);
+        if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+        {
+            
+        }
+        else
+        {
+            [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:self.app.window];
+        }
+    } Failur:^(NSString *strmsg) {
+        [MBProgressHUD showError:@"请求失败,请检查网络" toView:self.view];
+        
+    }];
 }
 
 -(void)uploadpic:(NSArray *)sender
@@ -993,6 +1072,32 @@
 		 [MBProgressHUD showError:@"请求失败,请检查网络" toView:self.app.window];
 	 }];
 }
+
+#pragma mark 控制屏幕旋转
+// 进入全屏
+-(void)begainFullScreen
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.allowRotation = YES;
+}
+// 退出全屏
+-(void)endFullScreen
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.allowRotation = NO;
+    
+    //强制归正：
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        SEL selector = NSSelectorFromString(@"setOrientation:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:[UIDevice currentDevice]];
+        int val =UIInterfaceOrientationPortrait;
+        [invocation setArgument:&val atIndex:2];
+        [invocation invoke];
+    }
+}
+
 
 
 #pragma mark - UMSocialShareMenuViewDelegate

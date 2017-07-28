@@ -38,9 +38,6 @@
 		081152B11E5E8150005BC84E /* haveapplication.png in Resources */ = {isa = PBXBuildFile; fileRef = 081152AB1E5E8150005BC84E /* haveapplication.png */; };
 		081152B21E5E8150005BC84E /* haveapplication@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 081152AC1E5E8150005BC84E /* haveapplication@2x.png */; };
 		081152B31E5E8150005BC84E /* haveapplication@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 081152AD1E5E8150005BC84E /* haveapplication@3x.png */; };
-		081152B81E5E92B5005BC84E /* 查看次数.png in Resources */ = {isa = PBXBuildFile; fileRef = 081152B51E5E92B5005BC84E /* 查看次数.png */; };
-		081152B91E5E92B5005BC84E /* 查看次数@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 081152B61E5E92B5005BC84E /* 查看次数@2x.png */; };
-		081152BA1E5E92B5005BC84E /* 查看次数@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 081152B71E5E92B5005BC84E /* 查看次数@3x.png */; };
 		08130A7E1E7B74FD00314309 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08130A7D1E7B74FD00314309 /* SearchViewController.m */; };
 		08150CEE1EDFC1D200B77D31 /* ARVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08150CED1EDFC1D200B77D31 /* ARVideoViewController.m */; };
 		08150CF21EDFC49900B77D31 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08150CF11EDFC49900B77D31 /* GLKit.framework */; };
@@ -640,6 +637,9 @@
 		74C7E8531F28477300EEC32E /* QQicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74C7E84A1F28477300EEC32E /* QQicon@3x.png */; };
 		74C7E8561F288CBD00EEC32E /* ForGetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C7E8551F288CBD00EEC32E /* ForGetPwdViewController.m */; };
 		74F8B2F71F15B80D00EFA513 /* FocusApplicationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F8B2F61F15B80D00EFA513 /* FocusApplicationView.m */; };
+		74FC0DD81F298A5900DFE0A5 /* 点击次数查看.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FC0DD51F298A5800DFE0A5 /* 点击次数查看.png */; };
+		74FC0DD91F298A5900DFE0A5 /* 点击次数查看@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FC0DD61F298A5900DFE0A5 /* 点击次数查看@2x.png */; };
+		74FC0DDA1F298A5900DFE0A5 /* 点击次数查看@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FC0DD71F298A5900DFE0A5 /* 点击次数查看@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -695,9 +695,6 @@
 		081152AB1E5E8150005BC84E /* haveapplication.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haveapplication.png; sourceTree = "<group>"; };
 		081152AC1E5E8150005BC84E /* haveapplication@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "haveapplication@2x.png"; sourceTree = "<group>"; };
 		081152AD1E5E8150005BC84E /* haveapplication@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "haveapplication@3x.png"; sourceTree = "<group>"; };
-		081152B51E5E92B5005BC84E /* 查看次数.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "查看次数.png"; sourceTree = "<group>"; };
-		081152B61E5E92B5005BC84E /* 查看次数@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "查看次数@2x.png"; sourceTree = "<group>"; };
-		081152B71E5E92B5005BC84E /* 查看次数@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "查看次数@3x.png"; sourceTree = "<group>"; };
 		08130A7C1E7B74FD00314309 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		08130A7D1E7B74FD00314309 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		08150CEC1EDFC1D200B77D31 /* ARVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARVideoViewController.h; sourceTree = "<group>"; };
@@ -1643,6 +1640,9 @@
 		74C7E8551F288CBD00EEC32E /* ForGetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForGetPwdViewController.m; sourceTree = "<group>"; };
 		74F8B2F51F15B80D00EFA513 /* FocusApplicationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FocusApplicationView.h; sourceTree = "<group>"; };
 		74F8B2F61F15B80D00EFA513 /* FocusApplicationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FocusApplicationView.m; sourceTree = "<group>"; };
+		74FC0DD51F298A5800DFE0A5 /* 点击次数查看.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "点击次数查看.png"; sourceTree = "<group>"; };
+		74FC0DD61F298A5900DFE0A5 /* 点击次数查看@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "点击次数查看@2x.png"; sourceTree = "<group>"; };
+		74FC0DD71F298A5900DFE0A5 /* 点击次数查看@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "点击次数查看@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3622,6 +3622,9 @@
 		08EA5E641E56F8870075D3FF /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				74FC0DD51F298A5800DFE0A5 /* 点击次数查看.png */,
+				74FC0DD61F298A5900DFE0A5 /* 点击次数查看@2x.png */,
+				74FC0DD71F298A5900DFE0A5 /* 点击次数查看@3x.png */,
 				74C7E8411F28475700EEC32E /* 账户 */,
 				7401C5541F25EA6E00E2BA06 /* 应用列表 */,
 				08A430E61EADDEF600695876 /* 扫码 */,
@@ -3637,9 +3640,6 @@
 				08F7A1CD1E640582004E51A5 /* arrowleft.png */,
 				08F7A1CE1E640582004E51A5 /* arrowleft@2x.png */,
 				08F7A1CF1E640582004E51A5 /* arrowleft@3x.png */,
-				081152B51E5E92B5005BC84E /* 查看次数.png */,
-				081152B61E5E92B5005BC84E /* 查看次数@2x.png */,
-				081152B71E5E92B5005BC84E /* 查看次数@3x.png */,
 				0844B5571E70F9A4006EA3F0 /* noimage.png */,
 				0844B5581E70F9A4006EA3F0 /* noimage@2x.png */,
 				0844B5591E70F9A4006EA3F0 /* noimage@3x.png */,
@@ -4200,7 +4200,7 @@
 				TargetAttributes = {
 					0838F73A1E514495007FE55A = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 3WM5GK364D;
+						DevelopmentTeam = 6M9E39S5MB;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -4245,10 +4245,10 @@
 				083E31D61EA5AD6F008728AD /* mianView.png in Resources */,
 				081DDE521EA7479C00263B52 /* brokeaudioicon@2x.png in Resources */,
 				082476AC1E72A425007C530E /* 购物车.png in Resources */,
-				081152B81E5E92B5005BC84E /* 查看次数.png in Resources */,
 				08171C4C1E5AE9870005B0C5 /* arrowdown.png in Resources */,
 				0844B55B1E70F9A4006EA3F0 /* noimage@2x.png in Resources */,
 				08EA5EAB1E5700840075D3FF /* addappicon@2x.png in Resources */,
+				74FC0DDA1F298A5900DFE0A5 /* 点击次数查看@3x.png in Resources */,
 				08EA5EAC1E5700840075D3FF /* addappicon@3x.png in Resources */,
 				083E31561EA5AD6E008728AD /* chat_ic_delete_press.png in Resources */,
 				08A4313B1EADF36B00695876 /* QRCode选中icon.png in Resources */,
@@ -4297,7 +4297,6 @@
 				74AE4A8B1F21D96200994C4D /* index.css in Resources */,
 				081DDE531EA7479C00263B52 /* brokeaudioicon@3x.png in Resources */,
 				74C7E84D1F28477300EEC32E /* 微博icon@3x.png in Resources */,
-				081152BA1E5E92B5005BC84E /* 查看次数@3x.png in Resources */,
 				74C7E8531F28477300EEC32E /* QQicon@3x.png in Resources */,
 				0838F9B61E514820007FE55A /* dropdown_loading1_01@3x.png in Resources */,
 				7401C5601F25EBEE00E2BA06 /* 添加gray@3x.png in Resources */,
@@ -4458,7 +4457,6 @@
 				08A4313A1EADF36B00695876 /* AR未选中icon@3x.png in Resources */,
 				083E31BF1EA5AD6F008728AD /* liaotian_ic_biaoqing_nor@2x.png in Resources */,
 				08F7A2181E641F49004E51A5 /* my_购物车icon@3x.png in Resources */,
-				081152B91E5E92B5005BC84E /* 查看次数@2x.png in Resources */,
 				0838F74B1E514495007FE55A /* Assets.xcassets in Resources */,
 				08A431381EADF36B00695876 /* AR未选中icon.png in Resources */,
 				74AE4A7E1F219FD900994C4D /* img_face02.png in Resources */,
@@ -4481,6 +4479,7 @@
 				08F7A2301E642BC5004E51A5 /* arrowleftred@2x.png in Resources */,
 				08F7A1E11E640836004E51A5 /* my_评论icon@2x.png in Resources */,
 				08A4313D1EADF36B00695876 /* QRCode选中icon@3x.png in Resources */,
+				74FC0DD91F298A5900DFE0A5 /* 点击次数查看@2x.png in Resources */,
 				083E31551EA5AD6E008728AD /* chat_ic_delete_nor.png in Resources */,
 				08F7A1E81E640836004E51A5 /* my_问吧icon@3x.png in Resources */,
 				083E31CB1EA5AD6F008728AD /* liaotian_ic_jianpan_nor@2x.png in Resources */,
@@ -4526,6 +4525,7 @@
 				0838F9921E514820007FE55A /* CLBottomCommentView.xib in Resources */,
 				08FFF8D31ED66C9900D32145 /* README.txt in Resources */,
 				082476A61E729DB1007C530E /* dianblack@2x.png in Resources */,
+				74FC0DD81F298A5900DFE0A5 /* 点击次数查看.png in Resources */,
 				08AE617D1E9B646F00CD35BD /* microbg.png in Resources */,
 				08EA5E9B1E56F8870075D3FF /* pagebg4@3x.png in Resources */,
 				74B0D3871F1C4BDC00984D26 /* amazeui.min.css in Resources */,
@@ -4910,8 +4910,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = CcwbNews5_0/CcwbNews5_0.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Yunnan Chunwan Media Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3WM5GK364D;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yunnan Chunwan Media Co., Ltd.";
+				DEVELOPMENT_TEAM = 6M9E39S5MB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4973,10 +4973,10 @@
 					"$(PROJECT_DIR)/CcwbNews5_0/Custom/CommLib/微信支付/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ccwbnewsapp.one;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ccwbnewstest.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3999bf14-ecd8-46d7-b269-b64180df4701";
-				PROVISIONING_PROFILE_SPECIFIER = ccwbnewsapp;
+				PROVISIONING_PROFILE = "450d6c9f-5912-4197-99cf-897a720aa6fa";
+				PROVISIONING_PROFILE_SPECIFIER = ccwbnewstestinhourse;
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Debug;
@@ -4988,8 +4988,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = CcwbNews5_0/CcwbNews5_0.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Yunnan Chunwan Media Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3WM5GK364D;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yunnan Chunwan Media Co., Ltd.";
+				DEVELOPMENT_TEAM = 6M9E39S5MB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5051,10 +5051,10 @@
 					"$(PROJECT_DIR)/CcwbNews5_0/Custom/CommLib/微信支付/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ccwbnewsapp.one;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ccwbnewstest.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3999bf14-ecd8-46d7-b269-b64180df4701";
-				PROVISIONING_PROFILE_SPECIFIER = ccwbnewsapp;
+				PROVISIONING_PROFILE = "450d6c9f-5912-4197-99cf-897a720aa6fa";
+				PROVISIONING_PROFILE_SPECIFIER = ccwbnewstestinhourse;
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Release;

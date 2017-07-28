@@ -68,15 +68,17 @@
 	}
 	heightnow = heightnow+40+5+20+10;
 	
-	UIButton *buttonarrow = [UIButton buttonWithType:UIButtonTypeCustom];
-	buttonarrow.layer.borderColor = [UIColor clearColor].CGColor;
-	buttonarrow.frame= CGRectMake((SCREEN_WIDTH-40)/2,heightnow, 40, 30);
-	[buttonarrow setImage:LOADIMAGE(@"arrowdown", @"png") forState:UIControlStateNormal];
-	[buttonarrow addTarget:self action:@selector(foldedfunction:) forControlEvents:UIControlEventTouchUpInside];
-	[self addSubview:buttonarrow];
-	buttonarrow.backgroundColor = [UIColor clearColor];
-	heightnow = heightnow+buttonarrow.frame.size.height+10;
-	
+    if(countfocus>4)
+    {
+        UIButton *buttonarrow = [UIButton buttonWithType:UIButtonTypeCustom];
+        buttonarrow.layer.borderColor = [UIColor clearColor].CGColor;
+        buttonarrow.frame= CGRectMake((SCREEN_WIDTH-40)/2,heightnow, 40, 30);
+        [buttonarrow setImage:LOADIMAGE(@"arrowdown", @"png") forState:UIControlStateNormal];
+        [buttonarrow addTarget:self action:@selector(foldedfunction:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:buttonarrow];
+        buttonarrow.backgroundColor = [UIColor clearColor];
+        heightnow = heightnow+buttonarrow.frame.size.height+10;
+    }
 	self.frame = CGRectMake(0, 0, SCREEN_WIDTH, heightnow);
 	
 }

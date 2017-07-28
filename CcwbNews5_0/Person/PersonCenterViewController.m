@@ -94,7 +94,7 @@
 {
 	if([AddInterface judgeislogin])
 	{
-		[self gotowkwebview:URLInfoSetHtml URLType:URLUserHeader];
+		[self gotowkwebview:URLInfoSetHtml URLType:URLHeader];
 	}
 	else
 	{
@@ -113,15 +113,15 @@
 	switch (sender)
 	{
 		case 0://收藏
-			[self gotowkwebview:URLUserCollection URLType:URLUserHeader];
+			[self gotowkwebview:URLUserCollection URLType:URLHeader];
 			break;
 		case 1://评论
-			[self gotowkwebview:URLUserMyReview URLType:URLUserHeader];
+			[self gotowkwebview:URLUserMyReview URLType:URLHeader];
 			break;
 		case 2://问吧
-		//	askbroke = [[AskBrokeViewController alloc] init];
-		//	nctl = [[UINavigationController alloc] initWithRootViewController:askbroke];
-		//	[self.navigationController presentViewController:nctl animated:YES completion:nil];
+			askbroke = [[AskBrokeViewController alloc] init];
+			nctl = [[UINavigationController alloc] initWithRootViewController:askbroke];
+			[self.navigationController presentViewController:nctl animated:YES completion:nil];
 			break;
 		case 3://应用
             appmanger = [[ApplicationMangerViewController alloc] init];
@@ -326,13 +326,13 @@
 	switch (indexPath.row)
 	{
 		case 0://历史
-			[self gotowkwebview:URLUserReadHistory URLType:URLUserHeader];
+			[self gotowkwebview:URLUserReadHistory URLType:URLHeader];
 			break;
 		case 1://通知
-			[self gotowkwebview:URLUsernotification URLType:URLUserHeader];
+			[self gotowkwebview:URLUsernotification URLType:URLHeader];
 			break;
 		case 2: //卡券
-			[self gotowkwebview:URLKaQuanHtml URLType:URLUserHeader];
+			[self gotowkwebview:URLKaQuanHtml URLType:URLHeader];
 			break;
 		case 3://购物车
 			[self gotowkwebview:URLShopCart URLType:URLShopHeader];

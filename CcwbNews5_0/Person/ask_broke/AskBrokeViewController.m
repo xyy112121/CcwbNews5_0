@@ -17,9 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
-		self.edgesForExtendedLayout = UIRectEdgeNone;
-	}
+//	if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+//		self.edgesForExtendedLayout = UIRectEdgeNone;
+//	}
 	[self.navigationController setNavigationBarHidden:NO];
 	[self.navigationController.navigationBar setBarTintColor:Colorredcolor];
 	UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(2, 5, 40, 40)];
@@ -28,6 +28,8 @@
 	[button setImage:LOADIMAGE(@"arrowleft", @"png") forState:UIControlStateNormal];
 	button.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
 	
+    app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
 	[button addTarget:self action: @selector(returnback) forControlEvents: UIControlEventTouchUpInside];
 	[contentView addSubview:button];
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contentView];
@@ -60,7 +62,7 @@
 - (void)settingScrollView
 {
 	NSString *str = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",URLAskQuestViewHtml,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-	str = [URLHTTPHeader stringByAppendingString:str];
+	str = [URLHeader stringByAppendingString:str];
 	WkWebViewCustomView *askview = [[WkWebViewCustomView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) StrUrl:str];
 
 	brokeview = [[BrokeTableView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH,0,SCREEN_WIDTH, SCREEN_HEIGHT-64)];
@@ -90,7 +92,6 @@
 	app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	self.view.backgroundColor = COLORNOW(240, 240, 240);
 	[self settingSegment];
-
 }
 
 
@@ -306,20 +307,21 @@
 -(void)uploadpic:(NSArray *)sender
 {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
-	[params setObject:@"ccwb_app" forKey:@"project"];
+	[params setObject:@"app" forKey:@"project"];
 	[params setObject:@"broke" forKey:@"module"];
-	
-	[RequestInterface doGetJsonWithArraypic:sender Parameter:params App:app ReqUrl:InterfaceBrokeUploadImage ShowView:app.window alwaysdo:^{
+	[params setObject:@"image" forKey:@"uploadType"];
+    
+	[RequestInterface doGetJsonWithArraypic:sender Parameter:params App:app ReqUrl:InterfaceBrokeUploadResource ShowView:app.window alwaysdo:^{
 		
 	}
-									Success:^(NSDictionary *dic)
+    Success:^(NSDictionary *dic)
 	 {
 		 DLog(@"dic====%@",dic);
 		 if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		 {
 			 NSDictionary *dicrevice = [dic objectForKey:@"data"];
-			 [self uploadresourceitem:@"" Type:@"2" FileURL:[dicrevice objectForKey:@"path"] FileId:[dicrevice objectForKey:@"id"] TimeLength:@"0" VideoPicPath:[dicrevice objectForKey:@"path"]];
-			 [brokeview sendMessage:[NSString stringWithFormat:@"img[%@]",[dicrevice objectForKey:@"path"]]];
+			 [self uploadresourceitem:@"" Type:@"2" FileURL:[dicrevice objectForKey:@"pic_path_m"] FileId:[dicrevice objectForKey:@"id"] TimeLength:@"0" VideoPicPath:[dicrevice objectForKey:@"pic_path_m"]];
+			 [brokeview sendMessage:[NSString stringWithFormat:@"img[%@]",[dicrevice objectForKey:@"pic_path_m"]]];
 		 }
 		 else
 		 {
@@ -334,11 +336,11 @@
 -(void)uploadvideo:(NSString *)sender
 {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
-	[params setObject:@"ccwb_app" forKey:@"project"];
+	[params setObject:@"app" forKey:@"project"];
 	[params setObject:@"broke" forKey:@"module"];
+    [params setObject:@"video" forKey:@"uploadType"];
 
-
-	[RequestInterface doGetJsonWithvideo:sender Parameter:params App:app ReqUrl:InterfaceBrokeUploadVideo ShowView:app.window alwaysdo:^{
+	[RequestInterface doGetJsonWithvideo:sender Parameter:params App:app ReqUrl:InterfaceBrokeUploadResource ShowView:app.window alwaysdo:^{
 
 	}
 	Success:^(NSDictionary *dic)
@@ -347,8 +349,8 @@
 		 if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		 {
 			 NSDictionary *dicrevice = [dic objectForKey:@"data"];
-			 [self uploadresourceitem:@"" Type:@"3" FileURL:[dicrevice objectForKey:@"path"] FileId:[dicrevice objectForKey:@"id"] TimeLength:@"0" VideoPicPath:[dicrevice objectForKey:@"pic_path"]];
-			 [brokeview sendMessage:[NSString stringWithFormat:@"video[%@]",[dicrevice objectForKey:@"path"]]];
+			 [self uploadresourceitem:@"" Type:@"3" FileURL:[dicrevice objectForKey:@"url"] FileId:[dicrevice objectForKey:@"id"] TimeLength:@"0" VideoPicPath:[dicrevice objectForKey:@"pic_path"]];
+			 [brokeview sendMessage:[NSString stringWithFormat:@"video[%@]",[dicrevice objectForKey:@"url"]]];
 		 }
 		 else
 		 {

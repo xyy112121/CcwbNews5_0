@@ -356,7 +356,7 @@
 			case EnCellTypeFunction:
 				if(entypefoled == EnFolded)
 				{
-					nowheight = 130;
+					nowheight = 90;
 					[arrayheight addObject:[NSString stringWithFormat:@"%f",nowheight]];
 				}
 				else if(entypefoled == EnUnFolded)
@@ -448,13 +448,20 @@
 
 -(void)DGClickHpFunctionView:(NSDictionary *)dicfuncitem
 {
-	if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"proto"])//ar/vr
+	if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"ask"])//ar/vr
 	{
-		
-	}
-	else
+        AskBrokeViewController *askbroke = [[AskBrokeViewController alloc] init];
+        UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:askbroke];
+        [self.navigationController presentViewController:nctl animated:YES completion:nil];	}
+    else if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"ar"])//ar/vr
+    {
+        ScanQRCodeARViewController *scanqrcode = [[ScanQRCodeARViewController alloc] init];
+        UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:scanqrcode];
+        [self.navigationController presentViewController:nctl animated:YES completion:nil];
+    }
+	else if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"url"])
 	{
-		[self gotowkwebview:[dicfuncitem objectForKey:@"pic_path"] StrTitle:[dicfuncitem objectForKey:@"title"]];
+		[self gotowkwebview:[dicfuncitem objectForKey:@"url"] StrTitle:[dicfuncitem objectForKey:@"title"]];
 	}
 }
 
@@ -1089,6 +1096,19 @@
 	
 	
 }
+#pragma mark 转向问题
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+//返回直接支持的方向
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+//返回最优先显示的屏幕方向
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
 
 
 #pragma mark 接口

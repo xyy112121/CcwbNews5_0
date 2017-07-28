@@ -84,12 +84,8 @@
 	[self setExtraCellLineHidden:tableview];
 	[self addSubview:tableview];
 	
-	MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-	header.lastUpdatedTimeLabel.hidden = YES;
-	header.stateLabel.hidden = YES;
-
+    
 	
-	tableview.mj_header = header;
 	
 //	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
 //	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -153,7 +149,7 @@
 	[JMSGMessage sendMessage:message];
 }
 
-//发送消息加调
+//发送消息回调
 - (void)onSendMessageResponse:(JMSGMessage *)message
 						error:(NSError *)error
 {
@@ -163,7 +159,7 @@
 		JMSGCustomContent *textContent = (JMSGCustomContent *)message.content;
 		NSDictionary *msgdic = textContent.customDictionary;
 		DLog(@"message===%@",[msgdic objectForKey:@"content"]);
-		
+        [self resignfirsttextview];
 	}
 	else
 	{
@@ -512,7 +508,7 @@
 		{
 			[arraydata removeAllObjects];
 			[arrayheight removeAllObjects];
-			NSArray *arraytemp = [dic objectForKey:@"brokelist"];
+			NSArray *arraytemp = [dic objectForKey:@"data"];
 			
 			for(int i=(int)[arraytemp count];i>0;i--)
 			{
@@ -547,19 +543,33 @@
 			[tableview reloadData];
 			if([direct isEqualToString:@"foot"])
 			{
-				CGPoint offset = CGPointMake(0, tableview.contentSize.height - tableview.frame.size.height);
-				[tableview setContentOffset:offset animated:YES];
+                if([arrayheight count]>10)
+                {
+                    CGPoint offset = CGPointMake(0, tableview.contentSize.height - tableview.frame.size.height);
+                    [tableview setContentOffset:offset animated:YES];
+                }
 			}
 			else
 				[tableview setContentOffset:CGPointMake(0, 0) animated:YES];
+            
+            if([arrayheight count]>10)
+            {
+            MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+            header.lastUpdatedTimeLabel.hidden = YES;
+            header.stateLabel.hidden = YES;
+            
+            
+            tableview.mj_header = header;
+            }
 		}
 		else
 		{
-			[MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+		//	[MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
 		}
 		[tableview.mj_header endRefreshing];
 	} Failur:^(NSString *strmsg) {
 		[MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
+        [tableview.mj_header endRefreshing];
 		
 	}];
 }
@@ -569,8 +579,10 @@
 {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	[params setObject:[NSString stringWithFormat:@"%d",10] forKey:@"time"];
-	[params setObject:@"ccwb_app" forKey:@"project"];
+    [params setObject:@"audio" forKey:@"uploadType"];
+	[params setObject:@"app" forKey:@"project"];
 	[params setObject:@"broke" forKey:@"module"];
+    
 	[params setObject:CwVersion forKey:@"cw_version"];
 	[params setObject:CwDevice forKey:@"cw_device"];
 	[params setObject:app.Gmachid forKey:@"cw_machine_id"];
@@ -578,7 +590,7 @@
 
 	AFHTTPSessionManager *manager = [RequestInterface getHTTPManager];
 	
-	[manager POST:[URLResouceHeader stringByAppendingString:InterfaceBrokeUploadAudio] parameters:params constructingBodyWithBlock:^(id  _Nonnull formData) {
+	[manager POST:[URLResouceUpLoadHeader stringByAppendingString:InterfaceBrokeUploadResource] parameters:params constructingBodyWithBlock:^(id  _Nonnull formData) {
 		NSURL *url = [NSURL fileURLWithPath:audiopath];
 		NSData *videoData = [NSData dataWithContentsOfURL:url];
 		[formData appendPartWithFileData:videoData name:@"file" fileName:@"audio.mp3" mimeType:@"video/quicktime"];
@@ -600,9 +612,9 @@
 			 NSDictionary *dicrevice = [jsonvalue objectForKey:@"data"];
 			 if([self.deletage1 respondsToSelector:@selector(DGUpLoadBrokeContentItem:FileURL:FileId:Content:TimeLength:)])
 			 {
-				 [self.deletage1 DGUpLoadBrokeContentItem:@"4" FileURL:[dicrevice objectForKey:@"path"] FileId:[dicrevice objectForKey:@"id"] Content:@"" TimeLength:[NSString stringWithFormat:@"%@",[dicrevice objectForKey:@"time"]]];
+				 [self.deletage1 DGUpLoadBrokeContentItem:@"4" FileURL:[dicrevice objectForKey:@"url"] FileId:[dicrevice objectForKey:@"id"] Content:@"" TimeLength:[NSString stringWithFormat:@"%@",[dicrevice objectForKey:@"time"]]];
 			 }
-			 [self sendMessage:[NSString stringWithFormat:@"audio[%@]",[dicrevice objectForKey:@"path"]]];
+			 [self sendMessage:[NSString stringWithFormat:@"audio[%@]",[dicrevice objectForKey:@"url"]]];
 		 }
 		 else
 		 {

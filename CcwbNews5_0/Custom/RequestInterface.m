@@ -67,7 +67,7 @@
 			 always();
 		 }
 		 NSString *str = [[NSString alloc] initWithData:responseObject  encoding:NSUTF8StringEncoding];
-	//	 DLog(@"str====%@",str);
+		 DLog(@"str====%@",str);
 		 
 		 NSDictionary *jsonvalue = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 		 success(jsonvalue);
@@ -169,7 +169,7 @@
 	params[@"cw_machine_id"]= app.Gmachid;
 	params[@"cw_user_id"] = app.userinfo.userid;
 	
-	[manager POST:[URLResouceHeader stringByAppendingString:requrl] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+	[manager POST:[URLResouceUpLoadHeader stringByAppendingString:requrl] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 		
 		for (int i=0;i<[arrayimage count];i++)
 		{
@@ -213,7 +213,7 @@
 //	[app.window addSubview:indicator];
 //	[indicator startAnimating];
 	
-	[manager POST:[URLResouceHeader stringByAppendingString:requrl] parameters:params constructingBodyWithBlock:^(id  _Nonnull formData) {
+	[manager POST:[URLResouceUpLoadHeader stringByAppendingString:requrl] parameters:params constructingBodyWithBlock:^(id  _Nonnull formData) {
 		//对于图片进行压缩
 		NSURL *url = [NSURL fileURLWithPath:videopath];
 		NSData *videoData = [NSData dataWithContentsOfURL:url];

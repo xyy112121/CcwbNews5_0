@@ -97,13 +97,19 @@
 	{
 		labeltime.frame = CGRectMake(labelappname.frame.origin.x, labelappname.frame.origin.y,150, 20);
 	}
-//	if([[dicdata objectForKey:@"tagpic"] length]>0)
-//	{
-//		UIImageView *imagesticky = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width-35, imageclock.frame.origin.y-2, 21, 11)];
-//		[imagesticky setImageWithURL:[NSURL URLWithString:[dicdata objectForKey:@"tagpic"]]];
-//		[self addSubview:imagesticky];
-//	}
-	
+    
+    if([[dicdata objectForKey:@"click_num"] length]>0)
+    {
+        UIImageView *imagelook = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width-70, XYViewTop(labeltime)+6, 14, 8)];
+        imagelook.image = LOADIMAGE(@"点击次数查看", @"png");
+        [self addSubview:imagelook];
+        
+        UILabel *labelnum = [[UILabel alloc] initWithFrame:CGRectMake(XYViewRight(imagelook)+3, XYViewTop(labeltime), 63, 20)];
+        labelnum.text = [dicdata objectForKey:@"click_num"];
+        labelnum.font = FONTN(12.0f);
+        labelnum.textColor = COLORNOW(192, 192, 192);
+        [self addSubview:labelnum];
+    }	
 }
 
 @end

@@ -321,6 +321,7 @@
 	[viewnctl addSubview:subtitle];
 	
 	
+    
     NSString *strname = @"添加";
     for(int i=0;i<[app.arrayaddapplication count];i++)
     {
@@ -330,7 +331,6 @@
             strname = @"打开";
         }
     }
-    
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 	button.frame = CGRectMake(SCREEN_WIDTH-80-50, 9, 70, 26);
 	button.layer.cornerRadius = 13.0f;

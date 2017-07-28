@@ -184,7 +184,7 @@
     DLog(@"cwtoken===%@",self.cwtoken);
     
 	//极光IM JMessage
-//	[self initJMessage:launchOptions];
+	[self initJMessage:launchOptions];
 	//极光推送
 	[self initJPush:launchOptions];
 	//友盟分享

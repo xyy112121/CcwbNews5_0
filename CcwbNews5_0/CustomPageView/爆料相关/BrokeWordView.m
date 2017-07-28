@@ -72,6 +72,7 @@
 	if(fromuser==FromCcwb)
 	{
 		imageviewheader.frame = CGRectMake(10, 10, 40, 40);
+            [imageviewheader setImageWithURL:URLSTRING(app.userinfo.userheader) placeholderImage:LOADIMAGE(@"CWHeader", @"png")];
 		imageviewheader.image  = LOADIMAGE(@"CWHeader", @"png");
 	}
 	else
