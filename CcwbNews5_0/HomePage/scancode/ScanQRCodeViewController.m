@@ -411,13 +411,14 @@
         
         return;
     }
-	if([urlStr rangeOfString:CwQRCodeRule].location !=NSNotFound)//_roaldSearchText
+	if([AddInterface isValidateURL:urlStr])//_roaldSearchText
 	{
-		[self getQRCodeInfo:urlStr];
+        [self gotowkwebview:urlStr];
 	}
 	else
 	{
-		[self donecodevalid:@"不支持此二维码解析"];
+        [self getQRCodeInfoRecord:urlStr];
+        [self getQRCodeInfo:urlStr];
 	}
 	
     NSLog(@"urlStr: %@",urlStr);
@@ -480,37 +481,77 @@
 }
 
 #pragma mark 接口
+//记录扫码
+-(void)getQRCodeInfoRecord:(NSString *)sender
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"cw_content"] = sender;
+    
+    [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceScanCodeRecord ShowView:app.window alwaysdo:^{
+        
+    } Success:^(NSDictionary *dic) {
+        DLog(@"dic====%@",dic);
+        if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+        {
+            
+        }
+        else
+        {
+            [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+        }
+    } Failur:^(NSString *strmsg) {
+        [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
+    }];
+}
+
 -(void)getQRCodeInfo:(NSString *)sender
 {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"cw_content"] = sender;
 	
-	
-	[RequestInterface doGetJsonWithParameterscompleteurl:params App:app ReqUrl:sender ShowView:app.window alwaysdo:^{
-		
-	} Success:^(NSDictionary *dic) {
-		DLog(@"dic====%@",dic);
-		if([[dic objectForKey:@"success"] isEqualToString:@"true"])
-		{
-			if([[dic objectForKey:@"url"] length]>0)
-			{
-				[self gotowkwebview:[dic objectForKey:@"url"]];
-			}
-			else
-			{
-				[MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
-				[self setZBarReaderViewStart];
-			}
-			
-		}
-		else
-		{
-			[MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
-			[self setZBarReaderViewStart];
-		}
-	} Failur:^(NSString *strmsg) {
-		[MBProgressHUD showError:@"请求失败,请检查网络" toView:self.view];
-		[self setZBarReaderViewStart];
-	}];
+    [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceScanCode ShowView:app.window alwaysdo:^{
+        
+    } Success:^(NSDictionary *dic) {
+        DLog(@"dic====%@",dic);
+        if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+        {
+            
+        }
+        else
+        {
+            [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+        }
+    } Failur:^(NSString *strmsg) {
+        [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
+    }];
+
+    
+//	[RequestInterface doGetJsonWithParameterscompleteurl:params App:app ReqUrl:sender ShowView:app.window alwaysdo:^{
+//		
+//	} Success:^(NSDictionary *dic) {
+//		DLog(@"dic====%@",dic);
+//		if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+//		{
+//			if([[dic objectForKey:@"url"] length]>0)
+//			{
+//				[self gotowkwebview:[dic objectForKey:@"url"]];
+//			}
+//			else
+//			{
+//				[MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+//				[self setZBarReaderViewStart];
+//			}
+//			
+//		}
+//		else
+//		{
+//			[MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+//			[self setZBarReaderViewStart];
+//		}
+//	} Failur:^(NSString *strmsg) {
+//		[MBProgressHUD showError:@"请求失败,请检查网络" toView:self.view];
+//		[self setZBarReaderViewStart];
+//	}];
 }
 
 

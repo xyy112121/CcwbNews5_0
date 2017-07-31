@@ -588,6 +588,8 @@
 		7401C55F1F25EBEE00E2BA06 /* 添加gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7401C55C1F25EBEE00E2BA06 /* 添加gray@2x.png */; };
 		7401C5601F25EBEE00E2BA06 /* 添加gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7401C55D1F25EBEE00E2BA06 /* 添加gray@3x.png */; };
 		7401C5641F25EEBA00E2BA06 /* ApplicationAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7401C5631F25EEBA00E2BA06 /* ApplicationAdView.m */; };
+		74090D031F2EBA4900CB0FBE /* WkWebviewTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74090D021F2EBA4900CB0FBE /* WkWebviewTestViewController.m */; };
+		74090D091F2EDE4E00CB0FBE /* StoreWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74090D081F2EDE4E00CB0FBE /* StoreWebViewViewController.m */; };
 		743129501F28281900AB17AC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7431294F1F28281900AB17AC /* LoginViewController.m */; };
 		743129531F28282600AB17AC /* RegiestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743129521F28282600AB17AC /* RegiestViewController.m */; };
 		7435B24E1F1301B700D0454E /* ScanQRCodeARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435B24D1F1301B700D0454E /* ScanQRCodeARViewController.m */; };
@@ -1578,6 +1580,10 @@
 		7401C55D1F25EBEE00E2BA06 /* 添加gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加gray@3x.png"; sourceTree = "<group>"; };
 		7401C5621F25EEBA00E2BA06 /* ApplicationAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationAdView.h; sourceTree = "<group>"; };
 		7401C5631F25EEBA00E2BA06 /* ApplicationAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationAdView.m; sourceTree = "<group>"; };
+		74090D011F2EBA4900CB0FBE /* WkWebviewTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WkWebviewTestViewController.h; sourceTree = "<group>"; };
+		74090D021F2EBA4900CB0FBE /* WkWebviewTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WkWebviewTestViewController.m; sourceTree = "<group>"; };
+		74090D071F2EDE4E00CB0FBE /* StoreWebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreWebViewViewController.h; path = newsdetail/StoreWebViewViewController.h; sourceTree = "<group>"; };
+		74090D081F2EDE4E00CB0FBE /* StoreWebViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreWebViewViewController.m; path = newsdetail/StoreWebViewViewController.m; sourceTree = "<group>"; };
 		7431294E1F28281900AB17AC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7431294F1F28281900AB17AC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		743129511F28282600AB17AC /* RegiestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegiestViewController.h; sourceTree = "<group>"; };
@@ -3995,6 +4001,10 @@
 				083A3CE81E67B7A800D6DC36 /* WkWebViewCustomView.m */,
 				74B0D38F1F1C547C00984D26 /* WkWebViewLocationHtmlViewController.h */,
 				74B0D3901F1C547C00984D26 /* WkWebViewLocationHtmlViewController.m */,
+				74090D011F2EBA4900CB0FBE /* WkWebviewTestViewController.h */,
+				74090D021F2EBA4900CB0FBE /* WkWebviewTestViewController.m */,
+				74090D071F2EDE4E00CB0FBE /* StoreWebViewViewController.h */,
+				74090D081F2EDE4E00CB0FBE /* StoreWebViewViewController.m */,
 			);
 			path = HTMLPage;
 			sourceTree = "<group>";
@@ -4590,6 +4600,7 @@
 				0838F7461E514495007FE55A /* ViewController.mm in Sources */,
 				0873C5641E6038EC007FEC8E /* NSString+MD5Addition.m in Sources */,
 				0838F98C1E514820007FE55A /* FoldAnimation.m in Sources */,
+				74090D091F2EDE4E00CB0FBE /* StoreWebViewViewController.m in Sources */,
 				0838F9851E514820007FE55A /* UIButton+AFNetworking.m in Sources */,
 				08EFD91A1EAD9B2C00B6BD1C /* bitstream.c in Sources */,
 				0838F9B11E514820007FE55A /* MJRefreshGifHeader.m in Sources */,
@@ -4655,6 +4666,7 @@
 				0838FA181E514821007FE55A /* STPhotoKitController.m in Sources */,
 				0838F9AA1E514820007FE55A /* UIViewController+Example.m in Sources */,
 				08EFD92C1EAD9BCE00B6BD1C /* ScanQRCodeViewController.m in Sources */,
+				74090D031F2EBA4900CB0FBE /* WkWebviewTestViewController.m in Sources */,
 				081DDE4D1EA6F70A00263B52 /* BrokeDisplayPicView.m in Sources */,
 				080913881E668588003BA166 /* ZLCWebView.m in Sources */,
 				080C66AB1E54062400970B90 /* GuidePage1.m in Sources */,
@@ -4988,7 +5000,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = CcwbNews5_0/CcwbNews5_0.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Yunnan Chunwan Media Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yunnan Chunwan Media Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 6M9E39S5MB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

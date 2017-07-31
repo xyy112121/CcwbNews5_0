@@ -323,6 +323,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	SettingViewController *setting;
+    StoreWebViewViewController *storewebview;
 	switch (indexPath.row)
 	{
 		case 0://历史
@@ -335,10 +336,14 @@
 			[self gotowkwebview:URLKaQuanHtml URLType:URLHeader];
 			break;
 		case 3://购物车
-			[self gotowkwebview:URLShopCart URLType:URLShopHeader];
+            storewebview = [[StoreWebViewViewController alloc] init];
+            storewebview.strfromurl = [NSString stringWithFormat:@"%@",@"#/cart"];
+            [self.navigationController pushViewController:storewebview animated:YES];
 			break;
 		case 4://我的订单
-			[self gotowkwebview:URLShopOrder URLType:URLShopHeader];
+            storewebview = [[StoreWebViewViewController alloc] init];
+            storewebview.strfromurl = [NSString stringWithFormat:@"%@",@"#/order"];
+            [self.navigationController pushViewController:storewebview animated:YES];
 			break;
 //		case 5://活动
 //			[self gotowkwebview:URLUserActivityList URLType:URLUserHeader];

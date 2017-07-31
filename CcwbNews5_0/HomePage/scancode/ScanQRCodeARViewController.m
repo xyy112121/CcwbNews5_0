@@ -22,6 +22,22 @@
 
 @implementation ScanQRCodeARViewController
 
+-(void)gotowkwebview:(NSString *)str
+{
+    WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
+    NSString *requeststring = str;
+    if([requeststring rangeOfString:@"?"].location !=NSNotFound)
+    {
+        requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
+    }
+    else
+    {
+        requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
+    }
+    webviewcustom.strurl = requeststring;
+    [self.navigationController pushViewController:webviewcustom animated:YES];
+}
+
 -(void)returnback:(id)sender
 {
     [self closeglview];
@@ -30,9 +46,14 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    [_manager SG_startRunning];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -103,6 +124,7 @@
     [self.scanningView addTimer];
     [self setupNavigationBar];
     scanstatus = EnQRCode;
+    app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (SGQRCodeScanningView *)scanningView {
@@ -252,13 +274,15 @@
 }
 - (void)QRCodeAlbumManager:(SGQRCodeAlbumManager *)albumManager didFinishPickingMediaWithResult:(NSString *)result {
     DLog(@"nsssss===%@",result);
-    if ([result hasPrefix:@"http"]) {
-        
-        
-    } else
+    if([AddInterface isValidateURL:result])//_roaldSearchText
+    {
+        [self gotowkwebview:result];
+    }
+    else
     {
         
-            }
+        [self getQRCodeInfo:result];
+    }
 }
 
 #pragma mark - - - SGQRCodeScanManagerDelegate
@@ -272,27 +296,71 @@
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
         DLog(@"sdfasdfasfdasf===%@",[obj stringValue]);
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否确定删除此应用" preferredStyle: UIAlertControllerStyleAlert];
+        NSString *urlstr = [obj stringValue];
         
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //点击按钮的响应事件；
+        [self getQRCodeInfoRecord:urlstr];
+        
+        if([AddInterface isValidateURL:urlstr])//_roaldSearchText
+        {
+            [self gotowkwebview:urlstr];
+        }
+        else
+        {
             
-        }]];
+            [self getQRCodeInfo:urlstr];
+        }
         
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //点击按钮的响应事件；
-            [scanManager SG_startRunning];
-        }]];
-        
-        [self presentViewController:alert animated:true completion:nil];
-        
-//        AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
-//        ScanSuccessJumpVC *jumpVC = [[ScanSuccessJumpVC alloc] init];
-//        jumpVC.jump_URL = [obj stringValue];
-//        [self.navigationController pushViewController:jumpVC animated:YES];
     } else {
         NSLog(@"暂未识别出扫描的二维码");
     }
+}
+
+#pragma mark 接口
+//记录扫码
+-(void)getQRCodeInfoRecord:(NSString *)sender
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"cw_content"] = sender;
+    
+    [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceScanCodeRecord ShowView:app.window alwaysdo:^{
+        
+    } Success:^(NSDictionary *dic) {
+        DLog(@"dic====%@",dic);
+        if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+        {
+            
+        }
+        else
+        {
+            [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+        }
+    } Failur:^(NSString *strmsg) {
+        [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
+    }];
+}
+
+-(void)getQRCodeInfo:(NSString *)sender
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"cw_content"] = sender;
+    
+    [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceScanCode ShowView:app.window alwaysdo:^{
+        
+    } Success:^(NSDictionary *dic) {
+        DLog(@"dic====%@",dic);
+        [_manager SG_startRunning];
+        if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+        {
+            [MBProgressHUD showSuccess:[dic objectForKey:@"msg"] toView:app.window];
+        }
+        else
+        {
+            [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+        }
+    } Failur:^(NSString *strmsg) {
+        [_manager SG_startRunning];
+        [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -31,8 +31,8 @@
 #define InterfaceUserVerifyCode   @"/api/user/send_verifycode_register.html" //获取验证码
 #define InterfaceUserForgetPwdVerifyCode @"/api/user/send_verifycode_findpwd.html"  //忘记密码验证码
 #define InterfaceUserModifyPwd @"/api/user/password_modify.html"  //忘记密码验证码
-
-
+#define InterfaceScanCodeRecord  @"/api/AppApi/scanRecord.html"  //扫码请求接口
+#define InterfaceScanCode  @"/api/AppApi/scan.html" //扫码
 
 #define URLUserCollection @"/apppage/AppUser/collect.html"   //收藏
 #define URLInfoSetHtml   @"/apppage/AppUser/manage.html"//个人信息设置

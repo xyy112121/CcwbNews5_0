@@ -92,14 +92,6 @@
 
 - (void)initWKWebView
 {
-//    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);";
-//    
-//    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-//    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
-//    [wkUController addUserScript:wkUScript];
-    
-
-    
 	userContentController = [[WKUserContentController alloc] init];
 	WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
 //    configuration.allowsInlineMediaPlayback = YES;
@@ -123,6 +115,7 @@
 	[userContentController addScriptMessageHandler:self name:@"cwOrderInfo"];//支付发起
 	[userContentController addScriptMessageHandler:self name:@"cwHeadBarConfig"];//获取导航 栏信息
 	[userContentController addScriptMessageHandler:self name:@"getiostoke"];
+    [userContentController addScriptMessageHandler:self name:@"ShowNewsDetail"];
 	
 	WKPreferences *preferences = [WKPreferences new];
 	preferences.javaScriptCanOpenWindowsAutomatically = YES;
@@ -173,13 +166,14 @@
 		strongSelf.wkwebview.UIDelegate = self;
 		[strongSelf.view addSubview:self.wkwebview];
 		
-		UIScrollView *scroller = [strongSelf.wkwebview.subviews objectAtIndex:0];
-		if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
-		{
-			scroller.bounces = NO;
-			scroller.alwaysBounceVertical = NO;
-			scroller.alwaysBounceHorizontal = NO;
-		}
+//		UIScrollView *scroller = [strongSelf.wkwebview.subviews objectAtIndex:0];
+//		if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
+//		{
+//			scroller.bounces = NO;
+//			scroller.alwaysBounceVertical = NO;
+//			scroller.alwaysBounceHorizontal = NO;
+//		}
+        
 		YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
 		imageViewgif.tag = EnYLImageViewTag;
 		imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
@@ -187,14 +181,16 @@
 	}];
 	
 	self.wkwebview.backgroundColor = [UIColor clearColor];
-	self.wkwebview.scrollView.showsVerticalScrollIndicator = NO;
-	self.wkwebview.scrollView.showsHorizontalScrollIndicator = NO;
+    self.wkwebview.scrollView.bounces =YES;
+	self.wkwebview.scrollView.showsVerticalScrollIndicator = YES;
+	self.wkwebview.scrollView.showsHorizontalScrollIndicator = YES;
+    self.wkwebview.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0,  0, 0);
 	UIScrollView *scroller = [self.wkwebview.subviews objectAtIndex:0];
 	if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
 	{
-		scroller.bounces = NO;
-		scroller.alwaysBounceVertical = NO;
-		scroller.alwaysBounceHorizontal = NO;
+		scroller.bounces = YES;
+		scroller.alwaysBounceVertical = YES;
+		scroller.alwaysBounceHorizontal = YES;
 	}
 
 }
@@ -223,6 +219,7 @@
 	[userContentController removeScriptMessageHandlerForName:@"setWebviewWindows"];
 	[userContentController removeScriptMessageHandlerForName:@"cwOrderInfo"];
 	[userContentController removeScriptMessageHandlerForName:@"cwHeadBarConfig"];
+    [userContentController removeScriptMessageHandlerForName:@"ShowNewsDetail"];
 }
 
 #pragma mark 滑动事件

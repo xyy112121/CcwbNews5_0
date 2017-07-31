@@ -222,6 +222,13 @@
     return [emailTest evaluateWithObject:email];
 }
 
++(BOOL)isValidateURL:(NSString *)urlstr
+{
+    NSString *regulaStr = @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regulaStr];
+    return [emailTest evaluateWithObject:urlstr];
+}
+
 +(float)fileSizeAtPath:(NSString *)path{
 	NSFileManager *fileManager=[NSFileManager defaultManager];
 	if([fileManager fileExistsAtPath:path]){

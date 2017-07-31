@@ -93,13 +93,17 @@
     
     
     
-    NSString* urlpath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSURL *url = [NSURL fileURLWithPath:urlpath];
-    [self.wkwebview loadFileURL:url allowingReadAccessToURL:url];
-//    NSURL *url = [NSURL URLWithString:@"https://minisite.msxiaobing.com/ChunCheng/"];
+    NSString* urlpath = [[NSBundle mainBundle] pathForResource:@"index.html#/goodsinfo?goods_id=35&_k=f83ykj" ofType:@""];
+    
+    NSURL *url1 = [NSURL fileURLWithPath:urlpath];
+    
+//    urlpath = [urlpath stringByAppendingString:@""];
+//    NSString *fileHtml = [NSString stringWithFormat:@"file://%@",[urlpath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//    DLog(@"filehtml====%@",fileHtml);
+//    NSURL *url = [NSURL fileURLWithPath:fileHtml];
+    [self.wkwebview loadFileURL:url1 allowingReadAccessToURL:url1];
     self.wkwebview.navigationDelegate = self;
     self.wkwebview.UIDelegate = self;
-//    [self.wkwebview loadRequest:[NSURLRequest requestWithURL:url]];
     [self.view addSubview:self.wkwebview];
     
 }
@@ -173,7 +177,11 @@
 {
    CGFloat sizeHeight = webView.scrollView.contentSize.height;
     DLog(@"sizeheight====%f",sizeHeight);
-    
+
+//    NSString* urlpath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+//    urlpath = [NSString stringWithFormat:@"%@%@",urlpath,@"#/order"];
+//    NSURL *url = [NSURL fileURLWithPath:urlpath];
+//    [self.wkwebview loadFileURL:url allowingReadAccessToURL:url];
     if(reloadflag == 0)
     {
         DLog(@"app.token====%@",self.app.cwtoken);
@@ -187,7 +195,7 @@
 
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView
 {
-    [self.wkwebview reload];
+    
 }
 
 // 页面加载失败时调用
@@ -220,6 +228,9 @@
 {
     DLog(@"3453453");
     NSLog(@"%@",navigationAction.request.URL.absoluteString);
+    NSString *requestString = navigationAction.request.URL.absoluteString;
+   
+//    DLog(@"request====%@",urlpath);
 //    NSString *requestString = navigationAction.request.URL.absoluteString;
     decisionHandler(WKNavigationActionPolicyAllow);
  

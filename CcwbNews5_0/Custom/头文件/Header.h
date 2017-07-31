@@ -9,7 +9,6 @@
 
 #define URLResouceUpLoadHeader @"http://res.ccwb.cn/"
 
-
 //用户中心
 #define URLInterFaceHeader  @"http://newuser.ccwb.cn/"
 //#define URLInterFaceHeader @"http://172.16.5.45/UserApp/public"

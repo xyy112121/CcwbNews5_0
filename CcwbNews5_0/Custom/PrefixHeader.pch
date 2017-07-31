@@ -122,6 +122,8 @@
 #import "LoginViewController.h"
 #import "RegiestViewController.h"
 #import "ForGetPwdViewController.h"
+#import "WkWebviewTestViewController.h"
+#import "StoreWebViewViewController.h"
 #endif /* PrefixHeader_pch */
 
 /**

@@ -35,6 +35,7 @@
 + (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)size;
 +(float)folderSizeAtPath:(NSString *)path;
 +(void)clearCache:(NSString *)path;
++(BOOL)isValidateURL:(NSString *)urlstr;
 +(BOOL) isValidatenumber:(NSString *)mobile;
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 //获取str的size

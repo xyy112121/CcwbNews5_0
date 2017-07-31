@@ -204,7 +204,7 @@
 -(void)loadNewData
 {
     nowpage = 1;
-//    [self gethpapplist:[NSString stringWithFormat:@"%d",nowpage] ChannelId:strchannelid City:app.diliweizhi.dilicity Header:@"YES" CW_Time:@""];
+    [self gethpapplist:[NSString stringWithFormat:@"%d",nowpage] CW_Type:self.fccw_type City:app.diliweizhi.dilicity Header:@"YES" CW_Time:strcw_time];
     YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
     [self.view addSubview:imageViewgif];
     imageViewgif.tag = EnYLImageViewTag;
@@ -215,7 +215,7 @@
 -(void)loadMoreData
 {
     DLog(@"test");
-    
+    [self gethpapplist:[NSString stringWithFormat:@"%d",nowpage] CW_Type:self.fccw_type City:app.diliweizhi.dilicity Header:@"NO" CW_Time:strcw_time];
 //    [self gethpapplist:[NSString stringWithFormat:@"%d",nowpage] ChannelId:strchannelid City:app.diliweizhi.dilicity Header:@"NO" CW_Time:strcw_time];
     YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
     [self.view addSubview:imageViewgif];
@@ -371,8 +371,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dictemp = [arraydata objectAtIndex:indexPath.row];
-    
-    if([[dictemp objectForKey:@"show_type"] isEqualToString:@"LiveVideo"])
+
+    NSString *strurl;
+    if([[dictemp objectForKey:@"show_type"] isEqualToString:@"normal"])
+    {
+        if([[dictemp objectForKey:@"url"] length]>0)
+            strurl = [dictemp objectForKey:@"url"];
+        else
+            strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[dictemp objectForKey:@"id"]];
+        [self gotowkwebview:strurl StrTitle:@"新闻详情"];
+    }
+    else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"more"])//当是显示更我推荐新闻cell是进
+    {
+        NewsListViewController *newslist = [[NewsListViewController alloc] init];
+        newslist.fccw_type = [dictemp objectForKey:@"id"];
+        newslist.fcfromflag = @"2";
+        [self.navigationController pushViewController:newslist animated:YES];
+    }
+    else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"LiveVideo"])
     {
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         
@@ -384,28 +400,25 @@
         LVMovieViewController *videoPlayVC = [LVMovieViewController movieViewControllerWithContentPath:path parameters:parameters];
         [self presentViewController:videoPlayVC animated:YES completion:nil];
     }
+}
+
+#pragma mark actiondelegate代理
+-(void)gotowkwebview:(NSString *)str StrTitle:(NSString *)strtitle
+{
+    WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
+    NSString *requeststring = str;
+    if([requeststring rangeOfString:@"?"].location !=NSNotFound)
+    {
+        requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
+    }
     else
     {
-        
-        WkWebViewLocationHtmlViewController *wkwebview = [[WkWebViewLocationHtmlViewController alloc] init];
-        [self.navigationController pushViewController:wkwebview animated:YES];
-        //		WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
-        //		webviewcustom.delegate1 = self;
-        //		NSString *requeststring = [dictemp objectForKey:@"url"];
-        //		if([requeststring length]>0)
-        //		{
-        //			if([requeststring rangeOfString:@"?"].location !=NSNotFound)
-        //			{
-        //				requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-        //			}
-        //			else
-        //			{
-        //				requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-        //			}
-        //			webviewcustom.strurl = requeststring;
-        //			[self.navigationController pushViewController:webviewcustom animated:YES];
-        //		}
+        requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
     }
+    webviewcustom.delegate1 = self;
+    webviewcustom.strtitle = strtitle;
+    webviewcustom.strurl = requeststring;
+    [self.navigationController pushViewController:webviewcustom animated:YES];
 }
 
 #pragma mark 接口
@@ -427,14 +440,11 @@
         params[@"cw_type"] = cw_type;
     }
     
-    
-    
-    
     [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:posturl ShowView:self.view alwaysdo:^
      {
          
      }
-                                          Success:^(NSDictionary *dic)
+      Success:^(NSDictionary *dic)
      {
          DLog(@"dic====%@",dic);
          if([[dic objectForKey:@"success"] isEqualToString:@"true"])

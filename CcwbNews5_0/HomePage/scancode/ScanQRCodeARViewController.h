@@ -19,6 +19,7 @@
 
 @interface ScanQRCodeARViewController : UIViewController
 {
+    AppDelegate *app;
     EnScanstatus scanstatus;
 }
 @end

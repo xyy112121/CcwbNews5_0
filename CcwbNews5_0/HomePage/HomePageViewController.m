@@ -493,8 +493,11 @@
     }
     else
     {
-        WkWebViewLocationHtmlViewController *wkwebview = [[WkWebViewLocationHtmlViewController alloc] init];
-        [self.navigationController pushViewController:wkwebview animated:YES];
+        StoreWebViewViewController *storewebview = [[StoreWebViewViewController alloc] init];
+        storewebview.strfromurl = [NSString stringWithFormat:@"%@%@",@"#/goodsinfo?goods_id=",[sender objectForKey:@"id"]];
+        [self.navigationController pushViewController:storewebview animated:YES];
+//        WkWebViewLocationHtmlViewController *wkwebview = [[WkWebViewLocationHtmlViewController alloc] init];
+//        [self.navigationController pushViewController:wkwebview animated:YES];
     }
 }
 
@@ -1036,6 +1039,8 @@
         else
             strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[dictemp objectForKey:@"id"]];
         [self gotowkwebview:strurl StrTitle:@"新闻详情"];
+//        WkWebviewTestViewController *webviewtest = [[WkWebviewTestViewController alloc] init];
+//        [self.navigationController pushViewController:webviewtest animated:YES];
     }
     else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"more"])//当是显示更我推荐新闻cell是进
     {
