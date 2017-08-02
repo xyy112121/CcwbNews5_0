@@ -23,19 +23,73 @@
 	return self;
 }
 
-//-(void)clickevent:(UIGestureRecognizer*)sender
-//{
-//	UIView *viewtemp = (UIView *)[sender view];
-//	int tagnow = (int)viewtemp.tag - 900;
-//	if([arraydata count]>tagnow)
-//	{
-//		NSDictionary *dictemp = [arraydata objectAtIndex:tagnow];
-//		if([delegate1 respondsToSelector:@selector(clicknewsarray:)])
-//		{
-//			[delegate1 clicknewsarray:dictemp];
-//		}
-//	}
-//}
+-(id)initWithFrame:(CGRect)frame Dicsrc:(NSDictionary *)dic More:(NSString *)more
+{
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        self.backgroundColor = [UIColor clearColor];
+        dicsrc = dic;
+        [self initviewmore:dicsrc];
+        
+    }
+    return self;
+}
+
+-(void)initviewmore:(NSDictionary *)dic
+{
+    app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    UIImageView *imagebg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 3, SCREEN_WIDTH, self.frame.size.height-3)];
+    imagebg.backgroundColor = [UIColor whiteColor];
+    [self addSubview:imagebg];
+    
+    UILabel *labelgray = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH, 3)];
+    labelgray.backgroundColor = COLORNOW(240, 240, 240);
+    [self addSubview:labelgray];
+    
+    UILabel *labeltypename = [[UILabel alloc] initWithFrame:CGRectMake(15, 11,150, 20)];
+    labeltypename.text = [dicsrc objectForKey:@"type_name"];
+    labeltypename.font = FONTN(16.0f);
+    labeltypename.textColor = COLORNOW(128, 128, 128);
+    [self addSubview:labeltypename];
+    
+    UIButton *buttonmore = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonmore.layer.borderColor = [UIColor clearColor].CGColor;
+    buttonmore.frame = CGRectMake(SCREEN_WIDTH-80, labeltypename.frame.origin.y-2, 75, 24);
+    [buttonmore setTitle:@"更多" forState:UIControlStateNormal];
+    [buttonmore setImage:LOADIMAGE(@"arrowrightred", @"png") forState:UIControlStateNormal];
+    [buttonmore setImageEdgeInsets:UIEdgeInsetsMake(0, 60, 0, 0)];
+    [buttonmore setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    buttonmore.titleLabel.font = FONTN(15.0f);
+    [buttonmore addTarget:self action:@selector(gotomoreandmorenews:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonmore setTitleColor:COLORNOW(128, 128, 128) forState:UIControlStateNormal];
+    [self addSubview:buttonmore];
+    
+    UIImageView *imageline = [[UIImageView alloc] initWithFrame:CGRectMake(15, 40, SCREEN_WIDTH-30, 0.5)];
+    imageline.backgroundColor = COLORNOW(230, 230, 230);
+    [self addSubview:imageline];
+    
+    NSArray *arraydata = [dic objectForKey:@"list"];
+    UIScrollView *scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 170)];
+    scrollview.backgroundColor = [UIColor clearColor];
+    scrollview.showsHorizontalScrollIndicator = NO;
+    scrollview.showsVerticalScrollIndicator = NO;
+    scrollview.contentSize = CGSizeMake(160*[arraydata count]+20, 100);
+    [self addSubview:scrollview];
+    
+    for(int i=0;i<[arraydata count];i++)
+    {
+        NSDictionary *dictemp = [arraydata objectAtIndex:i];
+        UIView *view = [self adddatatoscrollview:dictemp Frame:CGRectMake(10+160*i, 10, 150,scrollview.frame.size.height-20)];
+        
+        view.tag = EnTuZuSaidViewTag+i;
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTappedAd:)];
+        [view addGestureRecognizer:singleTap];
+        
+        [scrollview addSubview:view];
+    }
+}
 
 -(void)initview:(NSDictionary *)dic
 {

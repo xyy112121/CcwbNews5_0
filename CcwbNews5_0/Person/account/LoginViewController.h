@@ -14,4 +14,5 @@
     UITextField *textfieldphone;
     UITextField *textfieldpwd;
 }
+@property(nonatomic,strong)id<ActionDelegate>delegate1;
 @end

@@ -1,9 +1,9 @@
 
 
-//#define URLHeader @"http://172.16.5.30:82/app/public"
+//#define URLHeader @"http://172.16.5.12:82/app/public"
 //接口
-#define URLHeader @"http://newapp.ccwb.cn/"
-
+//#define URLHeader @"http://newapp.ccwb.cn/"
+#define URLHeader @"http://337.ccwb.cn/"
 //资源库n
 #define URLResouceHeader @"http://cwresource.ccwb.cn/"
 
@@ -48,7 +48,7 @@
 #define Tmp_path [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/videos"]
 #define Cache_path [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"]
 #define UserMessage [Cache_path stringByAppendingPathComponent:@"usermessage"]
-#define AddGuidePage1 [Cache_path stringByAppendingPathComponent:@"addguidepage1"]
+#define AddGuidePage1 [Cache_path stringByAppendingPathComponent:@"addguidepage2"]
 #define ApplicationFirstin [Cache_path stringByAppendingPathComponent:@"applicationfirstin"]
 
 #define IOS7 [[[UIDevice currentDevice] systemVersion] floatValue]>6.3?7:6

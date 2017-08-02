@@ -126,6 +126,10 @@
 {
 	[[self.navigationController.navigationBar viewWithTag:EnHpNctlViewTag] removeFromSuperview];
 	[self addnavigateionview];
+    self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
+    app.gnctl = self.navigationController;
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 }
 
 -(void)tableviewcellheight:(NSArray *)arraysrc
@@ -232,90 +236,105 @@
 	[tableview reloadData];
 }
 
--(void)gotowkwebview:(NSString *)str
+
+-(void)DGGotoGoodsDetailView:(NSDictionary *)sender
 {
-	WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
-	NSString *requeststring = str;
-	if([requeststring rangeOfString:@"?"].location !=NSNotFound)
-	{
-		requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-	}
-	else
-	{
-		requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-	}
-	webviewcustom.strurl = requeststring;
-	[self.navigationController pushViewController:webviewcustom animated:YES];
+    
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+    {
+        strurl = [sender objectForKey:@"url"];
+    }
+    else
+    {
+        StoreWebViewViewController *storewebview = [[StoreWebViewViewController alloc] init];
+        storewebview.strfromurl = [NSString stringWithFormat:@"%@%@",@"#/goodsinfo?goods_id=",[sender objectForKey:@"id"]];
+        [self.navigationController pushViewController:storewebview animated:YES];
+    }
 }
 
--(void)DGClickHpFunctionView:(NSDictionary *)dicfuncitem
+-(void)DGClickMoreNewsUrl:(NSDictionary *)moredic
 {
-	if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"proto"])//ar/vr
-	{
-		
-	}
-	else
-	{
-		[self gotowkwebview:[dicfuncitem objectForKey:@"pic_path"]];
-	}
-}
-
--(void)DGGotoPopAdView:(NSString *)popadurl
-{
-	[self gotowkwebview:popadurl];
-	[[app.window viewWithTag:EnPopAdViewTag] removeFromSuperview];
-}
-
--(void)DGClickgotoqrcode:(id)sender
-{
-	ScanQRCodeARViewController *scanqrcode = [[ScanQRCodeARViewController alloc] init];
-	UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:scanqrcode];
-	[self.navigationController presentViewController:nctl animated:YES completion:nil];
-}
-
--(void)DGClickwkwebviewCustomview:(NSString *)clickurl
-{
-	[self gotowkwebview:clickurl];
-}
-
--(void)DGGotoGoodsDetailView:(NSString *)goodsurl
-{
-	[self gotowkwebview:goodsurl];
-}
-
--(void)DGClickMoreNewsUrl:(NSString *)moreurl
-{
-	[self gotowkwebview:moreurl];
+    NSString *strmoreurl = [moredic objectForKey:@"more_url"];
+    if([strmoreurl length]>0)
+    {
+        [self gotowkwebview:strmoreurl StrTitle:@"列表"];
+    }
+    else if([[moredic objectForKey:@"in_type"] isEqualToString:@"biz"])
+    {
+        StoreWebViewViewController *storewebview = [[StoreWebViewViewController alloc] init];
+        storewebview.strfromurl = @"";
+        [self.navigationController pushViewController:storewebview animated:YES];
+    }
+    else
+    {
+        NewsListViewController *newslist = [[NewsListViewController alloc] init];
+        newslist.fccw_type = [moredic objectForKey:@"id"];
+        newslist.fcfromflag = @"1";
+        [self.navigationController pushViewController:newslist animated:YES];
+    }
 }
 
 -(void)DGClickBurstNews:(NSDictionary *)sender
 {
-	[self gotowkwebview:[sender objectForKey:@"url"]];
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"app_name"]];
 }
 
 -(void)DGclickNewsZuPic:(NSDictionary *)sender
 {
-	[self gotowkwebview:[sender objectForKey:@"url"]];
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:@""];
 }
 
 -(void)DGClickSingleTuJipic:(id)sender
 {
-	[self gotowkwebview:[sender objectForKey:@"url"]];
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:@""];
 }
 
 -(void)DGClickActivityPic:(NSDictionary *)sender
 {
-	[self gotowkwebview:[sender objectForKey:@"url"]];
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"title"]];
 }
 
 -(void)DGFocusClickNumberPic:(NSDictionary *)sender
 {
-	[self gotowkwebview:[sender objectForKey:@"url"]];
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:@"焦点新闻详情"];
 }
 
 -(void)DGclickTuJiPic:(NSDictionary *)sender
 {
-	[self gotowkwebview:[sender objectForKey:@"url"]];
+    //	[self gotowkwebview:[sender objectForKey:@"url"]];
+    //    http://172.16.5.37/app/public/apppage/AppPage/detail.html?cw_id=20170720103240V45ZUS
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:@""];
 }
 
 
@@ -340,6 +359,24 @@
 
 
 #pragma mark IBaction
+-(void)gotowkwebview:(NSString *)str StrTitle:(NSString *)strtitle
+{
+    WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
+    NSString *requeststring = str;
+    if([requeststring rangeOfString:@"?"].location !=NSNotFound)
+    {
+        requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
+    }
+    else
+    {
+        requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
+    }
+    webviewcustom.delegate1 = self;
+    webviewcustom.strtitle = strtitle;
+    webviewcustom.strurl = requeststring;
+    [self.navigationController pushViewController:webviewcustom animated:YES];
+}
+
 -(void)clickhotword:(id)sender
 {
 	int tagnow = (int)[(UIButton *)sender tag]-EnSearchHotWordBtTag;
@@ -451,7 +488,7 @@
 			[cell.contentView addSubview:focusnews];
 			break;
 		case EnCellTypeSudden: //突发
-			burstnews = [[BurstNewsView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110) Dicsrc:dictemp];
+			burstnews = [[BurstNewsView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110) Dicsrc:dictemp Sudden:@"more"];
 			burstnews.delegate1 = self;
 			[cell.contentView addSubview:burstnews];
 			break;
@@ -465,12 +502,12 @@
 			[cell.contentView addSubview:moreview];
 			break;
 		case EnCellTypeUrl:
-			urltype = [[URLTypeView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp];
+			urltype = [[URLTypeView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp TypeUrl:@"more"];
 			urltype.delegate1 = self;
 			[cell.contentView addSubview:urltype];
 			break;
 		case EnCellTypeActivity:
-			activitynow = [[ActivityNow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp];
+			activitynow = [[ActivityNow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp TypeActivity:@"more"];
 			activitynow.delegate1 = self;
 			[cell.contentView addSubview:activitynow];
 			break;
@@ -480,12 +517,12 @@
 			[cell.contentView addSubview:apprecommend];
 			break;
 		case EnCellTypeNewsGroup:
-			ccwbnews = [[CcwbNewsSaidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 210) Dicsrc:dictemp];
+			ccwbnews = [[CcwbNewsSaidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 210) Dicsrc:dictemp More:@"more"];
 			ccwbnews.delegate1= self;
 			[cell.contentView addSubview:ccwbnews];
 			break;
 		case EnCellTypePhotoGroup:
-			ccwbtuji = [[TuJiView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp];
+			ccwbtuji = [[TuJiView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp More:@"more"];
 			ccwbtuji.delegate1= self;
 			[cell.contentView addSubview:ccwbtuji];
 			break;
@@ -501,7 +538,7 @@
 			else
 				nowheight = 190;
 			
-			cellview = [[GoodsCellView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, nowheight) Dicsrc:dictemp];
+			cellview = [[GoodsCellView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, nowheight) Dicsrc:dictemp More:@"more"];
 			cellview.delegate1 = self;
 			[cell.contentView addSubview:cellview];
 			break;
@@ -515,23 +552,35 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSDictionary *dictemp = [arraydata objectAtIndex:indexPath.row];
-	
-	WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
-	NSString *requeststring = [dictemp objectForKey:@"url"];
-	if([requeststring length]>0)
-	{
-		if([requeststring rangeOfString:@"?"].location !=NSNotFound)
-		{
-			requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-		}
-		else
-		{
-			requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-		}
-		webviewcustom.strurl = requeststring;
-		[self.navigationController pushViewController:webviewcustom animated:YES];
-	}
+    NSDictionary *dictemp = [arraydata objectAtIndex:indexPath.row];
+    NSString *strurl;
+    if([[dictemp objectForKey:@"show_type"] isEqualToString:@"normal"])
+    {
+        if([[dictemp objectForKey:@"url"] length]>0)
+            strurl = [dictemp objectForKey:@"url"];
+        else
+            strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[dictemp objectForKey:@"id"]];
+        [self gotowkwebview:strurl StrTitle:@"新闻详情"];
+    }
+    else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"more"])//当是显示更我推荐新闻cell是进
+    {
+        NewsListViewController *newslist = [[NewsListViewController alloc] init];
+        newslist.fccw_type = [dictemp objectForKey:@"id"];
+        newslist.fcfromflag = @"2";
+        [self.navigationController pushViewController:newslist animated:YES];
+    }
+    else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"LiveVideo"])
+    {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+            parameters[LVMovieParameterDisableDeinterlacing] = @(YES);
+        
+        /****这里换成直播、点播的地址****/
+        NSString *path =  [dictemp objectForKey:@"url"];//@"http://r03.wscdn.hls.xiaoka.tv/live/xRfgXFw02cCzJZb8/playlist.m3u8";
+        LVMovieViewController *videoPlayVC = [LVMovieViewController movieViewControllerWithContentPath:path parameters:parameters];
+        [self presentViewController:videoPlayVC animated:YES completion:nil];
+    }
 }
 
 

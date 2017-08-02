@@ -38,7 +38,7 @@
 	// 第一页
 	viewpage1 = [[GuidePage1 alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
 	viewpage1.clipsToBounds = YES;
-	[viewpage1 addparament:nil];
+//	[viewpage1 addparament:nil];
 	viewpage1.delegate1 = self;
 	[self addSubview:viewpage1];
 	nowpage = 7201;
@@ -82,7 +82,16 @@
 			[self addSubview:viewpage4];
 			viewpage4.frame = CGRectMake(0,0,viewpage4.frame.size.width,viewpage4.frame.size.height);
 			break;
-		case 7204:
+        case 7204:
+            nowpage = 7205;
+            viewpage4.frame = CGRectMake(-SCREEN_WIDTH,0,viewpage3.frame.size.width,viewpage3.frame.size.height);
+            viewpage5 = [[GuidePage5 alloc] initWithFrame:CGRectMake(SCREEN_WIDTH, 0, self.frame.size.width, self.frame.size.height)];
+            viewpage5.clipsToBounds = YES;
+            viewpage5.delegate1 = self;
+            [self addSubview:viewpage5];
+            viewpage5.frame = CGRectMake(0,0,viewpage4.frame.size.width,viewpage4.frame.size.height);
+            break;
+		case 7205:
 			if([delegate1 respondsToSelector:@selector(guideviewsnift:)])
 			{
 				[self.delegate1 guideviewsnift:nil];
@@ -130,12 +139,21 @@
 			[self addSubview:viewpage3];
 			viewpage3.frame = CGRectMake(0,0,viewpage3.frame.size.width,viewpage3.frame.size.height);
 			break;
-		case 7205: //点击viewpage1关闭
-			if([delegate1 respondsToSelector:@selector(guideviewsnift:)])
-			{
-				[self.delegate1 guideviewsnift:nil];
-			}
-			break;
+        case 7205:
+            nowpage = 7204;
+            viewpage5.frame = CGRectMake(SCREEN_WIDTH,0,viewpage4.frame.size.width,viewpage4.frame.size.height);
+            viewpage4 = [[GuidePage4 alloc] initWithFrame:CGRectMake(-SCREEN_WIDTH, 0, self.frame.size.width, self.frame.size.height)];
+            viewpage4.clipsToBounds = YES;
+            viewpage4.delegate1 = self;
+            [self addSubview:viewpage4];
+            viewpage4.frame = CGRectMake(0,0,viewpage3.frame.size.width,viewpage3.frame.size.height);
+            break;
+//		case 7205: //点击viewpage1关闭
+//			if([delegate1 respondsToSelector:@selector(guideviewsnift:)])
+//			{
+//				[self.delegate1 guideviewsnift:nil];
+//			}
+//			break;
 			
 	}
 	[UIView commitAnimations];
@@ -145,50 +163,80 @@
 {
 	if(nowpage == 7202)
 	{
-		[viewpage2 addparament:nil];
+//		[viewpage2 addparament:nil];
 		[viewpage1 removeFromSuperview];
 		[viewpage3 removeFromSuperview];
 		[viewpage4 removeFromSuperview];
+        [viewpage5 removeFromSuperview];
 	}
 	else if(nowpage == 7203)
 	{
-		[viewpage3 addparament:nil];
+//		[viewpage3 addparament:nil];
 		[viewpage2 removeFromSuperview];
 		[viewpage1 removeFromSuperview];
 		[viewpage4 removeFromSuperview];
+        [viewpage5 removeFromSuperview];
 	}
 	else if(nowpage == 7204)
 	{
-		[viewpage4 addparament:nil];
+//		[viewpage4 addparament:nil];
 		[viewpage2 removeFromSuperview];
 		[viewpage1 removeFromSuperview];
 		[viewpage3 removeFromSuperview];
+        [viewpage5 removeFromSuperview];
 	}
+    else if(nowpage == 7205)
+    {
+        //		[viewpage4 addparament:nil];
+        [viewpage2 removeFromSuperview];
+        [viewpage1 removeFromSuperview];
+        [viewpage3 removeFromSuperview];
+        [viewpage4 removeFromSuperview];
+    }
 }
 
 -(void)prepageend:(id)sender
 {
 	if(nowpage == 7202)
 	{
-		[viewpage2 addparament:nil];
+//		[viewpage2 addparament:nil];
 		[viewpage1 removeFromSuperview];
 		[viewpage3 removeFromSuperview];
 		[viewpage4 removeFromSuperview];
+        [viewpage5 removeFromSuperview];
 	}
 	else if(nowpage == 7201)
 	{
-		[viewpage1 addparament:nil];
+//		[viewpage1 addparament:nil];
 		[viewpage2 removeFromSuperview];
 		[viewpage3 removeFromSuperview];
 		[viewpage4 removeFromSuperview];
+        [viewpage5 removeFromSuperview];
 	}
 	else if(nowpage == 7203)
 	{
-		[viewpage3 addparament:nil];
+//		[viewpage3 addparament:nil];
 		[viewpage2 removeFromSuperview];
 		[viewpage1 removeFromSuperview];
 		[viewpage4 removeFromSuperview];
+        [viewpage5 removeFromSuperview];
 	}
+    else if(nowpage == 7204)
+    {
+        //		[viewpage3 addparament:nil];
+        [viewpage2 removeFromSuperview];
+        [viewpage1 removeFromSuperview];
+        [viewpage3 removeFromSuperview];
+        [viewpage5 removeFromSuperview];
+    }
+    else if(nowpage == 7205)
+    {
+        //		[viewpage3 addparament:nil];
+        [viewpage2 removeFromSuperview];
+        [viewpage1 removeFromSuperview];
+        [viewpage4 removeFromSuperview];
+        [viewpage3 removeFromSuperview];
+    }
 }
 
 @end

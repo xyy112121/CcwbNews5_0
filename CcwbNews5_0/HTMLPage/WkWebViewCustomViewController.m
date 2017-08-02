@@ -117,6 +117,8 @@
 	[userContentController addScriptMessageHandler:self name:@"getiostoke"];
     [userContentController addScriptMessageHandler:self name:@"ShowNewsDetail"];
 	
+    
+    
 	WKPreferences *preferences = [WKPreferences new];
 	preferences.javaScriptCanOpenWindowsAutomatically = YES;
 //	preferences.minimumFontSize = 10.0;
@@ -947,7 +949,7 @@
                     sharetype = @"qzone";
                 }
                 
-                [self getShareInfoCallBack:[dicfrom objectForKey:@"cw_id"] ShareType:sharetype];
+                [self getShareInfoCallBack:[dicfrom objectForKey:@"cw_id"] ShareType:sharetype ShareId:[dicfrom objectForKey:@"share_id"]];
 				//分享结果消息
 				UMSocialLogInfo(@"response message is %@",resp.message);
 				//第三方原始返回的数据
@@ -998,7 +1000,7 @@
 {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	params[@"cw_id"] = sender;
-	
+	params[@"cw_type"] = @"news";
 	
 	[RequestInterface doGetJsonWithParametersNoAn:params App:self.app ReqUrl:InterfaceShare ShowView:self.app.window alwaysdo:^{
 		
@@ -1006,6 +1008,7 @@
 		DLog(@"dic====%@",dic);
 		if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		{
+            
 			[self setUMshare];
 			[self showshareinfo:[dic objectForKey:@"data"]];
 		}
@@ -1019,11 +1022,12 @@
 	}];
 }
 
--(void)getShareInfoCallBack:(NSString *)sender ShareType:(NSString *)sharetype
+-(void)getShareInfoCallBack:(NSString *)sender ShareType:(NSString *)sharetype ShareId:(NSString *)shareid
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"cw_id"] = sender;
     params[@"cw_type"] = sharetype;
+    params[@"share_id"] = shareid;
     
     [RequestInterface doGetJsonWithParametersNoAn:params App:self.app ReqUrl:InterfaceShareCallBack ShowView:self.app.window alwaysdo:^{
         
@@ -1048,8 +1052,8 @@
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	[params setObject:@"ccwb_app" forKey:@"project"];
 	[params setObject:@"broke" forKey:@"module"];
-	
-	[RequestInterface doGetJsonWithArraypic:sender Parameter:params App:self.app ReqUrl:InterfaceBrokeUploadImage ShowView:self.app.window alwaysdo:^{
+	[params setObject:@"image" forKey:@"uploadType"];
+	[RequestInterface doGetJsonWithArraypic:sender Parameter:params App:self.app ReqUrl:InterfaceBrokeUploadResource ShowView:self.app.window alwaysdo:^{
 		
 	}
 									Success:^(NSDictionary *dic)
@@ -1058,7 +1062,7 @@
 		 if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		 {
 			 NSDictionary *dicrevice = dic;
-			 [self gotoreturnjs:dicrevice JSFunction:@"getFileInfo"];
+			 [self gotoreturnjs:dicrevice JSFunction:@"openAppImageCallback"];
 			 [MBProgressHUD showSuccess:[dic objectForKey:@"msg"] toView:self.app.window];
 		 }
 		 else

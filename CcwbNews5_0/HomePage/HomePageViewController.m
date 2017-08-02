@@ -496,8 +496,6 @@
         StoreWebViewViewController *storewebview = [[StoreWebViewViewController alloc] init];
         storewebview.strfromurl = [NSString stringWithFormat:@"%@%@",@"#/goodsinfo?goods_id=",[sender objectForKey:@"id"]];
         [self.navigationController pushViewController:storewebview animated:YES];
-//        WkWebViewLocationHtmlViewController *wkwebview = [[WkWebViewLocationHtmlViewController alloc] init];
-//        [self.navigationController pushViewController:wkwebview animated:YES];
     }
 }
 
@@ -507,6 +505,16 @@
     if([strmoreurl length]>0)
     {
         [self gotowkwebview:strmoreurl StrTitle:@"列表"];
+    }
+    else if([[moredic objectForKey:@"in_type"] isEqualToString:@"app"])
+    {
+        [self DGclickAddApplication:0];
+    }
+    else if([[moredic objectForKey:@"in_type"] isEqualToString:@"biz"])
+    {
+        StoreWebViewViewController *storewebview = [[StoreWebViewViewController alloc] init];
+        storewebview.strfromurl = @"";
+        [self.navigationController pushViewController:storewebview animated:YES];
     }
     else
     {
@@ -554,7 +562,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"app_name"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"title"]];
 }
 
 -(void)DGFocusClickNumberPic:(NSDictionary *)sender
@@ -1177,8 +1185,9 @@
 		 if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		 {
 			 strcw_time = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cw_time"]];
-			 if([header isEqualToString:@"YES"])
+			 if([header isEqualToString:@"YES"]&&[(NSArray *)[dic objectForKey:@"newsList"] count]>0)
 			 {
+                
 				 nowpage = nowpage+1;
 				 arraydata = [[NSMutableArray alloc] initWithArray:[dic objectForKey:@"newsList"]];
 				 

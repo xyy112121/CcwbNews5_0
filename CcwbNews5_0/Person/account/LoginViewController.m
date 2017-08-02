@@ -455,6 +455,10 @@
             NSDictionary *tempdic = [dic objectForKey:@"data"];
             [self aduserdefaultuser:tempdic];
             [self returnback:nil];
+            if([self.delegate1 respondsToSelector:@selector(DGLoginSuccess:)])
+            {
+                [self.delegate1 DGLoginSuccess:nil];
+            }
         }
         else
         {

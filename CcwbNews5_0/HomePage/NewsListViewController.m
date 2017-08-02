@@ -183,22 +183,6 @@
     }
 }
 
-#pragma mark actiondelegate代理
--(void)gotowkwebview:(NSString *)str
-{
-    WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
-    NSString *requeststring = str;
-    if([requeststring rangeOfString:@"?"].location !=NSNotFound)
-    {
-        requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-    }
-    else
-    {
-        requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
-    }
-    webviewcustom.strurl = requeststring;
-    [self.navigationController pushViewController:webviewcustom animated:YES];
-}
 
 #pragma mark 上拉下拉加载
 -(void)loadNewData
@@ -305,7 +289,7 @@
             [cell.contentView addSubview:focusnews];
             break;
         case EnCellTypeSudden: //突发
-            burstnews = [[BurstNewsView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110) Dicsrc:dictemp];
+            burstnews = [[BurstNewsView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110) Dicsrc:dictemp Sudden:@"sudden"];
             burstnews.delegate1 = self;
             [cell.contentView addSubview:burstnews];
             break;
@@ -319,12 +303,12 @@
             [cell.contentView addSubview:moreview];
             break;
         case EnCellTypeUrl:
-            urltype = [[URLTypeView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp];
+            urltype = [[URLTypeView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp TypeUrl:@"typemore"];
             urltype.delegate1 = self;
             [cell.contentView addSubview:urltype];
             break;
         case EnCellTypeActivity:
-            activitynow = [[ActivityNow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp];
+            activitynow = [[ActivityNow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp TypeActivity:@"typemore"];
             activitynow.delegate1 = self;
             [cell.contentView addSubview:activitynow];
             break;
@@ -334,12 +318,12 @@
             [cell.contentView addSubview:apprecommend];
             break;
         case EnCellTypeNewsGroup:
-            ccwbnews = [[CcwbNewsSaidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 210) Dicsrc:dictemp];
+            ccwbnews = [[CcwbNewsSaidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 210) Dicsrc:dictemp More:@"more"];
             ccwbnews.delegate1= self;
             [cell.contentView addSubview:ccwbnews];
             break;
         case EnCellTypePhotoGroup:
-            ccwbtuji = [[TuJiView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp];
+            ccwbtuji = [[TuJiView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 240) Dicsrc:dictemp More:@"more"];
             ccwbtuji.delegate1= self;
             [cell.contentView addSubview:ccwbtuji];
             break;
@@ -371,7 +355,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dictemp = [arraydata objectAtIndex:indexPath.row];
-
     NSString *strurl;
     if([[dictemp objectForKey:@"show_type"] isEqualToString:@"normal"])
     {

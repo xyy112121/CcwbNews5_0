@@ -124,6 +124,7 @@
 #import "ForGetPwdViewController.h"
 #import "WkWebviewTestViewController.h"
 #import "StoreWebViewViewController.h"
+#import "GuidePage5.h"
 #endif /* PrefixHeader_pch */
 
 /**

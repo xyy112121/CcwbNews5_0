@@ -15,4 +15,5 @@
 @property (nonatomic, strong) XLsn0wLoop *loop;
 @property(nonatomic,strong)id<ActionDelegate> delegate1;
 -(id)initWithFrame:(CGRect)frame Dicsrc:(NSDictionary *)dic;
+-(id)initWithFrame:(CGRect)frame Dicsrc:(NSDictionary *)dic More:(NSString *)more;
 @end

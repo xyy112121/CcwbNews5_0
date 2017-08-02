@@ -7,7 +7,7 @@ function getiostoke1()
 
 function uploadiostoken(token)
 {
-//    alert(1);
+//    alert(token);
     var tokennow=token;
     window.localStorage.setItem('authorization',tokennow);
 }
@@ -15,5 +15,5 @@ function uploadiostoken(token)
 
 
 window.onload=function (){
-//    alert(window.localStorage.getItem('authorization'));
+    
 }

@@ -49,6 +49,8 @@
 -(void)DGClickWebViewOpenApp:(NSString *)srcid;  //新闻详情页打开app
 -(void)DGClickApplicationHpViewManger:(id)sender;  //应用管理页打开
 -(void)DGClickWebViewAddApp:(NSString *)dictemp;
+-(void)DGLoginSuccess:(NSString *)success;
+
 
 
 -(void)clickchangeapplication:(int)sender ClickApp:(NSDictionary *)clickapp;  //点击 选择不同的应用

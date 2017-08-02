@@ -13,12 +13,14 @@
 #import "GuidePage2.h"
 #import "GuidePage3.h"
 #import "GuidePage4.h"
+#import "GuidePage5.h"
 @interface GuideView : UIView<ActionDelegate>
 {
 	GuidePage1 *viewpage1;
 	GuidePage2 *viewpage2;
 	GuidePage3 *viewpage3;
 	GuidePage4 *viewpage4;
+    GuidePage5 *viewpage5;
 	int nowpage;
 	
 }

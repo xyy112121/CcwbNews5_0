@@ -34,7 +34,9 @@
 	[recognizer setDirection :( UISwipeGestureRecognizerDirectionLeft)];
 	[self addGestureRecognizer :recognizer];
 	
-	
+    UIImageView *imageviediwen = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    imageviediwen.image = LOADIMAGE(@"guide4", @"png");
+    [self addSubview:imageviediwen];
 
 }
 

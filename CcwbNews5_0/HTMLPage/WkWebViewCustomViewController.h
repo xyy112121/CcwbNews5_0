@@ -23,6 +23,8 @@
 	
 	int flagloading;
 	
+    NSDictionary *dicdata;
+    
 	EnNavigationFlag ennctl;
 	HpNavigateView *hpna;
 	EnWebViewWindowsType webviewtype;

@@ -16,8 +16,8 @@
 #define InterfaceBrokeList  @"/Api/AppBroke/getBrokeList.html" //获取爆料列表
 #define InterfaceUploadBrokeInfo  @"/Api/AppBroke/addBroke.html"  //上传爆料信息
 #define InterfaceShare   @"/api/appApi/newsShare.html" //请求分享信息
-#define InterfaceShareCallBack   @"/api/appApi/newsShareCallBack.html" //请求分享信息
-#define Interfacegetjpushinfo  @"/NewInterfaces/AppPush/getPushInfo.html"  //获取推送消息
+#define InterfaceShareCallBack   @"/api/appApi/newsShareCallBack.html" //请求分享信息回调
+#define Interfacegetjpushinfo  @"/api/appApi/getPushInfo.html"  //获取推送消息
 #define Interfaceupdataregiestid  @"/api/appApi/setPushTag.html"  //上传极光的推送id
 #define Interfaceupdatelocation @"/api/appApi/setPosition.html" // 上传地理位置
 #define InterfaceUpdataApp  @"/api/appApi/getIosVersionInfo.html"  //版本更新提醒

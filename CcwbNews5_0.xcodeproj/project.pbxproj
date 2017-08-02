@@ -600,6 +600,12 @@
 		7435B2631F13029E00D0454E /* SGQRCodeScanManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435B25C1F13029E00D0454E /* SGQRCodeScanManager.m */; };
 		7435B2641F13029E00D0454E /* SGQRCodeScanningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435B25E1F13029E00D0454E /* SGQRCodeScanningView.m */; };
 		743CFE411F20A58C005EA3AF /* NewsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743CFE401F20A58C005EA3AF /* NewsListViewController.m */; };
+		74642D071F31E03D00A321B6 /* guide1.png in Resources */ = {isa = PBXBuildFile; fileRef = 74642D021F31E03D00A321B6 /* guide1.png */; };
+		74642D081F31E03D00A321B6 /* guide2.png in Resources */ = {isa = PBXBuildFile; fileRef = 74642D031F31E03D00A321B6 /* guide2.png */; };
+		74642D091F31E03D00A321B6 /* guide3.png in Resources */ = {isa = PBXBuildFile; fileRef = 74642D041F31E03D00A321B6 /* guide3.png */; };
+		74642D0A1F31E03D00A321B6 /* guide4.png in Resources */ = {isa = PBXBuildFile; fileRef = 74642D051F31E03D00A321B6 /* guide4.png */; };
+		74642D0B1F31E03D00A321B6 /* guide5.png in Resources */ = {isa = PBXBuildFile; fileRef = 74642D061F31E03D00A321B6 /* guide5.png */; };
+		74642D0E1F31E1AE00A321B6 /* GuidePage5.m in Sources */ = {isa = PBXBuildFile; fileRef = 74642D0D1F31E1AE00A321B6 /* GuidePage5.m */; };
 		74AE4A711F218B9800994C4D /* icon_praise_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 74AE4A6D1F218B9800994C4D /* icon_praise_black.png */; };
 		74AE4A721F218B9800994C4D /* icon_praise_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 74AE4A6E1F218B9800994C4D /* icon_praise_ok.png */; };
 		74AE4A731F218B9800994C4D /* icon_praise_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 74AE4A6F1F218B9800994C4D /* icon_praise_red.png */; };
@@ -1604,6 +1610,13 @@
 		7435B25E1F13029E00D0454E /* SGQRCodeScanningView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeScanningView.m; sourceTree = "<group>"; };
 		743CFE3F1F20A58C005EA3AF /* NewsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListViewController.h; sourceTree = "<group>"; };
 		743CFE401F20A58C005EA3AF /* NewsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListViewController.m; sourceTree = "<group>"; };
+		74642D021F31E03D00A321B6 /* guide1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide1.png; sourceTree = "<group>"; };
+		74642D031F31E03D00A321B6 /* guide2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide2.png; sourceTree = "<group>"; };
+		74642D041F31E03D00A321B6 /* guide3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide3.png; sourceTree = "<group>"; };
+		74642D051F31E03D00A321B6 /* guide4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide4.png; sourceTree = "<group>"; };
+		74642D061F31E03D00A321B6 /* guide5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide5.png; sourceTree = "<group>"; };
+		74642D0C1F31E1AE00A321B6 /* GuidePage5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidePage5.h; sourceTree = "<group>"; };
+		74642D0D1F31E1AE00A321B6 /* GuidePage5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidePage5.m; sourceTree = "<group>"; };
 		74AE4A6D1F218B9800994C4D /* icon_praise_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_praise_black.png; sourceTree = "<group>"; };
 		74AE4A6E1F218B9800994C4D /* icon_praise_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_praise_ok.png; sourceTree = "<group>"; };
 		74AE4A6F1F218B9800994C4D /* icon_praise_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_praise_red.png; sourceTree = "<group>"; };
@@ -1911,6 +1924,8 @@
 				080C66A61E54062400970B90 /* GuidePage3.m */,
 				080C66A71E54062400970B90 /* GuidePage4.h */,
 				080C66A81E54062400970B90 /* GuidePage4.m */,
+				74642D0C1F31E1AE00A321B6 /* GuidePage5.h */,
+				74642D0D1F31E1AE00A321B6 /* GuidePage5.m */,
 				080C66A91E54062400970B90 /* GuideView.h */,
 				080C66AA1E54062400970B90 /* GuideView.m */,
 			);
@@ -3659,6 +3674,11 @@
 		08EA5E651E56F8870075D3FF /* guide */ = {
 			isa = PBXGroup;
 			children = (
+				74642D021F31E03D00A321B6 /* guide1.png */,
+				74642D031F31E03D00A321B6 /* guide2.png */,
+				74642D041F31E03D00A321B6 /* guide3.png */,
+				74642D051F31E03D00A321B6 /* guide4.png */,
+				74642D061F31E03D00A321B6 /* guide5.png */,
 				08EA5E9C1E56FA230075D3FF /* default_960.png */,
 				08EA5E9D1E56FA230075D3FF /* default_1136.png */,
 				08EA5E9E1E56FA230075D3FF /* default_1334.png */,
@@ -4253,6 +4273,7 @@
 				74AE4A8C1F21D96200994C4D /* index.html in Resources */,
 				0892AC9A1E5D39A3007BB944 /* arrowrightred@3x.png in Resources */,
 				083E31D61EA5AD6F008728AD /* mianView.png in Resources */,
+				74642D081F31E03D00A321B6 /* guide2.png in Resources */,
 				081DDE521EA7479C00263B52 /* brokeaudioicon@2x.png in Resources */,
 				082476AC1E72A425007C530E /* 购物车.png in Resources */,
 				08171C4C1E5AE9870005B0C5 /* arrowdown.png in Resources */,
@@ -4303,6 +4324,7 @@
 				08AE617E1E9B646F00CD35BD /* microbg@2x.png in Resources */,
 				083E31B91EA5AD6F008728AD /* mic_2@2x.png in Resources */,
 				08EA5EAF1E5700840075D3FF /* addappicon2@3x.png in Resources */,
+				74642D071F31E03D00A321B6 /* guide1.png in Resources */,
 				083E31B81EA5AD6F008728AD /* mic_1@2x.png in Resources */,
 				74AE4A8B1F21D96200994C4D /* index.css in Resources */,
 				081DDE531EA7479C00263B52 /* brokeaudioicon@3x.png in Resources */,
@@ -4393,6 +4415,7 @@
 				08171C391E5A8B730005B0C5 /* hp_searchicon.png in Resources */,
 				74AE4A821F219FD900994C4D /* img_face021.png in Resources */,
 				081152B11E5E8150005BC84E /* haveapplication.png in Resources */,
+				74642D091F31E03D00A321B6 /* guide3.png in Resources */,
 				08EA5E991E56F8870075D3FF /* pagebg4.png in Resources */,
 				74AE4A8D1F21D96200994C4D /* index.js in Resources */,
 				08F7A21F1E641F49004E51A5 /* my_历史icon.png in Resources */,
@@ -4492,6 +4515,7 @@
 				74FC0DD91F298A5900DFE0A5 /* 点击次数查看@2x.png in Resources */,
 				083E31551EA5AD6E008728AD /* chat_ic_delete_nor.png in Resources */,
 				08F7A1E81E640836004E51A5 /* my_问吧icon@3x.png in Resources */,
+				74642D0A1F31E03D00A321B6 /* guide4.png in Resources */,
 				083E31CB1EA5AD6F008728AD /* liaotian_ic_jianpan_nor@2x.png in Resources */,
 				74B0D3881F1C4BDC00984D26 /* amazeui.min.js in Resources */,
 				08F7A2151E641F49004E51A5 /* my_订单icon@3x.png in Resources */,
@@ -4543,6 +4567,7 @@
 				74C7E84F1F28477300EEC32E /* 微信icon@2x.png in Resources */,
 				08EA5E961E56F8870075D3FF /* pagebg3.png in Resources */,
 				08F7A1E31E640836004E51A5 /* my_收藏icon.png in Resources */,
+				74642D0B1F31E03D00A321B6 /* guide5.png in Resources */,
 				74AE4A801F219FD900994C4D /* img_face04.png in Resources */,
 				08F7A2201E641F49004E51A5 /* my_历史icon@2x.png in Resources */,
 				08F7A1FB1E640892004E51A5 /* p_bg.png in Resources */,
@@ -4593,6 +4618,7 @@
 				0838F9891E514820007FE55A /* UIWebView+AFNetworking.m in Sources */,
 				7401C5531F25E5BD00E2BA06 /* ApplicationViewCell.m in Sources */,
 				0838F9C11E514820007FE55A /* MJRefreshConst.m in Sources */,
+				74642D0E1F31E1AE00A321B6 /* GuidePage5.m in Sources */,
 				089EF94A1EC0166A009FB4F5 /* Jwt.m in Sources */,
 				74F8B2F71F15B80D00EFA513 /* FocusApplicationView.m in Sources */,
 				0838F9BF1E514820007FE55A /* MJDIYHeader.m in Sources */,
@@ -4922,7 +4948,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = CcwbNews5_0/CcwbNews5_0.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Yunnan Chunwan Media Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yunnan Chunwan Media Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 6M9E39S5MB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

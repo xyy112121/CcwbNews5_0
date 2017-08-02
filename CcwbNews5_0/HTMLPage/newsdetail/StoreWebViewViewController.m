@@ -16,7 +16,6 @@
 -(void)returnback:(id)sender
 {
     [[self.view viewWithTag:1800] removeFromSuperview];
-    UIWebView *webview = (UIWebView *)[self.view viewWithTag:8090];
     
     if (webview.canGoBack)
     {
@@ -24,8 +23,10 @@
     }
     else
     {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
         
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -37,11 +38,14 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [webview loadRequest:nil];
-    [webview removeFromSuperview];
-    webview = nil;
-    webview.delegate = nil;
-    [webview stopLoading];
+    if(loginflag != 0)
+    {
+        [webview loadRequest:nil];
+        [webview removeFromSuperview];
+        webview = nil;
+        webview.delegate = nil;
+        [webview stopLoading];
+    }
 }
 
 - (void)viewDidLoad
@@ -65,6 +69,23 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)gotologipage
+{
+    loginflag = 0;
+    LoginViewController *login = [[LoginViewController alloc] init];
+    login.delegate1 = self;
+    UINavigationController *nctl  = [[UINavigationController alloc] initWithRootViewController:login];
+    [self presentViewController:nctl animated:YES completion:nil];
+}
+
+#pragma mark Actiondegate
+-(void)DGLoginSuccess:(NSString *)success
+{
+    NSString *jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", self.app.cwtoken];
+    [webview stringByEvaluatingJavaScriptFromString:jsMethod];
+    [webview reload];
+}
+
 #pragma mark 滑动事件
 - (void)handleSwipeFrom:( UISwipeGestureRecognizer *)sender
 {
@@ -72,7 +93,10 @@
     
     if ((sender. direction == UISwipeGestureRecognizerDirectionRight))
     {
-        [self returnback:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+        
     }
     else if((sender. direction == UISwipeGestureRecognizerDirectionLeft))
     {
@@ -85,7 +109,7 @@
 {
     [self initview:nil];
     reloadflag = 0;
-    app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[ UISwipeGestureRecognizer alloc ] initWithTarget : self action : @selector (handleSwipeFrom:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
@@ -155,7 +179,15 @@
     if(reloadflag == 0)
     {
         reloadflag = 1;
-        NSString *jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", app.cwtoken];
+        NSString *jsMethod;
+        if([AddInterface judgeislogin])
+        {
+            jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", self.app.cwtoken];
+        }
+        else
+        {
+            jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", @""];
+        }
         [webView stringByEvaluatingJavaScriptFromString:jsMethod];
         [webView reload];
     }
@@ -166,6 +198,35 @@
     {
         [weakSelf returnback:nil];
  
+    };
+    self.context[@"openBizShare"] =
+    ^(NSString *json)
+    {
+        NSDictionary *dicgoods = [AddInterface dictionaryWithJsonString:json];
+        [weakSelf setUMshare];
+        [weakSelf showshareinfo:dicgoods];
+        DLog(@"====%@",json);
+    };
+    self.context[@"appCallPay"] =
+    ^(NSString *json)
+    {
+//        NSDictionary *diczhifu = [AddInterface dictionaryWithJsonString:json];
+        [weakSelf initwxsdk:json];
+        DLog(@"====%@",json);
+    };
+    self.context[@"cwLogin"] =
+    ^(NSString *json)
+    {
+        if([AddInterface judgeislogin])
+        {
+            NSString *jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", weakSelf.app.cwtoken];
+            [webView stringByEvaluatingJavaScriptFromString:jsMethod];
+            [webView reload];
+        }
+        else
+        {
+            [weakSelf gotologipage];
+        }
     };
     
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
@@ -181,6 +242,177 @@
     DLog(@"requestString====%@",requestString);
     
     return YES;
+}
+
+#pragma mark 微信支付
+-(void)initwxsdk:(NSString *)strorder
+{
+    strorder = [strorder  stringByReplacingOccurrencesOfString:@":null" withString:@":\"\""];
+    NSData *data = [strorder dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *tempdic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    [WXApiManager sharedManager].delegate = self;
+    NSString *res = [WXApiRequestHandler jumpToBizPay:tempdic];
+    if( ![@"" isEqual:res] ){
+        NSString* urlpath = [[NSBundle mainBundle] pathForResource:@"index.html" ofType:@""];
+        urlpath = [urlpath stringByAppendingString:@"#/order?order_state=20"];
+        NSURL *urlstr = [NSURL URLWithString:urlpath];
+        NSURLRequest *request = [NSURLRequest requestWithURL:urlstr];
+        [webview loadRequest:request];
+
+        DLog(@"res====%@",res);
+    }
+}
+
+#pragma mark 分享
+-(void)setUMshare
+{
+    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatSession),
+                                               @(UMSocialPlatformType_WechatTimeLine),
+                                               @(UMSocialPlatformType_QQ),
+                                               @(UMSocialPlatformType_Qzone),
+                                               @(UMSocialPlatformType_Sina)
+                                               ]];
+    //设置分享面板的显示和隐藏的代理回调
+    [UMSocialUIManager setShareMenuViewDelegate:self];
+}
+
+
+- (void)showshareinfo:(NSDictionary *)dicfrom
+{
+    [UMSocialUIManager removeAllCustomPlatformWithoutFilted];
+    [UMSocialShareUIConfig shareInstance].sharePageGroupViewConfig.sharePageGroupViewPostionType = UMSocialSharePageGroupViewPositionType_Middle;
+    [UMSocialShareUIConfig shareInstance].sharePageScrollViewConfig.shareScrollViewPageItemStyleType = UMSocialPlatformItemViewBackgroudType_None;
+    
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        
+        [self runShareWithType:platformType Dicfrom:dicfrom];
+    }];
+}
+
+- (void)runShareWithType:(UMSocialPlatformType)type Dicfrom:(NSDictionary *)dicfrom
+{
+    //	if(type==UMSocialPlatformType_Sina)
+    //	{
+    [self shareWebPageToPlatformType:type Dicfrom:dicfrom];
+    //	}
+}
+
+//网页分享
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType Dicfrom:(NSDictionary *)dicfrom
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    //创建网页内容对象
+    NSString* thumbURL =  [dicfrom objectForKey:@"share_pic_path"];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:[dicfrom objectForKey:@"title"] descr:[[dicfrom objectForKey:@"summary"] length]>0?[dicfrom objectForKey:@"summary"]:[dicfrom objectForKey:@"title"] thumImage:thumbURL];
+    //设置网页地址
+    shareObject.webpageUrl = [dicfrom objectForKey:@"share_url"];
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            UMSocialLogInfo(@"************Share fail with error %@*********",error);
+        }
+        else
+        {
+            if ([data isKindOfClass:[UMSocialShareResponse class]])
+            {
+                UMSocialShareResponse *resp = data;
+                NSString *sharetype;
+                if(platformType==UMSocialPlatformType_Sina)
+                {
+                    sharetype = @"sina";
+                }
+                else if(platformType==UMSocialPlatformType_WechatSession)
+                {
+                    sharetype = @"wechat";
+                }
+                else if(platformType==UMSocialPlatformType_WechatTimeLine)
+                {
+                    sharetype = @"wxcircle";
+                }
+                else if(platformType==UMSocialPlatformType_QQ)
+                {
+                    sharetype = @"qq";
+                }
+                else if(platformType==UMSocialPlatformType_Qzone)
+                {
+                    sharetype = @"qzone";
+                }
+                
+                [self getShareInfoCallBack:[dicfrom objectForKey:@"cw_id"] ShareType:sharetype];
+                //分享结果消息
+                UMSocialLogInfo(@"response message is %@",resp.message);
+                //第三方原始返回的数据
+                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                
+            }
+            else
+            {
+                UMSocialLogInfo(@"response data is %@",data);
+            }
+        }
+        [self alertWithError:error];
+    }];
+}
+
+
+- (void)alertWithError:(NSError *)error
+{
+    NSString *result = nil;
+    if (!error) {
+        result = [NSString stringWithFormat:@"分享成功"];
+    }
+    else{
+        NSMutableString *str = [NSMutableString string];
+        if (error.userInfo) {
+            for (NSString *key in error.userInfo) {
+                [str appendFormat:@"%@ = %@\n", key, error.userInfo[key]];
+            }
+        }
+        if (error) {
+            result = [NSString stringWithFormat:@"分享出错,错误码: %d\n%@",(int)error.code, str];
+        }
+        else{
+            result = [NSString stringWithFormat:@"分享失败"];
+        }
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享"
+                                                    message:result
+                                                   delegate:nil
+                                          cancelButtonTitle:NSLocalizedString(@"确定", @"确定")
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+#pragma mark 接口
+-(void)getShareInfoCallBack:(NSString *)sender ShareType:(NSString *)sharetype
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"cw_id"] = sender;
+    params[@"cw_type"] = sharetype;
+    params[@"share_id"] = [AddInterface RandomId:32];
+    
+    [RequestInterface doGetJsonWithParametersNoAn:params App:self.app ReqUrl:InterfaceShareCallBack ShowView:self.app.window alwaysdo:^{
+        
+    } Success:^(NSDictionary *dic) {
+        DLog(@"dic====%@",dic);
+        if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+        {
+            
+        }
+        else
+        {
+            [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:self.app.window];
+        }
+    } Failur:^(NSString *strmsg) {
+        [MBProgressHUD showError:@"请求失败,请检查网络" toView:self.app.window];
+        
+    }];
 }
 
 

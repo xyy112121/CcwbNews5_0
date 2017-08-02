@@ -14,4 +14,5 @@
 }
 @property(nonatomic,strong)id<ActionDelegate> delegate1;
 -(id)initWithFrame:(CGRect)frame Dicsrc:(NSDictionary *)dic;
+-(id)initWithFrame:(CGRect)frame Dicsrc:(NSDictionary *)dic Sudden:(NSString *)sudden;
 @end

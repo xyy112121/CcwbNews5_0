@@ -192,7 +192,7 @@
     DLog(@"cwtoken===%@",self.cwtoken);
     
 	//极光IM JMessage
-	[self initJMessage:launchOptions];
+//	[self initJMessage:launchOptions];
 	//极光推送
 	[self initJPush:launchOptions];
 	//友盟分享
@@ -201,9 +201,6 @@
 	[self configUSharePlatforms];
 	//微信支付
 	 [WXApi registerApp:@"wx40e15e8bcce18854" withDescription:@"ios wxpay"];
-	
-
-	
 	
 	self.allowRotation = 0;
 	CGRect rect = [[UIScreen mainScreen] bounds];
@@ -296,7 +293,7 @@
 #pragma mark JMessage
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-	[JMessage registerDeviceToken:deviceToken];
+//	[JMessage registerDeviceToken:deviceToken];
 	[JPUSHService registerDeviceToken:deviceToken];
 }
 

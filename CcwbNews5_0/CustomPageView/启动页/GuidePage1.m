@@ -34,7 +34,12 @@
 	recognizer = [[ UISwipeGestureRecognizer alloc ] initWithTarget : self action : @selector (handleSwipeFrom:)];
 	[recognizer setDirection :( UISwipeGestureRecognizerDirectionLeft)];
 	[self addGestureRecognizer :recognizer];
-	
+    
+    UIImageView *imageviediwen = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+	imageviediwen.image = LOADIMAGE(@"guide1", @"png");
+	[self addSubview:imageviediwen];
+    
+    
 //	float widthnow = 227;
 //	float heightnow = 248;
 //	if(iphone6p)

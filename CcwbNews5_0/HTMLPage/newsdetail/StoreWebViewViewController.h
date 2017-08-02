@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StoreWebViewViewController : UIViewController<UIWebViewDelegate,ActionDelegate>
+@interface StoreWebViewViewController : UIViewController<UIWebViewDelegate,ActionDelegate,WXApiManagerDelegate,UMSocialShareMenuViewDelegate>
 {
     JQIndicatorView *indicator;
-    AppDelegate *app;
+    
+    int loginflag;
+    
     int reloadflag;
     UIWebView *webview;
 }
-
+@property(strong,nonatomic)AppDelegate *app;
 @property (strong, nonatomic)JSContext *context;
 @property(nonatomic,strong)NSString *strfromurl;
 

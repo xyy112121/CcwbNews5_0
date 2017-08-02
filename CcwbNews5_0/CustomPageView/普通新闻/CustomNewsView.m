@@ -81,7 +81,7 @@
 	labelname.textColor = COLORNOW(48, 48, 48);
 	[self addSubview:labelname];
 	
-	UILabel *labelappname = [[UILabel alloc] initWithFrame:CGRectMake(labelname.frame.origin.x, self.frame.size.height-30, 50, 20)];
+	UILabel *labelappname = [[UILabel alloc] initWithFrame:CGRectMake(labelname.frame.origin.x, self.frame.size.height-30, 60, 20)];
 	labelappname.text = [dicdata objectForKey:@"app_name"];
 	labelappname.font = fonttime;
 	labelappname.textColor = COLORNOW(232, 56, 47);
