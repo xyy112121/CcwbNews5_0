@@ -55,6 +55,16 @@
 }
 
 
+
+-(void)DGClickApplicationListSearch:(id)sender
+{
+    if([self.delegate1 respondsToSelector:@selector(DGClickGoToSearch:)])
+    {
+        [self.delegate1 DGClickGoToSearch:nil];
+    }
+}
+
+
 -(void)tableviewcellheight:(NSArray *)arraysrc
 {
     for(int i=0;i<[arraysrc count];i++)

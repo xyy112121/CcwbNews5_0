@@ -50,6 +50,8 @@
 -(void)DGClickApplicationHpViewManger:(id)sender;  //应用管理页打开
 -(void)DGClickWebViewAddApp:(NSString *)dictemp;
 -(void)DGLoginSuccess:(NSString *)success;
+-(void)DGClickApplicationListSearch:(id)sender;//点击应用搜索
+
 
 
 

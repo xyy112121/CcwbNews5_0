@@ -94,7 +94,7 @@
 {
 	if([AddInterface judgeislogin])
 	{
-		[self gotowkwebview:URLInfoSetHtml URLType:URLHeader];
+		[self gotowkwebview:URLInfoSetHtml URLType:URLHeader StrTitle:@"个人资料"];
 	}
 	else
 	{
@@ -113,10 +113,10 @@
 	switch (sender)
 	{
 		case 0://收藏
-			[self gotowkwebview:URLUserCollection URLType:URLHeader];
+			[self gotowkwebview:URLUserCollection URLType:URLHeader StrTitle:@"收藏"];
 			break;
 		case 1://评论
-			[self gotowkwebview:URLUserMyReview URLType:URLHeader];
+			[self gotowkwebview:URLUserMyReview URLType:URLHeader StrTitle:@"评论"];
 			break;
 		case 2://问吧
 			askbroke = [[AskBrokeViewController alloc] init];
@@ -135,12 +135,13 @@
 
 
 #pragma mark  ibaction
--(void)gotowkwebview:(NSString *)strfrom URLType:(NSString *)urltype
+-(void)gotowkwebview:(NSString *)strfrom URLType:(NSString *)urltype StrTitle:(NSString *)strtitle
 {
 	WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
 	NSString *str = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",strfrom,CwVersion,CwDevice,app.Gmachid,[app.userinfo.userid length]>0?app.userinfo.userid:@""];
 	str = [urltype stringByAppendingString:str];
 	webviewcustom.strurl = str;
+    webviewcustom.strtitle = strtitle;
 	[self.navigationController pushViewController:webviewcustom animated:YES];
 }
 
@@ -197,7 +198,7 @@
 {
 	// Return the number of rows in the section.
 	
-	return 6;
+	return 7;
 	
 }
 
@@ -301,7 +302,12 @@
 //				[cell.contentView addSubview:imageviewpoint];
 //			}
 //			break;
-		case 5:
+        case 5:
+            labeltitle.text = @"关于我们";
+            imageview.image = LOADIMAGE(@"me_关于我们icon", @"png");
+            imageview.frame = CGRectMake(20, 15, 19, 19);
+            break;
+		case 6:
 			labeltitle.text = @"设置";
 			imageview.image = LOADIMAGE(@"my_设置icon", @"png");
 			imageview.frame = CGRectMake(20, 15, 19, 19);
@@ -324,7 +330,7 @@
 {
 	SettingViewController *setting;
     StoreWebViewViewController *storewebview;
-    if(indexPath.row==5)
+    if(indexPath.row==6)
     {
         setting = [[SettingViewController alloc] init];
         [self.navigationController pushViewController:setting animated:YES];
@@ -334,13 +340,13 @@
         switch (indexPath.row)
         {
             case 0://历史
-                [self gotowkwebview:URLUserReadHistory URLType:URLHeader];
+                [self gotowkwebview:URLUserReadHistory URLType:URLHeader StrTitle:@"历史"];
                 break;
             case 1://通知
-                [self gotowkwebview:URLUsernotification URLType:URLHeader];
+                [self gotowkwebview:URLUsernotification URLType:URLHeader StrTitle:@"通知"];
                 break;
             case 2: //卡券
-                [self gotowkwebview:URLKaQuanHtml URLType:URLHeader];
+                [self gotowkwebview:URLKaQuanHtml URLType:URLHeader StrTitle:@"卡券"];
                 break;
             case 3://购物车
                 storewebview = [[StoreWebViewViewController alloc] init];
@@ -352,9 +358,9 @@
                 storewebview.strfromurl = [NSString stringWithFormat:@"%@",@"#/order"];
                 [self.navigationController pushViewController:storewebview animated:YES];
                 break;
-                //		case 5://活动
-                //			[self gotowkwebview:URLUserActivityList URLType:URLUserHeader];
-                //			break;
+            case 5://关于我们
+                [self gotowkwebview:URLUserAboutMe URLType:URLHeader StrTitle:@"关于我们"];
+                break;
         }
     }
     else

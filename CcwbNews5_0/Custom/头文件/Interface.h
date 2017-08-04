@@ -38,12 +38,14 @@
 
 #define URLUserCollection @"/apppage/AppUser/collect.html"   //收藏
 #define URLInfoSetHtml   @"/apppage/AppUser/manage.html"//个人信息设置
-#define URLUserReadHistory  @"/apppage/AppUser/comment.html"   //阅读历史
+#define URLUserReadHistory  @"/apppage/AppUser/history.html"   //阅读历史
 #define URLUserActivityList  @"/apppage/AppUser/activity.html"  //活动列表
 #define URLUserFeedback @"/apppage/AppUser/feedback.html" //意见反馈
 #define URLUsernotification @"/apppage/AppUser/notification.html"  //通知
 #define URLUserMyReview @"/apppage/AppUser/comment.html"  //我的评论
 #define URLKaQuanHtml   @"/apppage/AppUser/card.html"  //卡券页面
+#define URLUserAboutMe  @"/apppage/AppUser/about.html"  //关于我们
+
 
 #define URLAskBrokeViewHtml  @"/NewBroke/MyBroke/brokeindex.html" //爆料
 #define URLAskQuestViewHtml @"/apppage/AppAsk/ask_index.html" //问吧

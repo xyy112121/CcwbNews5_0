@@ -114,7 +114,7 @@
 	[JMessage setupJMessage:launchOptions
 					 appKey:JMSSAGE_APPKEY
 					channel:CHANNEL
-		   apsForProduction:NO
+		   apsForProduction:YES
 				   category:nil
 			 messageRoaming:NO];
 }

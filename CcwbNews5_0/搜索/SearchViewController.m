@@ -327,8 +327,6 @@
 
 -(void)DGclickTuJiPic:(NSDictionary *)sender
 {
-    //	[self gotowkwebview:[sender objectForKey:@"url"]];
-    //    http://172.16.5.37/app/public/apppage/AppPage/detail.html?cw_id=20170720103240V45ZUS
     NSString *strurl;
     if([[sender objectForKey:@"url"] length]>0)
         strurl = [sender objectForKey:@"url"];

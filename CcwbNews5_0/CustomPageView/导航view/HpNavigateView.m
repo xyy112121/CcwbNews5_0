@@ -210,6 +210,14 @@
 	{
 		return YES;
 	}
+    else if([fromflag isEqualToString:@"100"])
+    {
+        if([self.delegate1 respondsToSelector:@selector(DGClickApplicationListSearch:)])
+        {
+            [self.delegate1 DGClickApplicationListSearch:nil];
+        }
+        
+    }
 	else
 	{
 		if([self.delegate1 respondsToSelector:@selector(DGClickGoToSearch:)])

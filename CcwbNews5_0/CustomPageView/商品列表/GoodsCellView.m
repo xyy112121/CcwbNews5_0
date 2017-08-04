@@ -132,7 +132,7 @@
         labelprice.textColor = COLORNOW(232, 56, 47);
         [goodsview addSubview:labelprice];
         
-        UILabel *labelstore = [[UILabel alloc] initWithFrame:CGRectMake(20,imagepic.frame.origin.y+imagepic.frame.size.height-20,150,20)];
+        UILabel *labelstore = [[UILabel alloc] initWithFrame:CGRectMake(20,imagepic.frame.origin.y+imagepic.frame.size.height-20,SCREEN_WIDTH-40-XYViewWidth(imagepic),20)];
         labelstore.text = [dictemp objectForKey:@"store"];
         labelstore.font = fontnow2;
         labelstore.backgroundColor = [UIColor clearColor];

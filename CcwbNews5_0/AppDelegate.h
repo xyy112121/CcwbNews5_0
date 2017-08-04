@@ -25,7 +25,7 @@
 
 static NSString *appKey = @"0172df3fcf9c44f950b00eeb";//@"a9511ac380c5bf1cec9ea50f";  //测试用推送appkey
 static NSString *channel = @"Publish channel";
-static BOOL isProduction = FALSE;
+static BOOL isProduction = TRUE;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,JMessageDelegate,JPUSHRegisterDelegate,BMKLocationServiceDelegate,BMKGeneralDelegate,BMKGeoCodeSearchDelegate>
 {

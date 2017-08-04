@@ -49,7 +49,8 @@
 		buttonfunction.layer.borderColor = [UIColor clearColor].CGColor;
 		buttonfunction.frame= CGRectMake(nowwidth+i*(40+widthspace),heightnow, 40, 40);
 		NSURL *urlstr = [NSURL URLWithString:[dictemp objectForKey:@"pic_path"]];
-		[buttonfunction setImageForState:UIControlStateNormal withURL:urlstr];
+        [buttonfunction setImageForState:UIControlStateNormal withURL:urlstr];
+     //    setImageForState:UIControlStateNormal withURL:urlstr];
 		
 		buttonfunction.tag = EnHpFunctionButtonTag+i;
 		[buttonfunction addTarget:self action:@selector(clickfunction:) forControlEvents:UIControlEventTouchUpInside];
@@ -115,7 +116,8 @@
 			NSURL *urlstr = [NSURL URLWithString:[dictemp objectForKey:@"pic_path"]];
 			buttonfunction.tag = EnHpFunctionButtonTag+i;
 			[buttonfunction addTarget:self action:@selector(clickfunction:) forControlEvents:UIControlEventTouchUpInside];
-			[buttonfunction setImageForState:UIControlStateNormal withURL:urlstr];
+            [buttonfunction setImageForState:UIControlStateNormal withURL:urlstr];
+            //	[buttonfunction setImageForState:UIControlStateNormal withURL:urlstr];
 			[self addSubview:buttonfunction];
 			
 			UILabel *labeltitle = [[UILabel alloc] initWithFrame:CGRectMake(buttonfunction.frame.origin.x-15, buttonfunction.frame.origin.y+buttonfunction.frame.size.height+5,buttonfunction.frame.size.width+30, 20)];
