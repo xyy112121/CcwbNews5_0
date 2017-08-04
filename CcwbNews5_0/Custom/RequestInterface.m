@@ -128,6 +128,55 @@
      }];
 }
 
+//普通 接口没有请求动画效果的  //商城接口
++(void)doGetJsonWithParametersForStore:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)())always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
+{
+    AFHTTPSessionManager *manager = [RequestInterface getHTTPManager];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",app.cwtoken] forHTTPHeaderField:@"authorization"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:parameters];
+    params[@"cw_version"] = CwVersion;
+    params[@"cw_device"] = CwDevice;
+    params[@"cw_machine_id"]= app.Gmachid;
+    params[@"cw_user_id"] = app.userinfo.userid;
+    params[@"cw_city"] = app.diliweizhi.dilicity;
+    
+    //	NSDictionary * payload = @{
+    //							   @"devKey": @"nducrey",
+    //							   @"appKey": @"myApp",
+    //							   @"exp": @1425391188545,
+    //							   @"socketId": @"socketId"
+    //							   };
+    
+    
+    NSError *error;
+    NSString *token = [Jwt encodeWithPayload:params andKey:TYJWTKey andAlgorithm:HS256 andError:&error];
+    NSDictionary *decoded = [Jwt decodeWithToken:token andKey:TYJWTKey andVerify:true andError:&error];
+    DLog(@"token===%@,%@",token,decoded);
+    
+    NSString *urlstr;
+    urlstr = URLShopHeader;
+    [manager POST:[urlstr stringByAppendingString:requrl] parameters:params progress:^(NSProgress * _Nonnull uploadProgress)
+     {
+         
+     }
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         if(always){
+             always();
+         }
+         NSString *str = [[NSString alloc] initWithData:responseObject  encoding:NSUTF8StringEncoding];
+         //	 DLog(@"str====%@",str);
+         
+         NSDictionary *jsonvalue = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+         success(jsonvalue);
+         
+     }
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+         failure(@"请求失败,请检查网络");
+     }];
+}
+
 //普通接口请求 完整url
 +(void)doGetJsonWithParameterscompleteurl:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)())always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
 {

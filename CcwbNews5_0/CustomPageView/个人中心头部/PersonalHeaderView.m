@@ -26,15 +26,12 @@
 -(void)initview
 {
 	app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-	NSDictionary *dicuser = [userdefault dictionaryForKey:DefaultUserInfo];
-	DLog(@"dicuser====%@",dicuser);
 	
 	UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 190)];
-	if([[dicuser objectForKey:@"userstate"] isEqualToString:@"1"])
-	[imageview setImageWithURL:URLSTRING([dicuser objectForKey:@"head_pic_path"]) placeholderImage:LOADIMAGE(@"p_头像登录_icon", @"png")];
+	if([AddInterface judgeislogin])
+        [imageview setImageWithURL:URLSTRING(app.userinfo.userheader) placeholderImage:LOADIMAGE(@"p_头像登录_icon", @"png")];
 	else
-		[imageview setImageWithURL:URLSTRING([dicuser objectForKey:@"head_pic_path"]) placeholderImage:LOADIMAGE(@"p_头像登录_icon", @"png")];
+		[imageview setImageWithURL:URLSTRING(app.userinfo.userheader) placeholderImage:LOADIMAGE(@"p_头像登录_icon", @"png")];
 	imageview.contentMode = UIViewContentModeScaleAspectFill;
 	imageview.clipsToBounds = YES;
 	imageview.tag = EnPersonHeaderImageViewBgTag;
@@ -46,10 +43,10 @@
 	[self addSubview:redbg];
 	
 	UIImageView *imageviewheader = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 66, 66)];
-	if([[dicuser objectForKey:@"userstate"] isEqualToString:@"1"])
-		[imageviewheader setImageWithURL:URLSTRING([dicuser objectForKey:@"head_pic_path"]) placeholderImage:LOADIMAGE(@"p_头像登录_icon", @"png")];
+	if([AddInterface judgeislogin])
+		[imageviewheader setImageWithURL:URLSTRING(app.userinfo.userheader) placeholderImage:LOADIMAGE(@"p_头像登录_icon", @"png")];
 	else
-		[imageviewheader setImageWithURL:URLSTRING([dicuser objectForKey:@"head_pic_path"]) placeholderImage:LOADIMAGE(@"p_头像登录_icon", @"png")];
+		[imageviewheader setImageWithURL:URLSTRING(app.userinfo.userheader) placeholderImage:LOADIMAGE(@"p_头像登录_icon", @"png")];
 	imageviewheader.layer.cornerRadius = 33;
 	imageviewheader.center = CGPointMake(SCREEN_WIDTH/2,90);
 	imageviewheader.contentMode = UIViewContentModeScaleAspectFill;
@@ -61,9 +58,9 @@
 	[self addSubview:imageviewheader];
 	
 	UILabel *labelname = [[UILabel alloc] initWithFrame:CGRectMake(imageviewheader.frame.origin.x-20, imageviewheader.frame.origin.y+imageviewheader.frame.size.height+10,imageviewheader.frame.size.width+40, 20)];
-	if([[dicuser objectForKey:@"userstate"] isEqualToString:@"1"])
+	if([AddInterface judgeislogin])
 	{
-		labelname.text = [dicuser objectForKey:@"username"];
+		labelname.text = app.userinfo.username;
 	}
 	else
 	{

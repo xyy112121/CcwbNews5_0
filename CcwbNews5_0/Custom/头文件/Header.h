@@ -19,15 +19,16 @@
 #define URLNewsDetailHref  [NSString stringWithFormat:@"%@%@",URLHeader,URLDetailhtml]
 
 //商城
-#define URLShopHeader @"http://ccwbshop.ccwb.cn" 
+#define URLShopHeader @"http://ccwbshop.ccwb.cn"
 
 #define CwVersion  @"5.0" 
 #define CwDevice   @"ios"
 #define JMAdmin   @"admin"
 #define CwQRCodeRule  @"http://cwapp.ccwb.cn"  //二维码扫描规则，只有符合这个规则的才判断
 #define APP_KEY @"AijaDHgBnG7q9GEUwBQVsNAv"
-#define DefaultUserInfo @"defaultuserinfo"
+#define DefaultUserInfo @"defaultuserinfo2"
 #define DefaultCWToken   @"defaultcwtoken"
+#define DefaultStoreToken   @"defaultStoretoken"
 
 #define TYImageText @"imagetext"  //图文 视频，直播，活动，发现
 #define TYImage @"image"     //推广，广告

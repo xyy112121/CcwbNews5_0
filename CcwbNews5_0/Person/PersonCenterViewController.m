@@ -324,36 +324,48 @@
 {
 	SettingViewController *setting;
     StoreWebViewViewController *storewebview;
-	switch (indexPath.row)
-	{
-		case 0://历史
-			[self gotowkwebview:URLUserReadHistory URLType:URLHeader];
-			break;
-		case 1://通知
-			[self gotowkwebview:URLUsernotification URLType:URLHeader];
-			break;
-		case 2: //卡券
-			[self gotowkwebview:URLKaQuanHtml URLType:URLHeader];
-			break;
-		case 3://购物车
-            storewebview = [[StoreWebViewViewController alloc] init];
-            storewebview.strfromurl = [NSString stringWithFormat:@"%@",@"#/cart"];
-            [self.navigationController pushViewController:storewebview animated:YES];
-			break;
-		case 4://我的订单
-            storewebview = [[StoreWebViewViewController alloc] init];
-            storewebview.strfromurl = [NSString stringWithFormat:@"%@",@"#/order"];
-            [self.navigationController pushViewController:storewebview animated:YES];
-			break;
-//		case 5://活动
-//			[self gotowkwebview:URLUserActivityList URLType:URLUserHeader];
-//			break;
-		case 5:
-			setting = [[SettingViewController alloc] init];
-			[self.navigationController pushViewController:setting animated:YES];
-			break;
-
-	}
+    if(indexPath.row==5)
+    {
+        setting = [[SettingViewController alloc] init];
+        [self.navigationController pushViewController:setting animated:YES];
+    }
+    else if([AddInterface judgeislogin])
+    {
+        switch (indexPath.row)
+        {
+            case 0://历史
+                [self gotowkwebview:URLUserReadHistory URLType:URLHeader];
+                break;
+            case 1://通知
+                [self gotowkwebview:URLUsernotification URLType:URLHeader];
+                break;
+            case 2: //卡券
+                [self gotowkwebview:URLKaQuanHtml URLType:URLHeader];
+                break;
+            case 3://购物车
+                storewebview = [[StoreWebViewViewController alloc] init];
+                storewebview.strfromurl = [NSString stringWithFormat:@"%@",@"#/cart"];
+                [self.navigationController pushViewController:storewebview animated:YES];
+                break;
+            case 4://我的订单
+                storewebview = [[StoreWebViewViewController alloc] init];
+                storewebview.strfromurl = [NSString stringWithFormat:@"%@",@"#/order"];
+                [self.navigationController pushViewController:storewebview animated:YES];
+                break;
+                //		case 5://活动
+                //			[self gotowkwebview:URLUserActivityList URLType:URLUserHeader];
+                //			break;
+        }
+    }
+    else
+    {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        UINavigationController *nctl  = [[UINavigationController alloc] initWithRootViewController:login];
+        
+        [self presentViewController:nctl animated:YES completion:nil];
+    }
+    
+	
 }
 
 -(BOOL)getredpointflag:(NSString *)strflag

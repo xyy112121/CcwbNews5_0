@@ -35,8 +35,14 @@
     [self addGestureRecognizer :recognizer];
     
     UIImageView *imageviediwen = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    imageviediwen.image = LOADIMAGE(@"guide5", @"png");
+    imageviediwen.image = LOADIMAGE(@"guide5", @"jpg");
     [self addSubview:imageviediwen];
+    
+    UIButton *buttongude = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttongude.layer.borderColor = [UIColor clearColor].CGColor;
+    buttongude.frame = CGRectMake(0, SCREEN_HEIGHT/2, SCREEN_WIDTH, SCREEN_HEIGHT/2);
+    [buttongude addTarget:self action:@selector(closeguide:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:buttongude];
     
 }
 

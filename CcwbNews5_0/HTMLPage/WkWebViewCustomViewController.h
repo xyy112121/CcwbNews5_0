@@ -30,6 +30,7 @@
 	EnWebViewWindowsType webviewtype;
 	WKUserContentController * userContentController;
 }
+@property(nonatomic,strong)NSString *fromaskorother;//来自ask的话导航栏的回退按钮用白色 其余用红色
 @property(nonatomic,strong)id<ActionDelegate>delegate1;
 @property(nonatomic,strong)AppDelegate *app;
 @property(nonatomic,strong)NSString *strurl;

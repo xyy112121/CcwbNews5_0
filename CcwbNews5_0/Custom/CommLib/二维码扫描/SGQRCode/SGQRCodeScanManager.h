@@ -24,6 +24,9 @@
 @end
 
 @interface SGQRCodeScanManager : NSObject
+{
+    AppDelegate *app;
+}
 /// 快速创建单利方法
 + (instancetype)sharedManager;
 

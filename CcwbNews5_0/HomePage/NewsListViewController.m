@@ -31,15 +31,20 @@
     [self initparament:nil];
     
     [[self.navigationController.navigationBar viewWithTag:EnHpNctlViewTag] removeFromSuperview];
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, 60, 40)];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+    contentView.backgroundColor = [UIColor clearColor];
     UIButton *button = [[UIButton alloc] initWithFrame:contentView.bounds];
     button.layer.borderColor = [UIColor clearColor].CGColor;
+    button.backgroundColor = [UIColor clearColor];
     [button setImage:LOADIMAGE(@"arrowleftred", @"png") forState:UIControlStateNormal];
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, -30, 0, 0);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     [button addTarget:self action: @selector(returnback:) forControlEvents: UIControlEventTouchUpInside];
     [contentView addSubview:button];
+    UIBarButtonItem *nagetiveSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                                   target:nil action:nil];
+    nagetiveSpacer.width = -10;//这个值可以根据自己需要自己调整
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contentView];
-    self.navigationItem.leftBarButtonItem = barButtonItem;
+    self.navigationItem.leftBarButtonItems = @[nagetiveSpacer, barButtonItem];
     
 }
 
@@ -402,6 +407,90 @@
     webviewcustom.strtitle = strtitle;
     webviewcustom.strurl = requeststring;
     [self.navigationController pushViewController:webviewcustom animated:YES];
+}
+
+-(void)DGClickMoreNewsUrl:(NSDictionary *)moredic
+{
+    NSString *strmoreurl = [moredic objectForKey:@"more_url"];
+    if([strmoreurl length]>0)
+    {
+        [self gotowkwebview:strmoreurl StrTitle:@"列表"];
+    }
+    else if([[moredic objectForKey:@"in_type"] isEqualToString:@"biz"])
+    {
+        StoreWebViewViewController *storewebview = [[StoreWebViewViewController alloc] init];
+        storewebview.strfromurl = @"";
+        [self.navigationController pushViewController:storewebview animated:YES];
+    }
+    else
+    {
+        NewsListViewController *newslist = [[NewsListViewController alloc] init];
+        newslist.fccw_type = [moredic objectForKey:@"id"];
+        newslist.fcfromflag = @"1";
+        [self.navigationController pushViewController:newslist animated:YES];
+    }
+}
+
+-(void)DGClickBurstNews:(NSDictionary *)sender
+{
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"app_name"]];
+}
+
+-(void)DGclickNewsZuPic:(NSDictionary *)sender
+{
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:@""];
+}
+
+-(void)DGClickSingleTuJipic:(id)sender
+{
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:@""];
+}
+
+-(void)DGClickActivityPic:(NSDictionary *)sender
+{
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"title"]];
+}
+
+-(void)DGFocusClickNumberPic:(NSDictionary *)sender
+{
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:@"焦点新闻详情"];
+}
+
+-(void)DGclickTuJiPic:(NSDictionary *)sender
+{
+    //	[self gotowkwebview:[sender objectForKey:@"url"]];
+    //    http://172.16.5.37/app/public/apppage/AppPage/detail.html?cw_id=20170720103240V45ZUS
+    NSString *strurl;
+    if([[sender objectForKey:@"url"] length]>0)
+        strurl = [sender objectForKey:@"url"];
+    else
+        strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
+    [self gotowkwebview:strurl StrTitle:@""];
 }
 
 #pragma mark 接口

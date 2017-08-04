@@ -101,6 +101,10 @@
     NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
     NSString *nowtoken = [userDefaultes stringForKey:DefaultCWToken];
     self.cwtoken = nowtoken;
+    
+    NSUserDefaults *userDefaultes1 = [NSUserDefaults standardUserDefaults];
+    NSString *storetoken = [userDefaultes1 stringForKey:DefaultStoreToken];
+    self.Gstoretoken = storetoken;
 }
 
 -(void)initJMessage:(NSDictionary *)launchOptions
@@ -191,10 +195,13 @@
     
     DLog(@"cwtoken===%@",self.cwtoken);
     
-	//极光IM JMessage
-//	[self initJMessage:launchOptions];
+
 	//极光推送
 	[self initJPush:launchOptions];
+    
+    //极光IM JMessage
+    [self initJMessage:launchOptions];
+    
 	//友盟分享
 	/* 设置友盟appkey */
 	[[UMSocialManager defaultManager] setUmSocialAppkey:TYUMKey];
@@ -293,7 +300,7 @@
 #pragma mark JMessage
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-//	[JMessage registerDeviceToken:deviceToken];
+	[JMessage registerDeviceToken:deviceToken];
 	[JPUSHService registerDeviceToken:deviceToken];
 }
 

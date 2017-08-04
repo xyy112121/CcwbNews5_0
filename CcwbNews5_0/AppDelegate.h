@@ -23,7 +23,7 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
-static NSString *appKey = @"a9511ac380c5bf1cec9ea50f";  //测试用推送appkey
+static NSString *appKey = @"0172df3fcf9c44f950b00eeb";//@"a9511ac380c5bf1cec9ea50f";  //测试用推送appkey
 static NSString *channel = @"Publish channel";
 static BOOL isProduction = FALSE;
 
@@ -34,7 +34,8 @@ static BOOL isProduction = FALSE;
 	BMKGeoCodeSearch* geocodesearch;
 	
 }
-@property(nonatomic,strong)NSString *cwtoken;
+@property(nonatomic,strong)NSString *cwtoken;   //apptoken
+@property(nonatomic,strong)NSString *Gstoretoken;//商城token
 @property (atomic) bool active;
 @property(nonatomic,strong)UINavigationController *gnctl;
 @property(nonatomic,strong)NSString *pushflag;

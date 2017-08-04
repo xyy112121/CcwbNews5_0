@@ -237,46 +237,7 @@
 	
 	DLog(@"tempDic====%@",tempDic);
 	
-//	NSData *data = [viewname dataUsingEncoding:NSUTF8StringEncoding];
-//	NSDictionary *tempdic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-//	DLog(@"userinfo====%@",tempdic);
-//	
-//	NSString *strpermisson=@"";
-//	for(int i=0;i<[(NSArray *)[tempdic objectForKey:@"permission"] count];i++)
-//	{
-//		strpermisson = [[tempdic objectForKey:@"permission"] objectAtIndex:i];
-//	}
-//	
-//	NSString *userid = [tempdic objectForKey:@"id"];
-//	NSString *username = [tempdic objectForKey:@"name"];
-//	NSString *userheader = [tempdic objectForKey:@"head_pic"];
-//	NSString *tel = [tempdic objectForKey:@"tel"];
-//	NSString *useradmin = [tempdic objectForKey:@"is_admin"];
-//	NSDictionary *userdic = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:userid, username,strpermisson,userheader,tel,@"1",useradmin, nil] forKeys:[NSArray arrayWithObjects:@"userid", @"username", @"userpermission", @"head_pic_path", @"usertel", @"userstate",@"useradmin", nil]];
-//	weakSelf.app.userinfo.userid = userid;
-//	weakSelf.app.userinfo.username = username;
-//	weakSelf.app.userinfo.userheader = userheader;
-//	weakSelf.app.userinfo.usertel = tel;
-//	weakSelf.app.userinfo.userstate = @"1";
-//	weakSelf.app.userinfo.useradmin =useradmin;
-//	
-//	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//	[userDefaults setObject:userdic forKey:DefaultUserInfo];
-//	[userDefaults synchronize];
-//	[weakSelf.navigationController popViewControllerAnimated:YES];
 }
-
-//WebViewCustomViewController *webviewcustom = [[WebViewCustomViewController alloc] init];
-//if([requestString rangeOfString:@"?"].location !=NSNotFound)
-//{
-//	requestString = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requestString,CwVersion,CwDevice,self.app.Gmachid,self.app.userinfo.userid];
-//}
-//else
-//{
-//	requestString = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requestString,CwVersion,CwDevice,self.app.Gmachid,self.app.userinfo.userid];
-//}
-//webviewcustom.strurl = requestString;
-//[self.navigationController pushViewController:webviewcustom animated:YES];
 
 
 - (void)dealloc{

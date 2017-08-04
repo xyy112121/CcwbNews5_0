@@ -135,3 +135,6 @@ typedef enum
 #define EnThreeLoginWBImageTag  51430
 #define EnThreeLoginQQImageTag  51750
 #define EnGetVerCodeBtTag   51800
+
+#define EnApplicationTuiJianBGViewTag  51900
+

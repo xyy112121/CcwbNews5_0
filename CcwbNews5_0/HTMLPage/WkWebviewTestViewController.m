@@ -26,15 +26,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[self.navigationController.navigationBar viewWithTag:EnHpNctlViewTag] removeFromSuperview];
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, 60, 40)];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+    contentView.backgroundColor = [UIColor clearColor];
     UIButton *button = [[UIButton alloc] initWithFrame:contentView.bounds];
     button.layer.borderColor = [UIColor clearColor].CGColor;
+    button.backgroundColor = [UIColor clearColor];
     [button setImage:LOADIMAGE(@"arrowleftred", @"png") forState:UIControlStateNormal];
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, -30, 0, 0);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     [button addTarget:self action: @selector(returnback:) forControlEvents: UIControlEventTouchUpInside];
     [contentView addSubview:button];
+    UIBarButtonItem *nagetiveSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                                   target:nil action:nil];
+    nagetiveSpacer.width = -10;//这个值可以根据自己需要自己调整
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contentView];
-    self.navigationItem.leftBarButtonItem = barButtonItem;
+    self.navigationItem.leftBarButtonItems = @[nagetiveSpacer, barButtonItem];
     
     [self initWKWebView];
     // Do any additional setup after loading the view.

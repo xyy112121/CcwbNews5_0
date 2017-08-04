@@ -118,20 +118,14 @@
 
 -(void)clicklogout:(id)sender
 {
-//	app.userinfo.userstate = @"0";
-//	NSDictionary *userdic = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:app.userinfo.userid, app.userinfo.username,app.userinfo.userpermission,app.userinfo.userheader,app.userinfo.usertel,@"0", nil] forKeys:[NSArray arrayWithObjects:@"userid", @"username", @"userpermission", @"userheader", @"usertel", @"userstate", nil]];
-//	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//	[userDefaults setObject:userdic forKey:DefaultUserInfo];
-//	[userDefaults synchronize];
-//	
-//	NSUserDefaults *userDefaultestemp = [NSUserDefaults standardUserDefaults];
-//	NSDictionary *userdictemp = [userDefaultestemp dictionaryForKey:DefaultUserInfo];
-//	DLog(@"userdic====%@",userdictemp);
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:DefaultUserInfo];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[self.navigationController popToRootViewControllerAnimated:YES];
 	app.userinfo.userheader = @"";
 	app.userinfo.userid = @"";
+    app.userinfo.userstate = @"0";
+    app.userinfo.username = @"";
+    app.userinfo.username = @"";
 }
 
 #pragma mark tableview 代理

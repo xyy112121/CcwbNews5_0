@@ -59,17 +59,27 @@
 	[self.navigationController setNavigationBarHidden:NO];
 	ennctl = EnNavigateionYES;
 	[[self.navigationController.navigationBar viewWithTag:EnHpNctlViewTag] removeFromSuperview];
-	UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, 60, 40)];
+	UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+    contentView.backgroundColor = [UIColor clearColor];
 	UIButton *button = [[UIButton alloc] initWithFrame:contentView.bounds];
 	button.layer.borderColor = [UIColor clearColor].CGColor;
+    button.backgroundColor = [UIColor clearColor];
 	[button setImage:LOADIMAGE(@"arrowleftred", @"png") forState:UIControlStateNormal];
-	button.imageEdgeInsets = UIEdgeInsetsMake(0, -30, 0, 0);
+    if([self.fromaskorother isEqualToString:@"ask"])
+    {
+        [button setImage:LOADIMAGE(@"arrowleft", @"png") forState:UIControlStateNormal];
+    }
+	button.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
 	[button addTarget:self action: @selector(returnback:) forControlEvents: UIControlEventTouchUpInside];
 	[contentView addSubview:button];
+    UIBarButtonItem *nagetiveSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                                   target:nil action:nil];
+    nagetiveSpacer.width = -10;//这个值可以根据自己需要自己调整
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contentView];
-	self.navigationItem.leftBarButtonItem = barButtonItem;
+    self.navigationItem.leftBarButtonItems = @[nagetiveSpacer, barButtonItem];
+
 	
-	// Do any additional setup after loading the view.
+	
 	self.title = self.strtitle;
 	flagloading = 0;
 	webviewtype = EnWebViewSingle;
@@ -85,15 +95,13 @@
 	recognizer = [[ UISwipeGestureRecognizer alloc ] initWithTarget : self action : @selector (handleSwipeFrom:)];
 	[recognizer setDirection :( UISwipeGestureRecognizerDirectionLeft)];
 	[self.view addGestureRecognizer :recognizer];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(begainFullScreen) name:UIWindowDidBecomeVisibleNotification object:nil];//进入全屏
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];//退出全屏
 }
 
 - (void)initWKWebView
 {
 	userContentController = [[WKUserContentController alloc] init];
 	WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+ //   configuration.keyboardDisplayRequiresUserAction = NO;
 //    configuration.allowsInlineMediaPlayback = YES;
 	configuration.userContentController = userContentController;
     
@@ -117,29 +125,14 @@
 	[userContentController addScriptMessageHandler:self name:@"getiostoke"];
     [userContentController addScriptMessageHandler:self name:@"ShowNewsDetail"];
 	
-    
-    
 	WKPreferences *preferences = [WKPreferences new];
 	preferences.javaScriptCanOpenWindowsAutomatically = YES;
 //	preferences.minimumFontSize = 10.0;
 	configuration.preferences = preferences;
 	
-//	self.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-//											configuration:configuration];
-	
-	
     self.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)
                                         configuration:configuration];
-    
-    
-
-//    NSString* urlpath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-//    NSURL *url = [NSURL fileURLWithPath:urlpath];
-//    [self.wkwebview loadFileURL:url allowingReadAccessToURL:url];
-//    self.wkwebview.navigationDelegate = self;
-//    self.wkwebview.UIDelegate = self;
-//    [self.view addSubview:self.wkwebview];
-    
+    self.wkwebview.allowsBackForwardNavigationGestures = NO;
 	//商城的用单页 判断商城域名
 	if(([self.strurl rangeOfString:@"newapp.ccwb.cn"].location !=NSNotFound)||([self.strurl rangeOfString:@"newuser.ccwb.cn"].location !=NSNotFound))
 	{
@@ -187,13 +180,13 @@
 	self.wkwebview.scrollView.showsVerticalScrollIndicator = YES;
 	self.wkwebview.scrollView.showsHorizontalScrollIndicator = YES;
     self.wkwebview.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0,  0, 0);
-	UIScrollView *scroller = [self.wkwebview.subviews objectAtIndex:0];
-	if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
-	{
-		scroller.bounces = YES;
-		scroller.alwaysBounceVertical = YES;
-		scroller.alwaysBounceHorizontal = YES;
-	}
+//	UIScrollView *scroller = [self.wkwebview.subviews objectAtIndex:0];
+//	if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
+//	{
+//		scroller.bounces = YES;
+//		scroller.alwaysBounceVertical = YES;
+//		scroller.alwaysBounceHorizontal = YES;
+//	}
 
 }
 
@@ -712,7 +705,7 @@
 -(void)setnctlview:(NSString *)body
 {
 	[[self.navigationController.navigationBar viewWithTag:EnHpNctlViewTag] removeFromSuperview];
-	
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 	NSDictionary *dic = [AddInterface dictionaryWithJsonString:body];
 	
 	hpna = [[HpNavigateView alloc] initWithFrame:CGRectMake(50, 0, SCREEN_WIDTH, 44) DicFrom:dic];
@@ -912,7 +905,18 @@
 	NSString* thumbURL =  [dicfrom objectForKey:@"share_pic_path"];
 	UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:[dicfrom objectForKey:@"title"] descr:[dicfrom objectForKey:@"summary"] thumImage:thumbURL];
 	//设置网页地址
-	shareObject.webpageUrl = [dicfrom objectForKey:@"share_url"];
+    
+    
+    NSString *requeststring = [dicfrom objectForKey:@"share_url"];
+    if([requeststring rangeOfString:@"?"].location !=NSNotFound)
+    {
+        requeststring = [NSString stringWithFormat:@"%@&share_id=%@",requeststring,[dicdata objectForKey:@"share_id"]];
+    }
+    else
+    {
+        requeststring = [NSString stringWithFormat:@"%@?share_id=%@",requeststring,[dicdata objectForKey:@"share_id"]];
+    }
+	shareObject.webpageUrl = requeststring;
 	
 	//分享消息对象设置分享内容对象
 	messageObject.shareObject = shareObject;
@@ -927,29 +931,7 @@
 			if ([data isKindOfClass:[UMSocialShareResponse class]])
 			{
 				UMSocialShareResponse *resp = data;
-                NSString *sharetype;
-                if(platformType==UMSocialPlatformType_Sina)
-                {
-                    sharetype = @"sina";
-                }
-                else if(platformType==UMSocialPlatformType_WechatSession)
-                {
-                    sharetype = @"wechat";
-                }
-                else if(platformType==UMSocialPlatformType_WechatTimeLine)
-                {
-                    sharetype = @"wxcircle";
-                }
-                else if(platformType==UMSocialPlatformType_QQ)
-                {
-                    sharetype = @"qq";
-                }
-                else if(platformType==UMSocialPlatformType_Qzone)
-                {
-                    sharetype = @"qzone";
-                }
                 
-                [self getShareInfoCallBack:[dicfrom objectForKey:@"cw_id"] ShareType:sharetype ShareId:[dicfrom objectForKey:@"share_id"]];
 				//分享结果消息
 				UMSocialLogInfo(@"response message is %@",resp.message);
 				//第三方原始返回的数据
@@ -960,6 +942,30 @@
 			{
 				UMSocialLogInfo(@"response data is %@",data);
 			}
+            
+            NSString *sharetype;
+            if(platformType==UMSocialPlatformType_Sina)
+            {
+                sharetype = @"sina";
+            }
+            else if(platformType==UMSocialPlatformType_WechatSession)
+            {
+                sharetype = @"wechat";
+            }
+            else if(platformType==UMSocialPlatformType_WechatTimeLine)
+            {
+                sharetype = @"wxcircle";
+            }
+            else if(platformType==UMSocialPlatformType_QQ)
+            {
+                sharetype = @"qq";
+            }
+            else if(platformType==UMSocialPlatformType_Qzone)
+            {
+                sharetype = @"qzone";
+            }
+            
+            [self getShareInfoCallBack:[dicfrom objectForKey:@"cw_id"] ShareType:sharetype ShareId:[dicfrom objectForKey:@"share_id"]];
 		}
 		[self alertWithError:error];
 	}];
@@ -1008,7 +1014,7 @@
 		DLog(@"dic====%@",dic);
 		if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		{
-            
+            dicdata = [dic objectForKey:@"data"];
 			[self setUMshare];
 			[self showshareinfo:[dic objectForKey:@"data"]];
 		}
@@ -1025,9 +1031,15 @@
 -(void)getShareInfoCallBack:(NSString *)sender ShareType:(NSString *)sharetype ShareId:(NSString *)shareid
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"cw_id"] = sender;
-    params[@"cw_type"] = sharetype;
-    params[@"share_id"] = shareid;
+    params[@"cw_id"] = [dicdata objectForKey:@"cw_id"];
+    params[@"cw_type"] = @"news";
+    params[@"share_id"] = [dicdata objectForKey:@"share_id"];
+    params[@"cw_action"] = @"share";
+    params[@"cw_platform"] = sharetype;
+     params[@"title"] = [dicdata objectForKey:@"title"];
+     params[@"summary"] = [dicdata objectForKey:@"summary"];
+     params[@"share_pic_path"] = [dicdata objectForKey:@"share_pic_path"];
+    params[@"share_url"] = [dicdata objectForKey:@"share_url"];
     
     [RequestInterface doGetJsonWithParametersNoAn:params App:self.app ReqUrl:InterfaceShareCallBack ShowView:self.app.window alwaysdo:^{
         

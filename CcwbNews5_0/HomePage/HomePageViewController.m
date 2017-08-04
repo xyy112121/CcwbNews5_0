@@ -328,8 +328,8 @@
 	}
 	self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
 	app.gnctl = self.navigationController;
-	[[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-	self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+	[[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 }
 
 
@@ -450,14 +450,31 @@
 {
 	if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"ask"])//ar/vr
 	{
-        AskBrokeViewController *askbroke = [[AskBrokeViewController alloc] init];
-        UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:askbroke];
-        [self.navigationController presentViewController:nctl animated:YES completion:nil];	}
+        if([AddInterface judgeislogin])
+        {
+            AskBrokeViewController *askbroke = [[AskBrokeViewController alloc] init];
+            UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:askbroke];
+            [self.navigationController presentViewController:nctl animated:YES completion:nil];
+        }
+        else
+        {
+            LoginViewController *login = [[LoginViewController alloc] init];
+            UINavigationController *nctl  = [[UINavigationController alloc] initWithRootViewController:login];
+            
+            [self presentViewController:nctl animated:YES completion:nil];
+        }
+    }
     else if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"ar"])//ar/vr
     {
         ScanQRCodeARViewController *scanqrcode = [[ScanQRCodeARViewController alloc] init];
         UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:scanqrcode];
         [self.navigationController presentViewController:nctl animated:YES completion:nil];
+    }
+    else if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"biz"])
+    {
+        StoreWebViewViewController *storewebview = [[StoreWebViewViewController alloc] init];
+        storewebview.strfromurl = @"";
+        [self.navigationController pushViewController:storewebview animated:YES];
     }
 	else if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"url"])
 	{
@@ -480,7 +497,7 @@
 
 -(void)DGClickwkwebviewCustomview:(NSString *)clickurl
 {
-//	[self gotowkwebview:clickurl];
+	[self gotowkwebview:clickurl StrTitle:@""];
 }
 
 -(void)DGGotoGoodsDetailView:(NSDictionary *)sender
@@ -625,10 +642,10 @@
 -(void)DGclickApplicationItem:(NSDictionary *)clickapp   //点击应用
 {
 	SelectedApp = [clickapp objectForKey:@"id"];
-	
 	[[self.view viewWithTag:EnAddApplicationWebViewTag] removeFromSuperview];
 	[[self.view viewWithTag:EnYLImageViewTag] removeFromSuperview];
 	[[self.view viewWithTag:EnHpChannelViewTAG] removeFromSuperview];
+    
 	if([[clickapp objectForKey:@"type"] isEqualToString:@"sys"])  //不可排序
 	{
 		[self.navigationController setNavigationBarHidden:NO];
@@ -1047,8 +1064,6 @@
         else
             strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[dictemp objectForKey:@"id"]];
         [self gotowkwebview:strurl StrTitle:@"新闻详情"];
-//        WkWebviewTestViewController *webviewtest = [[WkWebviewTestViewController alloc] init];
-//        [self.navigationController pushViewController:webviewtest animated:YES];
     }
     else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"more"])//当是显示更我推荐新闻cell是进
     {
@@ -1069,11 +1084,6 @@
 		LVMovieViewController *videoPlayVC = [LVMovieViewController movieViewControllerWithContentPath:path parameters:parameters];
 		[self presentViewController:videoPlayVC animated:YES completion:nil];
 	}
-//    else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"biz"])
-//    {
-//        WkWebViewLocationHtmlViewController *wkwebview = [[WkWebViewLocationHtmlViewController alloc] init];
-//        [self.navigationController pushViewController:wkwebview animated:YES];
-//    }
 }
 #pragma 引导页
 -(void)addguidepage
@@ -1185,30 +1195,37 @@
 		 if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		 {
 			 strcw_time = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cw_time"]];
-			 if([header isEqualToString:@"YES"]&&[(NSArray *)[dic objectForKey:@"newsList"] count]>0)
+			 if([header isEqualToString:@"YES"])
 			 {
-                
-				 nowpage = nowpage+1;
-				 arraydata = [[NSMutableArray alloc] initWithArray:[dic objectForKey:@"newsList"]];
-				 
-				 [arrayheight removeAllObjects];
-				 
-				 [self tableviewcellheight:arraydata];
-				 
-				 //用于存储首页应用推荐，便于操作的时候管理
-				 for(int i=0;i<[arraydata count];i++)
-				 {
-					 NSDictionary *dictemp = [arraydata objectAtIndex:i];
-					 EnCellType celltype = [AddInterface GetCellType:[dictemp objectForKey:@"show_type"]];
-					 switch (celltype)
-					 {
-						 case EnCellTypeApp:
-							 app.arrapprecommend = [[NSMutableArray alloc] initWithArray:[dictemp objectForKey:@"list"]];
-							 break;
-						 default:
-							 break;
-					 }
-				 }
+                 if([(NSArray *)[dic objectForKey:@"newsList"] count]>0)
+                 {
+                     nowpage = nowpage+1;
+                     arraydata = [[NSMutableArray alloc] initWithArray:[dic objectForKey:@"newsList"]];
+                     
+                     [arrayheight removeAllObjects];
+                     
+                     [self tableviewcellheight:arraydata];
+                     
+                     //用于存储首页应用推荐，便于操作的时候管理
+                     for(int i=0;i<[arraydata count];i++)
+                     {
+                         NSDictionary *dictemp = [arraydata objectAtIndex:i];
+                         EnCellType celltype = [AddInterface GetCellType:[dictemp objectForKey:@"show_type"]];
+                         switch (celltype)
+                         {
+                             case EnCellTypeApp:
+                                 app.arrapprecommend = [[NSMutableArray alloc] initWithArray:[dictemp objectForKey:@"list"]];
+                                 break;
+                             default:
+                                 break;
+                         }
+                     }
+                 }
+                 else
+                 {
+                     [arrayheight removeAllObjects];
+                     [arraydata removeAllObjects];
+                 }
 				
 			 }
 			 else

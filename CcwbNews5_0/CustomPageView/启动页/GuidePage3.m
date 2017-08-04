@@ -36,7 +36,7 @@
 	[self addGestureRecognizer :recognizer];
 	
     UIImageView *imageviediwen = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    imageviediwen.image = LOADIMAGE(@"guide3", @"png");
+    imageviediwen.image = LOADIMAGE(@"guide3", @"jpg");
     [self addSubview:imageviediwen];
 }
 
@@ -95,7 +95,7 @@
 	}
 	
 	UIImageView *imageins = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-widthnow1)/2, imageviediwen.frame.origin.y +imageviediwen.frame.size.height+50, widthnow1, heightnow1)];
-	imageins.image = LOADIMAGE(@"guidepage1_3", @"png");
+	imageins.image = LOADIMAGE(@"guidepage1_3", @"jpg");
 	[self addSubview:imageins];
 }
 

@@ -36,7 +36,7 @@
 	[self addGestureRecognizer :recognizer];
     
     UIImageView *imageviediwen = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-	imageviediwen.image = LOADIMAGE(@"guide1", @"png");
+	imageviediwen.image = LOADIMAGE(@"guide1", @"jpg");
 	[self addSubview:imageviediwen];
     
     

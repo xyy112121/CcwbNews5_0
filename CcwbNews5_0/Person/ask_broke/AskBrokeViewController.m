@@ -64,6 +64,7 @@
 	NSString *str = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",URLAskQuestViewHtml,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
 	str = [URLHeader stringByAppendingString:str];
 	WkWebViewCustomView *askview = [[WkWebViewCustomView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) StrUrl:str];
+    askview.delegate1 = self;
 
 	brokeview = [[BrokeTableView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH,0,SCREEN_WIDTH, SCREEN_HEIGHT-64)];
 	brokeview.deletage1 = self;
@@ -103,6 +104,25 @@
 }
 
 #pragma mark  ibaction
+-(void)gotowkwebview:(NSString *)str StrTitle:(NSString *)strtitle
+{
+    WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
+    NSString *requeststring = str;
+    if([requeststring rangeOfString:@"?"].location !=NSNotFound)
+    {
+        requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
+    }
+    else
+    {
+        requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
+    }
+    webviewcustom.delegate1 = self;
+    webviewcustom.strtitle = strtitle;
+    webviewcustom.strurl = requeststring;
+    webviewcustom.fromaskorother = @"ask";
+    [self.navigationController pushViewController:webviewcustom animated:YES];
+}
+
 -(void)returnback
 {
 	[brokeview.player stop];
@@ -265,6 +285,11 @@
 
 
 #pragma mark actiondelegate
+-(void)DGClickwkwebviewCustomview:(NSString *)clickurl
+{
+    [self gotowkwebview:clickurl StrTitle:@""];
+}
+
 -(void)DGUpLoadBrokeContentItem:(NSString *)fromtype FileURL:(NSString *)fileurl FileId:(NSString *)fileid Content:(NSString *)content TimeLength:(NSString *)timelength
 {
 	[self uploadresourceitem:content Type:fromtype FileURL:fileurl FileId:fileid TimeLength:timelength VideoPicPath:@""];

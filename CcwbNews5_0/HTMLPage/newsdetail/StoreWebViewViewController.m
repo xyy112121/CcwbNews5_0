@@ -55,14 +55,20 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     [self.navigationController setNavigationBarHidden:NO];
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, 60, 40)];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+    contentView.backgroundColor = [UIColor clearColor];
     UIButton *button = [[UIButton alloc] initWithFrame:contentView.bounds];
+    button.layer.borderColor = [UIColor clearColor].CGColor;
+    button.backgroundColor = [UIColor clearColor];
     [button setImage:LOADIMAGE(@"arrowleftred", @"png") forState:UIControlStateNormal];
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, -30, 0, 0);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     [button addTarget:self action: @selector(returnback:) forControlEvents: UIControlEventTouchUpInside];
     [contentView addSubview:button];
+    UIBarButtonItem *nagetiveSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                                   target:nil action:nil];
+    nagetiveSpacer.width = -10;//这个值可以根据自己需要自己调整
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contentView];
-    self.navigationItem.leftBarButtonItem = barButtonItem;
+    self.navigationItem.leftBarButtonItems = @[nagetiveSpacer, barButtonItem];
 
     self.view.backgroundColor = [UIColor whiteColor];
     [self initparament:nil];
@@ -75,13 +81,15 @@
     LoginViewController *login = [[LoginViewController alloc] init];
     login.delegate1 = self;
     UINavigationController *nctl  = [[UINavigationController alloc] initWithRootViewController:login];
-    [self presentViewController:nctl animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:nctl animated:YES completion:nil];
+    });
 }
 
 #pragma mark Actiondegate
 -(void)DGLoginSuccess:(NSString *)success
 {
-    NSString *jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", self.app.cwtoken];
+    NSString *jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", self.app.Gstoretoken];
     [webview stringByEvaluatingJavaScriptFromString:jsMethod];
     [webview reload];
 }
@@ -134,6 +142,8 @@
         webview.backgroundColor = [UIColor clearColor];
         webview.delegate = self;
         webview.tag = 8090;
+        webview.scalesPageToFit = NO;
+//        webview
         NSURL *urlstr = [NSURL URLWithString:urlpath];
         NSURLRequest *request = [NSURLRequest requestWithURL:urlstr];
         [webview loadRequest:request];
@@ -182,7 +192,7 @@
         NSString *jsMethod;
         if([AddInterface judgeislogin])
         {
-            jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", self.app.cwtoken];
+            jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", self.app.Gstoretoken];
         }
         else
         {
@@ -202,9 +212,9 @@
     self.context[@"openBizShare"] =
     ^(NSString *json)
     {
-        NSDictionary *dicgoods = [AddInterface dictionaryWithJsonString:json];
+        weakSelf.dicdata = [AddInterface dictionaryWithJsonString:json];
         [weakSelf setUMshare];
-        [weakSelf showshareinfo:dicgoods];
+        [weakSelf showshareinfo:weakSelf.dicdata];
         DLog(@"====%@",json);
     };
     self.context[@"appCallPay"] =
@@ -219,7 +229,7 @@
     {
         if([AddInterface judgeislogin])
         {
-            NSString *jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", weakSelf.app.cwtoken];
+            NSString *jsMethod = [NSString stringWithFormat:@"uploadiostoken('%@')", weakSelf.app.Gstoretoken];
             [webView stringByEvaluatingJavaScriptFromString:jsMethod];
             [webView reload];
         }
@@ -307,7 +317,17 @@
     NSString* thumbURL =  [dicfrom objectForKey:@"share_pic_path"];
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:[dicfrom objectForKey:@"title"] descr:[[dicfrom objectForKey:@"summary"] length]>0?[dicfrom objectForKey:@"summary"]:[dicfrom objectForKey:@"title"] thumImage:thumbURL];
     //设置网页地址
-    shareObject.webpageUrl = [dicfrom objectForKey:@"share_url"];
+    shareid = [AddInterface RandomId:32];
+    NSString *requeststring = [dicfrom objectForKey:@"share_url"];
+    if([requeststring rangeOfString:@"?"].location !=NSNotFound)
+    {
+        requeststring = [NSString stringWithFormat:@"%@&share_id=%@",requeststring,shareid];
+    }
+    else
+    {
+        requeststring = [NSString stringWithFormat:@"%@?share_id=%@",requeststring,shareid];
+    }
+    shareObject.webpageUrl = requeststring;
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
@@ -322,29 +342,7 @@
             if ([data isKindOfClass:[UMSocialShareResponse class]])
             {
                 UMSocialShareResponse *resp = data;
-                NSString *sharetype;
-                if(platformType==UMSocialPlatformType_Sina)
-                {
-                    sharetype = @"sina";
-                }
-                else if(platformType==UMSocialPlatformType_WechatSession)
-                {
-                    sharetype = @"wechat";
-                }
-                else if(platformType==UMSocialPlatformType_WechatTimeLine)
-                {
-                    sharetype = @"wxcircle";
-                }
-                else if(platformType==UMSocialPlatformType_QQ)
-                {
-                    sharetype = @"qq";
-                }
-                else if(platformType==UMSocialPlatformType_Qzone)
-                {
-                    sharetype = @"qzone";
-                }
                 
-                [self getShareInfoCallBack:[dicfrom objectForKey:@"cw_id"] ShareType:sharetype];
                 //分享结果消息
                 UMSocialLogInfo(@"response message is %@",resp.message);
                 //第三方原始返回的数据
@@ -355,6 +353,30 @@
             {
                 UMSocialLogInfo(@"response data is %@",data);
             }
+            
+            NSString *sharetype;
+            if(platformType==UMSocialPlatformType_Sina)
+            {
+                sharetype = @"sina";
+            }
+            else if(platformType==UMSocialPlatformType_WechatSession)
+            {
+                sharetype = @"wechat";
+            }
+            else if(platformType==UMSocialPlatformType_WechatTimeLine)
+            {
+                sharetype = @"wxcircle";
+            }
+            else if(platformType==UMSocialPlatformType_QQ)
+            {
+                sharetype = @"qq";
+            }
+            else if(platformType==UMSocialPlatformType_Qzone)
+            {
+                sharetype = @"qzone";
+            }
+            
+            [self getShareInfoCallBack:[dicfrom objectForKey:@"cw_id"] ShareType:sharetype];
         }
         [self alertWithError:error];
     }];
@@ -393,9 +415,15 @@
 -(void)getShareInfoCallBack:(NSString *)sender ShareType:(NSString *)sharetype
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"cw_id"] = sender;
-    params[@"cw_type"] = sharetype;
-    params[@"share_id"] = [AddInterface RandomId:32];
+    params[@"cw_id"] = [self.dicdata objectForKey:@"id"];
+    params[@"cw_type"] = @"biz";
+    params[@"share_id"] = shareid;
+    params[@"cw_action"] = @"share";
+    params[@"cw_platform"] = sharetype;
+    params[@"title"] = [self.dicdata objectForKey:@"title"];
+    params[@"summary"] = [self.dicdata objectForKey:@"summary"];
+    params[@"share_pic_path"] = [self.dicdata objectForKey:@"share_pic_path"];
+    params[@"share_url"] = [self.dicdata objectForKey:@"share_url"];
     
     [RequestInterface doGetJsonWithParametersNoAn:params App:self.app ReqUrl:InterfaceShareCallBack ShowView:self.app.window alwaysdo:^{
         
@@ -410,7 +438,7 @@
             [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:self.app.window];
         }
     } Failur:^(NSString *strmsg) {
-        [MBProgressHUD showError:@"请求失败,请检查网络" toView:self.app.window];
+        [MBProgressHUD showError:@"请求失败,请检查网络" toView:self.view];
         
     }];
 }

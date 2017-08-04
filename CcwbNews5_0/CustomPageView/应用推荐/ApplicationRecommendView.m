@@ -80,6 +80,9 @@
 	UIView *view = [[UIView alloc] initWithFrame:frame];
 	view.backgroundColor = [UIColor whiteColor];
 	view.layer.borderColor = COLORNOW(230, 230, 230).CGColor;
+    UITapGestureRecognizer*tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickapptuijian:)];
+    view.tag = EnApplicationTuiJianBGViewTag+indexnow;
+    [view addGestureRecognizer:tapGesture];
 	view.layer.borderWidth = 1.0;
 	
 	UIImageView *imageviewpic = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
@@ -239,6 +242,19 @@
 		 [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
 	 }];
 	
+}
+
+-(void)clickapptuijian:(UIGestureRecognizer*)sender
+{
+    UIView *viewclick = sender.view;
+    int tagnow = (int)[viewclick tag]-EnApplicationTuiJianBGViewTag;
+    if([self.delegate1 respondsToSelector:@selector(DGClickOpenApplication:)])
+    {
+  //      NSArray *arrayapp = [app.arrapprecommend objectForKey:@"list"];
+        NSDictionary *dictemp = [app.arrapprecommend objectAtIndex:tagnow];
+        [self.delegate1 DGClickOpenApplication:[dictemp objectForKey:@"id"]];
+    }
+    
 }
 
 -(void)gotomoreandmorenews:(id)sender

@@ -15,11 +15,11 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        float nowheight = 200;
+        float nowheight = 150;
         if(iphone6p)
-            nowheight = 200*iphone6pratio;
+            nowheight = 150*iphone6pratio;
         else if(iphone6)
-            nowheight = 200*iphone6ratio;
+            nowheight = 150*iphone6ratio;
         
         self.frame = CGRectMake(0, 0, SCREEN_WIDTH, nowheight);
         self.backgroundColor = [UIColor whiteColor];

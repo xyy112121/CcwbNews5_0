@@ -35,7 +35,7 @@
 	[self addGestureRecognizer :recognizer];
 	
     UIImageView *imageviediwen = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    imageviediwen.image = LOADIMAGE(@"guide4", @"png");
+    imageviediwen.image = LOADIMAGE(@"guide4", @"jpg");
     [self addSubview:imageviediwen];
 
 }
@@ -121,12 +121,12 @@
 	}
 	
 	
-	UIButton *buttongude = [UIButton buttonWithType:UIButtonTypeCustom];
-	buttongude.layer.borderColor = [UIColor clearColor].CGColor;
-	buttongude.frame = CGRectMake((SCREEN_WIDTH-widthnow2)/2, imageins.frame.origin.y +imageins.frame.size.height+40, widthnow2, heightnow2);
-	[buttongude setBackgroundImage:LOADIMAGE(@"guidebt", @"png") forState:UIControlStateNormal];
-	[buttongude addTarget:self action:@selector(closeguide:) forControlEvents:UIControlEventTouchUpInside];
-	[self addSubview:buttongude];
+//	UIButton *buttongude = [UIButton buttonWithType:UIButtonTypeCustom];
+//	buttongude.layer.borderColor = [UIColor clearColor].CGColor;
+//	buttongude.frame = CGRectMake((SCREEN_WIDTH-widthnow2)/2, imageins.frame.origin.y +imageins.frame.size.height+40, widthnow2, heightnow2);
+//	[buttongude setBackgroundImage:LOADIMAGE(@"guidebt", @"png") forState:UIControlStateNormal];
+//	[buttongude addTarget:self action:@selector(closeguide:) forControlEvents:UIControlEventTouchUpInside];
+//	[self addSubview:buttongude];
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag

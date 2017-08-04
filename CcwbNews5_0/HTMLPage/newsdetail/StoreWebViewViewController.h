@@ -13,10 +13,11 @@
     JQIndicatorView *indicator;
     
     int loginflag;
-    
+    NSString *shareid;
     int reloadflag;
     UIWebView *webview;
 }
+@property(strong,nonatomic)NSDictionary *dicdata;
 @property(strong,nonatomic)AppDelegate *app;
 @property (strong, nonatomic)JSContext *context;
 @property(nonatomic,strong)NSString *strfromurl;

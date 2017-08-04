@@ -13,7 +13,7 @@
 
 /*========================================User============================================*/
 // 需要填写为您自己的 Appkey
-#define JMSSAGE_APPKEY @"0172df3fcf9c44f950b00eeb"
+#define JMSSAGE_APPKEY  @"0172df3fcf9c44f950b00eeb"//
 #define CHANNEL @""
 
 #define kuserName @"userName"

@@ -137,11 +137,11 @@
     }
     else
     {
-        float nowheight = 200;
+        float nowheight = 150;
         if(iphone6p)
-            nowheight = 200*iphone6pratio;
+            nowheight = 150*iphone6pratio;
         else if(iphone6)
-            nowheight = 200*iphone6ratio;
+            nowheight = 150*iphone6ratio;
         return nowheight;
     }
 }
@@ -162,7 +162,7 @@
     if([[dicdata objectForKey:@"show_type"] isEqualToString:@"addapp"])
     {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableview.frame.size.width,45)];
-        view.backgroundColor = [UIColor clearColor];
+        view.backgroundColor = [UIColor whiteColor];
         
         UILabel *labelgray = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH, 5)];
         labelgray.backgroundColor = COLORNOW(220, 220, 220);
@@ -266,7 +266,7 @@
             break;
         case EnCellTypeAdUrl:
             
-            appadview = [[ApplicationAdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200) Dicsrc:dictemp];
+            appadview = [[ApplicationAdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150) Dicsrc:dictemp];
             [cell.contentView addSubview:appadview];
             break;
         default:
@@ -280,6 +280,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *dictemp = [arraydata objectAtIndex:indexPath.section];
+    EnCellType celltype=  [AddInterface GetCellType:[dictemp objectForKey:@"show_type"]];
+    if(celltype==EnCellTypeApplicationapp)
+    {
+        NSArray  *arraylist = [dictemp objectForKey:@"list"];
+        NSDictionary *dictemp = [arraylist objectAtIndex:indexPath.row];
+        if([self.delegate1 respondsToSelector:@selector(DGClickOpenApplication:)])
+        {
+            [self.delegate1 DGClickOpenApplication:[dictemp objectForKey:@"id"]];
+        }
+    }
 }
 
 #pragma mark ACtiondelegate

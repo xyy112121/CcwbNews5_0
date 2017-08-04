@@ -44,6 +44,8 @@ static SGQRCodeScanManager *_instance;
 
 - (void)SG_setupSessionPreset:(NSString *)sessionPreset metadataObjectTypes:(NSArray *)metadataObjectTypes currentController:(UIViewController *)currentController {
     
+    
+    app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     // 1、获取摄像设备
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
@@ -67,6 +69,11 @@ static SGQRCodeScanManager *_instance;
     
     
     // 6、添加设备输入流到会话对象
+    if(deviceInput == nil)
+    {
+        [MBProgressHUD showError:@"你未同意使用相机,请在设置中同意打开" toView:app.window];
+        return;
+    }
     [_session addInput:deviceInput];
     
     // 7、添加设备输入流到会话对象

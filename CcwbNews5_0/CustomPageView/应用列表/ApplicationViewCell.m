@@ -29,7 +29,7 @@
     imageviewline.backgroundColor = COLORNOW(220, 220, 220);
     [self addSubview:imageviewline];
     
-    UIImageView *imagepic = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, self.frame.size.height-20, self.frame.size.height-20)];
+    UIImageView *imagepic = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, self.frame.size.height-30, self.frame.size.height-30)];
     [imagepic setImageWithURL:[NSURL URLWithString:[dicdata objectForKey:@"logo_pic_path"]] placeholderImage:LOADIMAGE(@"noimage", @"png")];
     imagepic.contentMode = UIViewContentModeScaleAspectFill;
     imagepic.clipsToBounds = YES;

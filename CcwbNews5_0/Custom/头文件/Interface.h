@@ -34,6 +34,8 @@
 #define InterfaceScanCodeRecord  @"/api/AppApi/scanRecord.html"  //扫码请求接口
 #define InterfaceScanCode  @"/api/AppApi/scan.html" //扫码
 
+#define InterfaceStoreGetToken  @"/api/login/getToken"  //获取token
+
 #define URLUserCollection @"/apppage/AppUser/collect.html"   //收藏
 #define URLInfoSetHtml   @"/apppage/AppUser/manage.html"//个人信息设置
 #define URLUserReadHistory  @"/apppage/AppUser/comment.html"   //阅读历史

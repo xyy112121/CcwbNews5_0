@@ -309,7 +309,9 @@
             
             [self getQRCodeInfo:urlstr];
         }
-        
+        SystemSoundID soundID;
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"SGQRCode.bundle/sound" ofType:@"caf"]], &soundID);
+        AudioServicesPlaySystemSound(soundID);
     } else {
         NSLog(@"暂未识别出扫描的二维码");
     }
