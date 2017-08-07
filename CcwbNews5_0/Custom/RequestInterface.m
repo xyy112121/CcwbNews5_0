@@ -39,7 +39,7 @@
 	params[@"cw_version"] = CwVersion;
 	params[@"cw_device"] = CwDevice;
 	params[@"cw_machine_id"]= app.Gmachid;
-	params[@"cw_user_id"] = app.userinfo.userid;
+	params[@"cw_user_id"] = [app.userinfo.userid length]==0?@"":app.userinfo.userid;
     params[@"cw_city"] = app.diliweizhi.dilicity;
 	
 //	NSDictionary * payload = @{
@@ -67,7 +67,7 @@
 			 always();
 		 }
 		 NSString *str = [[NSString alloc] initWithData:responseObject  encoding:NSUTF8StringEncoding];
-		 DLog(@"str====%@",str);
+//		 DLog(@"str====%@",str);
 		 
 		 NSDictionary *jsonvalue = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 		 success(jsonvalue);

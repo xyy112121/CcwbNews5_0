@@ -16,8 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic)  UIView *editView;
 @property (strong, nonatomic)  UITextField *editTextField;
-@property (strong, nonatomic)  UIButton *markButton;
-@property (strong, nonatomic)  UIButton *shareButton;
 @property(strong,nonatomic) NSString *strnewsid;
 @property (weak, nonatomic) id<CLBottomCommentViewDelegate> delegate;
 @property(nonatomic,strong)id<ActionDelegate>delegate1;

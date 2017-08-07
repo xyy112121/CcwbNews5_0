@@ -328,8 +328,6 @@
 	subtitle.textColor = COLORNOW(117, 117, 117);
 	[viewnctl addSubview:subtitle];
 	
-	
-    
     NSString *strname = @"添加";
     for(int i=0;i<[app.arrayaddapplication count];i++)
     {
@@ -339,21 +337,29 @@
             strname = @"打开";
         }
     }
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-	button.frame = CGRectMake(SCREEN_WIDTH-80-50, 9, 70, 26);
-	button.layer.cornerRadius = 13.0f;
-	button.layer.borderColor = COLORNOW(232, 56, 47).CGColor;
-	button.layer.borderWidth = 1.0f;
-	button.clipsToBounds = YES;
-	[button setTitleColor:COLORNOW(232, 56, 47) forState:UIControlStateNormal];
-	button.titleLabel.font = FONTN(15.0f);
-	[button setTitle:strname forState:UIControlStateNormal];
-	[button addTarget:self action:@selector(clickbutevent:) forControlEvents:UIControlEventTouchUpInside];
-	[viewnctl addSubview:button];
-	
-	
-	[self addSubview:viewnctl];
-	
+    
+    for(int i=0;i<[app.arrayfixedapplication count];i++)
+    {
+        NSDictionary *dictemp = [app.arrayfixedapplication objectAtIndex:i];
+        if([[dictemp objectForKey:@"id"] isEqualToString:[dic objectForKey:@"id"]])
+        {
+            strname = @"打开";
+        }
+    }
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(SCREEN_WIDTH-80-50, 9, 70, 26);
+    button.layer.cornerRadius = 13.0f;
+    button.layer.borderColor = COLORNOW(232, 56, 47).CGColor;
+    button.layer.borderWidth = 1.0f;
+    button.clipsToBounds = YES;
+    [button setTitleColor:COLORNOW(232, 56, 47) forState:UIControlStateNormal];
+    button.titleLabel.font = FONTN(15.0f);
+    [button setTitle:strname forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(clickbutevent:) forControlEvents:UIControlEventTouchUpInside];
+    [viewnctl addSubview:button];
+    
+    [self addSubview:viewnctl];
 }
 
 -(void)clickbutevent:(id)sender
@@ -371,10 +377,6 @@
     {
         [self addappmachine:[dicsrc objectForKey:@"id"] Button:button];
     }
-//	if([self.delegate1 respondsToSelector:@selector(DGCLickNctlEvent:)])
-//	{
-//		[self.delegate1 DGCLickNctlEvent:[dicsrc objectForKey:@"rb_jsevent"]];
-//	}
 }
 
 -(void)addappmachine:(NSString *)appid Button:(UIButton *)button

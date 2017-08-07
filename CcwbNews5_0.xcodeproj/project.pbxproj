@@ -624,6 +624,9 @@
 		74FC0DD81F298A5900DFE0A5 /* 点击次数查看.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FC0DD51F298A5800DFE0A5 /* 点击次数查看.png */; };
 		74FC0DD91F298A5900DFE0A5 /* 点击次数查看@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FC0DD61F298A5900DFE0A5 /* 点击次数查看@2x.png */; };
 		74FC0DDA1F298A5900DFE0A5 /* 点击次数查看@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FC0DD71F298A5900DFE0A5 /* 点击次数查看@3x.png */; };
+		74FDB5F61F381B5B00F03AAD /* addiconed.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FDB5F31F381B5B00F03AAD /* addiconed.png */; };
+		74FDB5F71F381B5B00F03AAD /* addiconed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FDB5F41F381B5B00F03AAD /* addiconed@2x.png */; };
+		74FDB5F81F381B5B00F03AAD /* addiconed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74FDB5F51F381B5B00F03AAD /* addiconed@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1614,6 +1617,9 @@
 		74FC0DD51F298A5800DFE0A5 /* 点击次数查看.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "点击次数查看.png"; sourceTree = "<group>"; };
 		74FC0DD61F298A5900DFE0A5 /* 点击次数查看@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "点击次数查看@2x.png"; sourceTree = "<group>"; };
 		74FC0DD71F298A5900DFE0A5 /* 点击次数查看@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "点击次数查看@3x.png"; sourceTree = "<group>"; };
+		74FDB5F31F381B5B00F03AAD /* addiconed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addiconed.png; sourceTree = "<group>"; };
+		74FDB5F41F381B5B00F03AAD /* addiconed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addiconed@2x.png"; sourceTree = "<group>"; };
+		74FDB5F51F381B5B00F03AAD /* addiconed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addiconed@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3073,6 +3079,9 @@
 		0892ACA01E5D39DA007BB944 /* 上下导航 */ = {
 			isa = PBXGroup;
 			children = (
+				74FDB5F31F381B5B00F03AAD /* addiconed.png */,
+				74FDB5F41F381B5B00F03AAD /* addiconed@2x.png */,
+				74FDB5F51F381B5B00F03AAD /* addiconed@3x.png */,
 				08171C2D1E5A8B730005B0C5 /* hp_个人头像.png */,
 				08171C2E1E5A8B730005B0C5 /* hp_个人头像@2x.png */,
 				08171C2F1E5A8B730005B0C5 /* hp_个人头像@3x.png */,
@@ -4158,7 +4167,7 @@
 				TargetAttributes = {
 					0838F73A1E514495007FE55A = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 6M9E39S5MB;
+						DevelopmentTeam = 3WM5GK364D;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -4337,6 +4346,7 @@
 				08F7A2211E641F49004E51A5 /* my_历史icon@3x.png in Resources */,
 				081152AF1E5E8150005BC84E /* addapplication@2x.png in Resources */,
 				0835BE1D1EA4C3A100493D32 /* CWHeader.png in Resources */,
+				74FDB5F61F381B5B00F03AAD /* addiconed.png in Resources */,
 				0838F9B41E514820007FE55A /* dropdown_loading1_01.png in Resources */,
 				7401C5581F25EA7D00E2BA06 /* 添加red.png in Resources */,
 				0838F9B51E514820007FE55A /* dropdown_loading1_01@2x.png in Resources */,
@@ -4384,6 +4394,7 @@
 				08171C521E5AF7B80005B0C5 /* arrowup.png in Resources */,
 				083E31C01EA5AD6F008728AD /* liaotian_ic_biaoqing_nor@3x.png in Resources */,
 				08A431311EADDF0500695876 /* QRCode未选中icon@3x.png in Resources */,
+				74FDB5F71F381B5B00F03AAD /* addiconed@2x.png in Resources */,
 				0892AC981E5D39A3007BB944 /* arrowrightred.png in Resources */,
 				083E31E81EA5F813008728AD /* 爆料视频icon@2x.png in Resources */,
 				0892AC991E5D39A3007BB944 /* arrowrightred@2x.png in Resources */,
@@ -4417,6 +4428,7 @@
 				082476A51E729DB1007C530E /* dianblack.png in Resources */,
 				08A4313C1EADF36B00695876 /* QRCode选中icon@2x.png in Resources */,
 				08F7A2301E642BC5004E51A5 /* arrowleftred@2x.png in Resources */,
+				74FDB5F81F381B5B00F03AAD /* addiconed@3x.png in Resources */,
 				08F7A1E11E640836004E51A5 /* my_评论icon@2x.png in Resources */,
 				08A4313D1EADF36B00695876 /* QRCode选中icon@3x.png in Resources */,
 				74FC0DD91F298A5900DFE0A5 /* 点击次数查看@2x.png in Resources */,
@@ -4853,7 +4865,7 @@
 				CODE_SIGN_ENTITLEMENTS = CcwbNews5_0/CcwbNews5_0.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: wenjin wang (79L4264KCJ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 6M9E39S5MB;
+				DEVELOPMENT_TEAM = 3WM5GK364D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4915,10 +4927,10 @@
 					"$(PROJECT_DIR)/CcwbNews5_0/Custom/CommLib/微信支付/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ccwbnewstest.one;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ccwbnewsapp.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "450d6c9f-5912-4197-99cf-897a720aa6fa";
-				PROVISIONING_PROFILE_SPECIFIER = ccwbnewstestinhourse;
+				PROVISIONING_PROFILE = "a57895c7-da8c-456e-a092-b0ffd5990b9c";
+				PROVISIONING_PROFILE_SPECIFIER = disccwbnewsapp;
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Debug;
@@ -4931,7 +4943,7 @@
 				CODE_SIGN_ENTITLEMENTS = CcwbNews5_0/CcwbNews5_0.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: wenjin wang (79L4264KCJ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 6M9E39S5MB;
+				DEVELOPMENT_TEAM = 3WM5GK364D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4993,10 +5005,10 @@
 					"$(PROJECT_DIR)/CcwbNews5_0/Custom/CommLib/微信支付/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ccwbnewstest.one;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ccwbnewsapp.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "450d6c9f-5912-4197-99cf-897a720aa6fa";
-				PROVISIONING_PROFILE_SPECIFIER = ccwbnewstestinhourse;
+				PROVISIONING_PROFILE = "a57895c7-da8c-456e-a092-b0ffd5990b9c";
+				PROVISIONING_PROFILE_SPECIFIER = disccwbnewsapp;
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Release;

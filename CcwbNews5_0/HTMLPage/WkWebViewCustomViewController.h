@@ -10,7 +10,7 @@
 #import <UShareUI/UShareUI.h>
 #import "WXApiManager.h"
 #import <AVKit/AVKit.h>
-@interface WkWebViewCustomViewController : UIViewController<AVPlayerViewControllerDelegate,WXApiManagerDelegate,UMSocialShareMenuViewDelegate,ActionDelegate,AVAudioPlayerDelegate,AVAudioSessionDelegate>
+@interface WkWebViewCustomViewController : UIViewController<AVPlayerViewControllerDelegate,WXApiManagerDelegate,UMSocialShareMenuViewDelegate,ActionDelegate,AVAudioPlayerDelegate,AVAudioSessionDelegate,CLBottomCommentViewDelegate>
 {
 	UIButton *playButton;
 	AVAudioSession *session;
@@ -29,7 +29,12 @@
 	HpNavigateView *hpna;
 	EnWebViewWindowsType webviewtype;
 	WKUserContentController * userContentController;
+    
+    //发表评论调用原生评论时需要使用
+    NSString *strnewsid;
 }
+
+@property (nonatomic, strong) CLBottomCommentView *bottomView;
 @property(nonatomic,strong)NSString *fromaskorother;//来自ask的话导航栏的回退按钮用白色 其余用红色
 @property(nonatomic,strong)id<ActionDelegate>delegate1;
 @property(nonatomic,strong)AppDelegate *app;

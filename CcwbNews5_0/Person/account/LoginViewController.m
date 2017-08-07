@@ -460,10 +460,13 @@
             [self aduserdefaultuser:tempdic];
             [self returnback:nil];
             [self getstoretoken];
+            [self getDefaultlist:nil];
             if([self.delegate1 respondsToSelector:@selector(DGLoginSuccess:)])
             {
                 [self.delegate1 DGLoginSuccess:nil];
             }
+            
+            
         }
         else
         {
@@ -472,6 +475,29 @@
     } Failur:^(NSString *strmsg) {
         [MBProgressHUD showError:@"请求失败,请检查网络" toView:self.view];
         
+    }];
+}
+
+-(void)getDefaultlist:(NSString *)sender
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceAppInit ShowView:app.window alwaysdo:^{
+        
+    } Success:^(NSDictionary *dic) {
+        DLog(@"dic====%@",dic);
+        if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+        {
+            app.arrayaddapplication = [[NSMutableArray alloc] initWithArray: [dic objectForKey:@"appList"]];
+            app.arrayfixedapplication = [[NSMutableArray alloc] initWithArray:[dic objectForKey:@"fixList"]];
+        }
+        else
+        {
+            [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+        }
+    } Failur:^(NSString *strmsg) {
+        [MBProgressHUD showError:@"请求失败,请检查网络" toView:self.view];
+        [[self.view viewWithTag:EnYLImageViewTag] removeFromSuperview];
     }];
 }
 
@@ -517,6 +543,7 @@
             [self aduserdefaultuser:tempdic];
             [self returnback:nil];
             [self getstoretoken];
+            [self getDefaultlist:nil];
             if([self.delegate1 respondsToSelector:@selector(DGLoginSuccess:)])
             {
                 [self.delegate1 DGLoginSuccess:nil];

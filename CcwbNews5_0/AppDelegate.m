@@ -122,32 +122,20 @@
 -(void)initGmachineid
 {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *machdic = [userDefaults stringForKey:@"machid"];
+	NSString *machdic = [userDefaults stringForKey:@"machidnew"];
 	if([machdic length]>0)
 	{
 		self.Gmachid = machdic;
 	}
 	else
 	{
-		NSString *machid = [[UIDevice currentDevice] uniqueDeviceIdentifier];
+		NSString *machid = [AddInterface RandomId:32];
 		self.Gmachid = machid;
-		[userDefaults setObject:machid forKey:@"machid"];
+		[userDefaults setObject:machid forKey:@"machidnew"];
 		[userDefaults synchronize];
 		
 	}
 	
-	
-	if(self.Gmachid!=nil)
-	{
-		
-	}
-	else
-	{
-		NSString *machid = [[UIDevice currentDevice] uniqueDeviceIdentifier];
-		self.Gmachid = machid;
-		[userDefaults setObject:machid forKey:@"machid"];
-		[userDefaults synchronize];
-	}
 	DLog(@"self.Gmachid=======================%@",self.Gmachid);
 }
 
@@ -156,8 +144,8 @@
 -(void)getnowlocation
 {
 	mapManager = [[BMKMapManager alloc]init];
-//	BOOL ret = [mapManager start:@"1Y6apm4xkxQ9AGPmfSR46Qb9gC4wfUYG" generalDelegate:self];  //正式版
-	BOOL ret = [mapManager start:@"NpYiW5bMxqS9caPfLs7l95BcFA3Rae4M" generalDelegate:self];  //测试版本
+	BOOL ret = [mapManager start:@"1Y6apm4xkxQ9AGPmfSR46Qb9gC4wfUYG" generalDelegate:self];  //正式版
+//	BOOL ret = [mapManager start:@"NpYiW5bMxqS9caPfLs7l95BcFA3Rae4M" generalDelegate:self];  //测试版本
 	
 	if (!ret) {
 		NSLog(@"manager start failed!");

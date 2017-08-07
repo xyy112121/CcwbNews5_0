@@ -5,7 +5,7 @@
 //  Created by xyy520 on 17/3/1.
 //  Copyright © 2017年 谢 毅. All rights reserved.
 //
-
+static CGFloat const kBottomViewHeight = 46.0;
 #import "WkWebViewCustomViewController.h"
 
 @interface WkWebViewCustomViewController ()<WKUIDelegate,WKScriptMessageHandler,WKNavigationDelegate>
@@ -86,7 +86,7 @@
 	self.view.backgroundColor = [UIColor whiteColor];
 	self.app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	[self initWKWebView];
-	
+	[self.view addSubview:self.bottomView];
 	UISwipeGestureRecognizer *recognizer;
 	recognizer = [[ UISwipeGestureRecognizer alloc ] initWithTarget : self action : @selector (handleSwipeFrom:)];
 	[recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
@@ -124,7 +124,8 @@
 	[userContentController addScriptMessageHandler:self name:@"cwHeadBarConfig"];//获取导航 栏信息
 	[userContentController addScriptMessageHandler:self name:@"getiostoke"];
     [userContentController addScriptMessageHandler:self name:@"ShowNewsDetail"];
-	
+    [userContentController addScriptMessageHandler:self name:@"OnClickComment"];
+    
 	WKPreferences *preferences = [WKPreferences new];
 	preferences.javaScriptCanOpenWindowsAutomatically = YES;
 //	preferences.minimumFontSize = 10.0;
@@ -161,13 +162,13 @@
 		strongSelf.wkwebview.UIDelegate = self;
 		[strongSelf.view addSubview:self.wkwebview];
 		
-//		UIScrollView *scroller = [strongSelf.wkwebview.subviews objectAtIndex:0];
-//		if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
-//		{
-//			scroller.bounces = NO;
-//			scroller.alwaysBounceVertical = NO;
-//			scroller.alwaysBounceHorizontal = NO;
-//		}
+		UIScrollView *scroller = [strongSelf.wkwebview.subviews objectAtIndex:0];
+		if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
+		{
+			scroller.bounces = NO;
+			scroller.alwaysBounceVertical = NO;
+			scroller.alwaysBounceHorizontal = NO;
+		}
         
 		YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
 		imageViewgif.tag = EnYLImageViewTag;
@@ -215,6 +216,7 @@
 	[userContentController removeScriptMessageHandlerForName:@"cwOrderInfo"];
 	[userContentController removeScriptMessageHandlerForName:@"cwHeadBarConfig"];
     [userContentController removeScriptMessageHandlerForName:@"ShowNewsDetail"];
+    [userContentController removeScriptMessageHandlerForName:@"OnClickComment"];
 }
 
 #pragma mark 滑动事件
@@ -327,6 +329,12 @@
     else if([message.name isEqualToString:@"getiostoke"])
     {
         DLog(@"123");
+    }
+    else if([message.name isEqualToString:@"OnClickComment"])  //调用原生发表评论
+    {
+        strnewsid =message.body;
+        [self setclickcomment:message.body];
+        
     }
     else if([message.name isEqualToString:@"ShowNewsDetail"]) //第三方网页显示新闻连接
     {
@@ -563,6 +571,60 @@
         [self.delegate1 DGClickOpenApplication:srcid];
     }
     [self returnback];
+}
+
+#pragma mark 调用原生评论框
+
+-(void)setclickcomment:(NSString *)sid
+{
+    [self.bottomView.editTextField becomeFirstResponder];
+}
+
+#pragma mark - CLBottomCommentViewDelegate
+
+- (void)cl_textViewDidChange:(CLTextView *)textView {
+    
+    if (textView.commentTextView.text.length > 0) {
+        NSString *originalString = [NSString stringWithFormat:@"[草稿]%@",textView.commentTextView.text];
+        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:originalString];
+        [attriString addAttributes:@{NSForegroundColorAttributeName: kColorNavigationBar} range:NSMakeRange(0, 4)];
+        [attriString addAttributes:@{NSForegroundColorAttributeName: kColorTextMain} range:NSMakeRange(4, attriString.length - 4)];
+        
+        self.bottomView.editTextField.attributedText = attriString;
+    }
+}
+
+- (void)cl_textViewDidEndEditing:(CLTextView *)textView {
+    if([textView.commentTextView.text length]==0)
+    {
+        [MBProgressHUD showError:@"请填写评论" toView:self.view];
+    }
+    else
+    {
+
+        [self commitcomment :textView.commentTextView.text NewsId:strnewsid];
+    }
+    DLog(@"123123");
+}
+
+#pragma mark - Private Method
+
+- (void)changeMarkButtonState:(UIButton *)sender {
+    sender.selected = !sender.selected;
+}
+
+#pragma mark - Accessor
+
+- (CLBottomCommentView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [[CLBottomCommentView alloc] initWithFrame:CGRectMake(0, cl_ScreenHeight, cl_ScreenWidth, kBottomViewHeight)];
+        _bottomView.delegate = self;
+        _bottomView.delegate1 = self;
+//        _bottomView.strnewsid = self.strnewsid;
+        _bottomView.clTextView.delegate = self;
+        [_bottomView gethancollection];
+    }
+    return _bottomView;
 }
 
 #pragma mark IBAction
@@ -1002,6 +1064,31 @@
 	 
 	 
 #pragma mark 接口
+//评论
+-(void)commitcomment:(NSString *)comment NewsId:(NSString *)newsid
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"cw_id"] = newsid;
+    params[@"cw_content"] = comment;
+    
+    [RequestInterface doGetJsonWithParametersNoAn:params App:self.app ReqUrl:InterfaceCommitComment ShowView:self.app.window alwaysdo:^{
+        
+    } Success:^(NSDictionary *dic) {
+        DLog(@"dic====%@",dic);
+        if([[dic objectForKey:@"success"] isEqualToString:@"true"])
+        {
+            [MBProgressHUD showSuccess:[dic objectForKey:@"msg"] toView:self.app.window];
+        }
+        else
+        {
+            [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:self.app.window];
+        }
+    } Failur:^(NSString *strmsg) {
+        [MBProgressHUD showError:@"请求失败,请检查网络" toView:self.view];
+        
+    }];
+}
+
 -(void)getShareInfo:(NSString *)sender
 {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];

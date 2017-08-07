@@ -131,5 +131,117 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CcwbNews5_0/AppDelegate.m"
+            timestampString = "523768371.573346"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "-applicationDidBecomeActive:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CcwbNews5_0/CustomPageView/&#x7206;&#x6599;&#x76f8;&#x5173;/BrokePicView.m"
+            timestampString = "523770267.10063"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-initview:PicPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CcwbNews5_0/HomePage/HomePageViewController.m"
+            timestampString = "523771347.085596"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "-viewWillAppear:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CcwbNews5_0/Person/account/LoginViewController.m"
+            timestampString = "523773076.514231"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
+            landmarkName = "-getDefaultlist:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CcwbNews5_0/Person/account/LoginViewController.m"
+            timestampString = "523773115.368492"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "485"
+            endingLineNumber = "485"
+            landmarkName = "-getDefaultlist:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LoginViewController getDefaultlist:]"
+                  moduleName = "CcwbNews5_0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xyy/Desktop/%E5%B7%A5%E4%BD%9C/%E6%99%9A%E6%8A%A5/%E6%99%9A%E6%8A%A5%E6%96%B0%E9%97%BB%E5%AE%A2%E6%88%B7%E7%AB%AF/2017%E7%89%88/%E4%BB%A3%E7%A0%81/ios/CcwbNews5_0/CcwbNews5_0/Person/account/LoginViewController.m"
+                  timestampString = "523773155.881261"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "485"
+                  endingLineNumber = "485"
+                  offsetFromSymbolStart = "120">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__38-[LoginViewController getDefaultlist:]_block_invoke"
+                  moduleName = "CcwbNews5_0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xyy/Desktop/%E5%B7%A5%E4%BD%9C/%E6%99%9A%E6%8A%A5/%E6%99%9A%E6%8A%A5%E6%96%B0%E9%97%BB%E5%AE%A2%E6%88%B7%E7%AB%AF/2017%E7%89%88/%E4%BB%A3%E7%A0%81/ios/CcwbNews5_0/CcwbNews5_0/Person/account/LoginViewController.m"
+                  timestampString = "523773155.882863"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "487"
+                  endingLineNumber = "487"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

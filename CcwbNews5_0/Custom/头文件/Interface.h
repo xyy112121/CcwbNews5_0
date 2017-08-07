@@ -33,6 +33,8 @@
 #define InterfaceUserModifyPwd @"/api/user/password_modify.html"  //忘记密码验证码
 #define InterfaceScanCodeRecord  @"/api/AppApi/scanRecord.html"  //扫码请求接口
 #define InterfaceScanCode  @"/api/AppApi/scan.html" //扫码
+#define InterfaceCommitComment @"/api/AppApi/addReply.html" //发表评论
+
 
 #define InterfaceStoreGetToken  @"/api/login/getToken"  //获取token
 

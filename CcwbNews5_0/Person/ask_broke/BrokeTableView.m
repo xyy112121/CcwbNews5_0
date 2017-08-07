@@ -77,7 +77,7 @@
 	arraydata = [[NSMutableArray alloc] init];
 	arrayheight = [[NSMutableArray alloc] init];
 	tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.frame.size.height-50) style:UITableViewStylePlain];
-	tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+	tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
 	tableview.backgroundColor = [UIColor clearColor];
 	tableview.delegate = self;
 	tableview.dataSource = self;

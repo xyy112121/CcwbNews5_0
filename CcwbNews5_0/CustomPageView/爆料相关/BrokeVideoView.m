@@ -77,6 +77,9 @@
 		imageviewheader.frame = CGRectMake(SCREEN_WIDTH-50, 10, 40, 40);
 		imageviewheader.image  = LOADIMAGE(@"用户头像test", @"png");
 		imageviewpic.frame = CGRectMake(bgimageview.frame.origin.x+1, bgimageview.frame.origin.y+1, 180-16-2, 120-2);
+        imageviewheader.layer.cornerRadius = 20;
+        imageviewheader.clipsToBounds = YES;
+        [imageviewheader setImageWithURL:URLSTRING(app.userinfo.userheader) placeholderImage:LOADIMAGE(@"用户头像test", @"png")];
 	}
 	
 	
