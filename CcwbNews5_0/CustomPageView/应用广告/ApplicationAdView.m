@@ -15,11 +15,11 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        float nowheight = 150;
+        float nowheight = 130;
         if(iphone6p)
-            nowheight = 150*iphone6pratio;
+            nowheight = 130*iphone6pratio;
         else if(iphone6)
-            nowheight = 150*iphone6ratio;
+            nowheight = 130*iphone6ratio;
         
         self.frame = CGRectMake(0, 0, SCREEN_WIDTH, nowheight);
         self.backgroundColor = [UIColor whiteColor];
@@ -42,7 +42,7 @@
 //    [self addSubview:labeltypename];
 //
     UIScrollView *scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, self.frame.size.height-5)];
-    scrollview.backgroundColor = [UIColor redColor];
+    scrollview.backgroundColor = [UIColor clearColor];
     scrollview.showsHorizontalScrollIndicator = NO;
     scrollview.pagingEnabled = YES;
     [self addSubview:scrollview];
@@ -58,7 +58,7 @@
         NSString *picpath = [dicad objectForKey:@"bg_pic_path"];
         if([[picpath lastPathComponent] isEqualToString:@"gif"])
         {
-            YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 5,SCREEN_WIDTH, XYViewHeight(self)-5)];
+            YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0,SCREEN_WIDTH, XYViewHeight(self)-5)];
             [scrollview addSubview:imageViewgif];
             imageViewgif.tag = EnYLImageViewTag;
             imageViewgif.image = [YLGIFImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[dicad objectForKey:@"bg_pic_path"]]]];
@@ -66,7 +66,7 @@
         }
         else
         {
-            UIImageView *imagepic = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 5, SCREEN_WIDTH, XYViewHeight(self)-5)];
+            UIImageView *imagepic = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, XYViewHeight(self)-5)];
             [imagepic setImageWithURL:[NSURL URLWithString:[dicad objectForKey:@"bg_pic_path"]] placeholderImage:LOADIMAGE(@"noimage", @"png")];
             imagepic.contentMode = UIViewContentModeScaleAspectFill;
             imagepic.clipsToBounds = YES;

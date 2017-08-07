@@ -4864,7 +4864,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = CcwbNews5_0/CcwbNews5_0.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: wenjin wang (79L4264KCJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3WM5GK364D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4929,8 +4929,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ccwbnewsapp.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a57895c7-da8c-456e-a092-b0ffd5990b9c";
-				PROVISIONING_PROFILE_SPECIFIER = disccwbnewsapp;
+				PROVISIONING_PROFILE = "95d67863-1a3d-4ba0-b85f-787e5fe3660d";
+				PROVISIONING_PROFILE_SPECIFIER = ccwbnewsapp;
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Debug;
@@ -4942,7 +4942,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = CcwbNews5_0/CcwbNews5_0.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: wenjin wang (79L4264KCJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3WM5GK364D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5007,8 +5007,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ccwbnewsapp.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a57895c7-da8c-456e-a092-b0ffd5990b9c";
-				PROVISIONING_PROFILE_SPECIFIER = disccwbnewsapp;
+				PROVISIONING_PROFILE = "95d67863-1a3d-4ba0-b85f-787e5fe3660d";
+				PROVISIONING_PROFILE_SPECIFIER = ccwbnewsapp;
 				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Release;

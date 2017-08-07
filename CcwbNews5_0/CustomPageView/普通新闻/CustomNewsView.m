@@ -73,7 +73,7 @@
 	NSMutableParagraphStyle * paragraphStyle1 = [[NSMutableParagraphStyle alloc] init];
 	[paragraphStyle1 setLineSpacing:space];
 	[attributedString1 addAttribute:NSParagraphStyleAttributeName value:paragraphStyle1 range:NSMakeRange(0, [texttitle length])];
-	UILabel *labelname = [[UILabel alloc] initWithFrame:CGRectMake(105, 15,sizetitle.width, sizetitle.height)];
+	UILabel *labelname = [[UILabel alloc] initWithFrame:CGRectMake(110, 15,sizetitle.width, sizetitle.height)];
 	labelname.font = fontname;
 	labelname.numberOfLines = 2;
 	[labelname setAttributedText:attributedString1];

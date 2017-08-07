@@ -147,11 +147,11 @@
     }
     else
     {
-        float nowheight = 150;
+        float nowheight = 130;
         if(iphone6p)
-            nowheight = 150*iphone6pratio;
+            nowheight = 130*iphone6pratio;
         else if(iphone6)
-            nowheight = 150*iphone6ratio;
+            nowheight = 130*iphone6ratio;
         return nowheight;
     }
 }
@@ -276,7 +276,7 @@
             break;
         case EnCellTypeAdUrl:
             
-            appadview = [[ApplicationAdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150) Dicsrc:dictemp];
+            appadview = [[ApplicationAdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130) Dicsrc:dictemp];
             [cell.contentView addSubview:appadview];
             break;
         default:
