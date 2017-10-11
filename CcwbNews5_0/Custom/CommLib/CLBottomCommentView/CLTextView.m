@@ -56,6 +56,11 @@ static CGFloat const kMininumKeyboardHeight = 216.0;
     }
 }
 
+-(void)DGClickSelectExpression:(NSString *)strexpression
+{
+    self.commentTextView.text = [NSString stringWithFormat:@"%@%@",self.commentTextView.text,strexpression];
+}
+
 #pragma mark - Event Response
 
 - (IBAction)cancelAction:(UIButton *)sender {
@@ -106,6 +111,11 @@ static CGFloat const kMininumKeyboardHeight = 216.0;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardDidShowNotification object:nil];
+    
+    self.expressionview = [[ExpressionViewBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 70)];
+    self.expressionview.alpha = 0;
+    self.expressionview.delegate1 = self;
+    [self addSubview:self.expressionview];
 }
 
 - (void)dismissCommentTextView {
@@ -122,6 +132,8 @@ static CGFloat const kMininumKeyboardHeight = 216.0;
     } else {
         self.containerViewConstraintHeight.constant = kCommentTextViewHeight + 20 + kMininumKeyboardHeight;
     }
+    self.expressionview.alpha = 1;
+    self.expressionview.frame = CGRectMake(0, SCREEN_HEIGHT-self.containerViewConstraintHeight.constant-70, SCREEN_WIDTH, 70);
 }
 
 #pragma mark - Accessor

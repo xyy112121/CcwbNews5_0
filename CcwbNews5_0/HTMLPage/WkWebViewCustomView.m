@@ -16,7 +16,7 @@
 	if (self)
 	{
 		fromurl = strurl;
-		self.backgroundColor = [UIColor whiteColor];
+		self.backgroundColor = [UIColor clearColor];
 		[self initWKWebView:strurl];
 	}
 	return self;
@@ -35,7 +35,7 @@
 	[userContentController addScriptMessageHandler:self name:@"getAppUserInfo"];
 	[userContentController addScriptMessageHandler:self name:@"openAppManage"];
 	[userContentController addScriptMessageHandler:self name:@"openApp"];
-	
+    [userContentController addScriptMessageHandler:self name:@"commonBack"];
 	
 	
 	WKPreferences *preferences = [WKPreferences new];
@@ -45,7 +45,7 @@
 	
 	self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.frame.size.height)
 											configuration:configuration];
-	
+    self.webView.backgroundColor = [UIColor clearColor];
 	UIScrollView *scroller = [self.webView.subviews objectAtIndex:0];
 	if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
 	{
@@ -83,14 +83,14 @@
 			scroller.alwaysBounceVertical = NO;
 			scroller.alwaysBounceHorizontal = NO;
 		}
-		
+        self.webView.backgroundColor = [UIColor clearColor];
 		YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
 		[self addSubview:imageViewgif];
 		imageViewgif.tag = EnYLImageViewTag;
 		imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
 	}];
 	self.webView.scrollView.showsVerticalScrollIndicator = NO;
-	 self.webView.scrollView.showsHorizontalScrollIndicator = NO;
+    self.webView.scrollView.showsHorizontalScrollIndicator = NO;
 	
 	
 }
@@ -98,6 +98,8 @@
 - (void)dealloc
 {
 	NSLog(@"%s",__FUNCTION__);
+    
+    [userContentController removeScriptMessageHandlerForName:@"commonBack"];
 	[userContentController removeScriptMessageHandlerForName:@"addAppIOS"];
 	[userContentController removeScriptMessageHandlerForName:@"getAppUserInfo"];
 	[userContentController removeScriptMessageHandlerForName:@"openAppManage"];
@@ -130,6 +132,10 @@
 	{
 		[self clickopenapplication:message.body];
 	}
+    else if([message.name isEqualToString:@"commonBack"])
+    {
+        [self removeFromSuperview];
+    }
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
@@ -171,7 +177,7 @@
 //	if(flagloading == 0)
 //	{
 //		flagloading = 1;
-		decisionHandler(WKNavigationResponsePolicyAllow);
+//		decisionHandler(WKNavigationResponsePolicyAllow);
 //	}
 //	else
 //		decisionHandler(WKNavigationResponsePolicyCancel);
@@ -208,7 +214,7 @@
 	[alertController addAction:([UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 		completionHandler();
 	}])];
-	
+	completionHandler();
 	if([self.delegate1 respondsToSelector:@selector(DGClickWkWebViewAlert:)])
 	{
 		[self.delegate1 DGClickWkWebViewAlert:alertController];

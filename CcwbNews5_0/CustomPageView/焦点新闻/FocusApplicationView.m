@@ -97,13 +97,18 @@
 
 #pragma mark XRCarouselViewDelegate
 - (void)loopView:(XLsn0wLoop *)loopView clickImageAtIndex:(NSInteger)index {
-    NSLog(@"点击了第%ld张图片", index);
+//    NSLog(@"点击了第%d张图片",index);
     
     if([self.delegate1 respondsToSelector:@selector(DGFocusClickNumberPic:)])
     {
         NSArray *focus = [dicfocus objectForKey:@"list"];
         [self.delegate1 DGFocusClickNumberPic:[focus objectAtIndex:index]];
     }
+}
+
+-(void)changepicdescript:(int)currentindex
+{
+    
 }
 
 -(void)photoTappedAd:(UIGestureRecognizer*)sender

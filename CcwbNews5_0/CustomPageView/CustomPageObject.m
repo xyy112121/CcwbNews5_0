@@ -121,6 +121,12 @@
 	else
 		imageview.image = LOADIMAGE(@"default_960", @"png");
 	[viewdefault addSubview:imageview];
+    
+    UIImageView *imageviewad = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    imageviewad.contentMode = UIViewContentModeScaleAspectFill;
+    imageviewad.clipsToBounds = YES;
+    imageviewad.tag = EnHomePOPAdImageViewTag1;
+    [viewdefault addSubview:imageviewad];
 	
 	UIButton *buttonjump = [UIButton buttonWithType:UIButtonTypeCustom];
 	buttonjump.layer.borderColor = [UIColor clearColor].CGColor;

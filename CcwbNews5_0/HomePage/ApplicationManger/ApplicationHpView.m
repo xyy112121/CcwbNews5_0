@@ -184,17 +184,17 @@
         labeltypename.textColor = COLORNOW(128, 128, 128);
         [view addSubview:labeltypename];
         
-        UIButton *buttonmore = [UIButton buttonWithType:UIButtonTypeCustom];
-        buttonmore.layer.borderColor = [UIColor clearColor].CGColor;
-        buttonmore.frame = CGRectMake(SCREEN_WIDTH-80, labeltypename.frame.origin.y-2, 75, 24);
-        [buttonmore setTitle:@"更多" forState:UIControlStateNormal];
-        [buttonmore setImage:LOADIMAGE(@"arrowrightred", @"png") forState:UIControlStateNormal];
-        [buttonmore setImageEdgeInsets:UIEdgeInsetsMake(0, 60, 0, 0)];
-        [buttonmore setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-        buttonmore.titleLabel.font = FONTN(15.0f);
-        [buttonmore addTarget:self action:@selector(gotomoreandmorenews:) forControlEvents:UIControlEventTouchUpInside];
-        [buttonmore setTitleColor:COLORNOW(128, 128, 128) forState:UIControlStateNormal];
-        [view addSubview:buttonmore];
+//        UIButton *buttonmore = [UIButton buttonWithType:UIButtonTypeCustom];
+//        buttonmore.layer.borderColor = [UIColor clearColor].CGColor;
+//        buttonmore.frame = CGRectMake(SCREEN_WIDTH-80, labeltypename.frame.origin.y-2, 75, 24);
+//        [buttonmore setTitle:@"更多" forState:UIControlStateNormal];
+//        [buttonmore setImage:LOADIMAGE(@"arrowrightred", @"png") forState:UIControlStateNormal];
+//        [buttonmore setImageEdgeInsets:UIEdgeInsetsMake(0, 60, 0, 0)];
+//        [buttonmore setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+//        buttonmore.titleLabel.font = FONTN(15.0f);
+//        [buttonmore addTarget:self action:@selector(gotomoreandmorenews:) forControlEvents:UIControlEventTouchUpInside];
+//        [buttonmore setTitleColor:COLORNOW(128, 128, 128) forState:UIControlStateNormal];
+//        [view addSubview:buttonmore];
         
         UIImageView *imageline = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, SCREEN_WIDTH, 0.7)];
         imageline.backgroundColor  = COLORNOW(220, 220, 220);
@@ -254,7 +254,6 @@
     }
     
     cell.backgroundColor = [UIColor clearColor];
-    float nowheight;
     NSDictionary *dictemp = [arraydata objectAtIndex:indexPath.section];
     EnCellType celltype=  [AddInterface GetCellType:[dictemp objectForKey:@"show_type"]];
     FocusApplicationView *focusnews;

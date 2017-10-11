@@ -397,7 +397,7 @@
             }
         }
         if (error) {
-            result = [NSString stringWithFormat:@"分享出错,错误码: %d\n%@",(int)error.code, str];
+            result = @"取消分享";//[NSString stringWithFormat:@"分享出错,错误码: %d\n%@",(int)error.code, str];
         }
         else{
             result = [NSString stringWithFormat:@"分享失败"];

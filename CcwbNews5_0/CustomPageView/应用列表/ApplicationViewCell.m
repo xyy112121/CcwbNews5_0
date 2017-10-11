@@ -50,7 +50,7 @@
     [self addSubview:labeldesc];
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(SCREEN_WIDTH-(XYViewHeight(self)-20), 10, XYViewHeight(self)-20, XYViewHeight(self)-20);
+    button.frame = CGRectMake(SCREEN_WIDTH-(XYViewHeight(self)-20), 20, 40, 40);
     button.backgroundColor = [UIColor clearColor];
     int flag = [self gethaveapplication];
     if(flag==0)
@@ -59,7 +59,8 @@
     }
     else
     {
-        [button setImage:LOADIMAGE(@"添加gray", @"png") forState:UIControlStateNormal];
+        button.enabled = NO;
+        [button setImage:LOADIMAGE(@"打开app", @"png") forState:UIControlStateNormal];
     }
 //    button.tag = EnAppRecommendBtTag+indexnow;
     [button addTarget:self action:@selector(clickaddapplication:) forControlEvents:UIControlEventTouchUpInside];
@@ -90,7 +91,8 @@
     
     if(flag == 1)
     {
-        [self deleteappmachine:[dicsrc objectForKey:@"id"] Button:button];
+     
+    //    [self deleteappmachine:[dicsrc objectForKey:@"id"] Button:button];
     }
     else
     {
@@ -116,7 +118,8 @@
          DLog(@"dic====%@",dic);
          if([[dic objectForKey:@"success"] isEqualToString:@"true"])
          {
-             [button setImage:LOADIMAGE(@"添加gray", @"png") forState:UIControlStateNormal];
+             [button setImage:LOADIMAGE(@"打开app", @"png") forState:UIControlStateNormal];
+             button.enabled = NO;
              if([self.delegate1 respondsToSelector:@selector(DGclickAddAppMachine:)])
              {
                  NSArray *arrayapp = [dic objectForKey:@"appList"];

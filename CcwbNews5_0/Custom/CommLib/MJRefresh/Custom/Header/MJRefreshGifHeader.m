@@ -106,6 +106,7 @@
         }
         CGFloat textWidth = MAX(stateWidth, timeWidth);
         self.gifView.mj_w = self.mj_w * 0.5 - textWidth * 0.5 - self.labelLeftInset;
+//        self.gifView.frame = CGRectMake(XYViewLeft(self.gifView), XYViewTop(self.gifView), 40, 40);
     }
 }
 

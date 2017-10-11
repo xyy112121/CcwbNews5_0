@@ -280,7 +280,7 @@
 	DLog(@"yOffset====%f",yOffset);
 		removekeyboardbutton = [UIButton buttonWithType:UIButtonTypeCustom];
 		removekeyboardbutton.frame= CGRectMake(0, 0, SCREEN_WIDTH, yOffset);
-		removekeyboardbutton.backgroundColor = [UIColor redColor];
+		removekeyboardbutton.backgroundColor = [UIColor clearColor];
 		[self addSubview:removekeyboardbutton];
 	
 	[UIView animateWithDuration:duration animations:^{

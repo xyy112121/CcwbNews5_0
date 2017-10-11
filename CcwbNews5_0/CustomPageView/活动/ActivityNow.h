@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ActivityNow : UIView
+@interface ActivityNow : UIView<UIScrollViewDelegate>
 {
 	NSDictionary *dicsrc;
+    NSMutableArray *arraynow;
+    NSTimer *timer;
+    UIScrollView *scrollview;
+    NSMutableDictionary *dictimerinfo;
+    SMPageControl* spacePageControl1;
 }
 @property(nonatomic,strong)id<ActionDelegate>delegate1;
 -(id)initWithFrame:(CGRect)frame Dicsrc:(NSDictionary *)dic;

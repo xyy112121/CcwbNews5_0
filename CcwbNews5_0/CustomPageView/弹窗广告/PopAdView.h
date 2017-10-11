@@ -14,9 +14,10 @@
 	AppDelegate *app;
 	WKUserContentController * userContentController;
 	NSString *fromurl;
+    NSDictionary *dicfrom;
 }
 
 @property(nonatomic,strong)id<ActionDelegate> delegate1;
 @property (strong, nonatomic)WKWebView  *webView;
--(id)initWithFrame:(CGRect)frame Requeststr:(NSString *)requeststring;
+-(id)initWithFrame:(CGRect)frame Requeststr:(NSString *)requeststring Dic:(NSDictionary *)dic;
 @end

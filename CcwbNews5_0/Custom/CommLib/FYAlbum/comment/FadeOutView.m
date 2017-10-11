@@ -7,8 +7,8 @@
 //
 
 #import "FadeOutView.h"
-#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
-#define kScreenWidth  [[UIScreen mainScreen] bounds].size.width
+#define FadekScreenHeight [[UIScreen mainScreen] bounds].size.height
+#define FadekScreenWidth  [[UIScreen mainScreen] bounds].size.width
 #import <QuartzCore/QuartzCore.h>
 
 void showFadeOutView(NSString *text, BOOL success, NSTimeInterval d){

@@ -124,6 +124,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 	[[self.navigationController.navigationBar viewWithTag:EnHpNctlViewTag] removeFromSuperview];
 	[self addnavigateionview];
     self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
@@ -258,7 +259,7 @@
     NSString *strmoreurl = [moredic objectForKey:@"more_url"];
     if([strmoreurl length]>0)
     {
-        [self gotowkwebview:strmoreurl StrTitle:@"列表"];
+        [self gotowkwebview:strmoreurl StrTitle:@"列表" StrNewsid:[moredic objectForKey:@"id"] StrInType:[moredic objectForKey:@"in_type"]];
     }
     else if([[moredic objectForKey:@"in_type"] isEqualToString:@"biz"])
     {
@@ -282,7 +283,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"app_name"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"app_name"] StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGclickNewsZuPic:(NSDictionary *)sender
@@ -292,7 +293,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@""];
+    [self gotowkwebview:strurl StrTitle:@"" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGClickSingleTuJipic:(id)sender
@@ -302,7 +303,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@""];
+    [self gotowkwebview:strurl StrTitle:@"" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGClickActivityPic:(NSDictionary *)sender
@@ -312,7 +313,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"title"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"title"] StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGFocusClickNumberPic:(NSDictionary *)sender
@@ -322,7 +323,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@"焦点新闻详情"];
+    [self gotowkwebview:strurl StrTitle:@"焦点新闻详情" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGclickTuJiPic:(NSDictionary *)sender
@@ -332,7 +333,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@""];
+    [self gotowkwebview:strurl StrTitle:@"" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 
@@ -357,7 +358,7 @@
 
 
 #pragma mark IBaction
--(void)gotowkwebview:(NSString *)str StrTitle:(NSString *)strtitle
+-(void)gotowkwebview:(NSString *)str StrTitle:(NSString *)strtitle StrNewsid:(NSString *)strnewsid StrInType:(NSString *)strintype
 {
     WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
     NSString *requeststring = str;
@@ -558,7 +559,7 @@
             strurl = [dictemp objectForKey:@"url"];
         else
             strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[dictemp objectForKey:@"id"]];
-        [self gotowkwebview:strurl StrTitle:@"新闻详情"];
+        [self gotowkwebview:strurl StrTitle:@"新闻详情" StrNewsid:[dictemp objectForKey:@"id"] StrInType:[dictemp objectForKey:@"in_type"]];
     }
     else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"more"])//当是显示更我推荐新闻cell是进
     {

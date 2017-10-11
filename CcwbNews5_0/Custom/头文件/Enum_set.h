@@ -26,7 +26,8 @@ typedef enum{
     EnCellTypeSortFanKui,//排行榜与反馈
     EnCellTypeAddApplication,//添加就用
     EnCellTypeApplicationapp,//添加就用列表类型
-    EnCellTypeAdUrl //普通url类型
+    EnCellTypeAdUrl, //普通url类型
+    EnCellTypeNewsRecommend  //推荐新闻
 }EnCellType;
 
 
@@ -88,6 +89,7 @@ typedef enum
 #define EnHomePopAdViewTag   50010  //首屏广告页面
 #define EnHomePopAdTimeLabelTag  50020  //首屏广告页面上的时间
 #define EnHomePOPAdImageViewTag  50030  //全屏的首页广告图片
+#define EnHomePOPAdImageViewTag1  50035  //首屏的首页广告图片
 #define EnYLImageViewTag       50040   //YLImageView动画
 #define EnFocusTitleLabelTag 50050 //焦点图的标题
 #define EnFocusSMPageControlTag 50060  //滚动图片的SMPageControl
@@ -137,4 +139,14 @@ typedef enum
 #define EnGetVerCodeBtTag   51800
 
 #define EnApplicationTuiJianBGViewTag  51900
+#define EnNewsDetailPlayVideoTag  51920
+#define EnHomeBgWhiteImageviewTag 51930
+#define EnNoNetWorkPageTage 51940
+#define EnTuiJianNewsButtonTag 52000
+#define EnActivityTypeNameLabelTag 52100
+
+#define EnExpressionBtTag   52200
+
+
+
 

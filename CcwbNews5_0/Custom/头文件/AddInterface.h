@@ -47,4 +47,6 @@
 //
 + (NSString*)convertToJSONData:(id)infoDict;
 
++(NSString *)getdeviceModelName;
+
 @end

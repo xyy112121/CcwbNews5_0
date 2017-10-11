@@ -232,8 +232,8 @@
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
     DLog(@"3453453");
-    NSLog(@"%@",navigationAction.request.URL.absoluteString);
-    NSString *requestString = navigationAction.request.URL.absoluteString;
+//    NSLog(@"%@",navigationAction.request.URL.absoluteString);
+//    NSString *requestString = navigationAction.request.URL.absoluteString;
    
 //    DLog(@"request====%@",urlpath);
 //    NSString *requestString = navigationAction.request.URL.absoluteString;
@@ -306,7 +306,7 @@
        //     NSDictionary *dicjson = [NSDictionary dictionaryWithObjectsAndKeys:dicdata,@"data",[dic objectForKey:@"msg"],@"msg",[dic objectForKey:@"success"],@"success", nil];
             NSString *strjson = [AddInterface DataTOjsonString:dicdata];
             strjson = [strjson stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            NSString *js = [NSString stringWithFormat:@"createcharthtml('%@');",strjson];
+//            NSString *js = [NSString stringWithFormat:@"createcharthtml('%@');",strjson];
 //            [self.wkwebview evaluateJavaScript:js completionHandler:^(id _Nullable response, NSError * _Nullable error) {
 //                //TODO
 //                NSLog(@"responsec %@ %@",response,error);

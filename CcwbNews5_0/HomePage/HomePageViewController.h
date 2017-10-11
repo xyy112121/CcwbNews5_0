@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "BottomView.h"
 #import "OpenGLView.h"
-@interface HomePageViewController : UIViewController<ActionDelegate,UIScrollViewDelegate,UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+#import <XiaoIceSDK_conversation/XIConversationViewController.h>
+@interface HomePageViewController : UIViewController<ActionDelegate,UIScrollViewDelegate,UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,XIConversationViewControllerUIDelegate>
 {
 	UIScrollView *scrollviewbg;
 	AppDelegate *app;
@@ -36,6 +37,8 @@
 	
 	NSString *strcw_time;
 	int nowpage;
+    
+    NSDictionary *FCrecommentnews;
 	
 }
 //@property(nonatomic, strong) OpenGLView *glView;

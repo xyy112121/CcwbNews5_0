@@ -54,7 +54,8 @@
 	arrayfocuschannellist = [[NSArray alloc] init];  //焦点
 	arrayapplicationfirstin = [[NSMutableArray alloc] init];
 	app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	self.view.backgroundColor = COLORNOW(237, 237, 237);
+    self.view.backgroundColor = COLORNOW(240, 240, 240);
+    
 	if(tableview == nil)
 	{
 		scrollviewbg = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-47)];
@@ -144,7 +145,6 @@
 	header.stateLabel.hidden = YES;
 	
 	
-//	tableview.mj_footer = [MJChiBaoZiFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 	
 	MJChiBaoZiFooter *footer = [MJChiBaoZiFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 	footer.stateLabel.hidden = YES;
@@ -160,10 +160,37 @@
 }
 
 
-#pragma mark IBaction
 
--(void)addpopadview:(NSString *)requeststring Appid:(NSString *)appid
+
+#pragma mark IBaction
+-(void)havenewsremmend:(NSArray *)sender
 {
+    for(int i=0;i<[sender count];i++)
+    {
+        NSDictionary *dictemp = [sender objectAtIndex:i];
+        if([[dictemp objectForKey:@"show_type"] isEqualToString:@"news_recommend"])
+        {
+            [self getnewsrecommend];
+            break;
+        }
+    }
+}
+
+-(void)addnetworkaginrequest:(id)sender
+{
+    [[self.view viewWithTag:EnNoNetWorkPageTage] removeFromSuperview];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.tag = EnNoNetWorkPageTage;
+    button.frame = CGRectMake((SCREEN_WIDTH-250)/2, (SCREEN_HEIGHT-247-64)/2, 250, 247);
+    [button addTarget:self action:@selector(getDefaultlist:) forControlEvents:UIControlEventTouchUpInside];
+    [button setBackgroundImage:LOADIMAGE(@"networkagain", @"png") forState:UIControlStateNormal];
+    [button setBackgroundImage:LOADIMAGE(@"networkagain", @"png") forState:UIControlStateHighlighted];
+    [self.view addSubview:button];
+}
+
+-(void)addpopadview:(NSDictionary *)dic Appid:(NSString *)appid
+{
+    NSString *requeststring = [dic objectForKey:@"ad"];
 	if([requeststring rangeOfString:@"?"].location !=NSNotFound)
 	{
 		requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@&cw_appid=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@"",appid];
@@ -172,18 +199,20 @@
 	{
 		requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@&cw_appid=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@"",appid];
 	}
-	UIView *viewhomead = [app.window viewWithTag:EnHomePopAdViewTag];
-	PopAdView *popview = [[PopAdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Requeststr:requeststring];
+    
+    UIView *viewhomead = [app.window viewWithTag:EnHomePopAdViewTag];
+	PopAdView *popview = [[PopAdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Requeststr:requeststring Dic:dic];
 	popview.tag = EnPopAdViewTag;
 	popview.delegate1 = self;
-	if(viewhomead!=nil)
-	{
-		[app.window insertSubview:popview belowSubview:viewhomead];
-	}
-	else
-	{
-		[app.window addSubview:popview];
-	}
+    if(viewhomead!=nil)
+    {
+        [app.window insertSubview:popview belowSubview:viewhomead];
+    }
+    else
+    {
+        [app.window addSubview:popview];
+    }
+	
 }
 
 -(void)setapplicationfirstshow:(NSString *)appid Show:(NSString *)show
@@ -252,7 +281,7 @@
 -(void)addadver:(NSDictionary *)dictemp
 {
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-	view.backgroundColor = [UIColor redColor];
+	view.backgroundColor = [UIColor clearColor];
 	view.tag = 99;
 	
 	UIImageView *imageviewbg  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -356,7 +385,10 @@
 			case EnCellTypeFunction:
 				if(entypefoled == EnFolded)
 				{
-					nowheight = 90;
+                    if([(NSArray *)[dictemp objectForKey:@"list"] count]>4)
+                       nowheight = 130;
+                    else
+                       nowheight = 90;
 					[arrayheight addObject:[NSString stringWithFormat:@"%f",nowheight]];
 				}
 				else if(entypefoled == EnUnFolded)
@@ -420,6 +452,12 @@
 					nowheight = 190;
 				[arrayheight addObject:[NSString stringWithFormat:@"%f",nowheight]];
 				break;
+            case EnCellTypeNewsRecommend: //推荐新闻
+                
+                viewtemp = [[TuiJianNewsView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50) Dicsrc:FCrecommentnews];
+                [arrayheight addObject:[NSString stringWithFormat:@"%f",viewtemp.frame.size.height]];
+
+                break;
 			default:
 				[arrayheight addObject:[NSString stringWithFormat:@"%f",110.0f]];
 				break;
@@ -428,10 +466,15 @@
 }
 
 #pragma mark actiondelegate代理
--(void)gotowkwebview:(NSString *)str StrTitle:(NSString *)strtitle
+-(void)DGClicknewrecommend:(id)sender
+{
+    [self getnewsrecommend];
+}
+
+-(void)gotowkwebview:(NSString *)str StrTitle:(NSString *)strtitle StrNewsid:(NSString *)strnewsid StrInType:(NSString *)strintype
 {
 	WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
-	NSString *requeststring = str;
+	NSString *requeststring = str; //@"http://act.m-now.cn/markets/now/act/midautumn/chuncheng";//
 	if([requeststring rangeOfString:@"?"].location !=NSNotFound)
 	{
 		requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,app.Gmachid,app.userinfo.userid!=nil?app.userinfo.userid:@""];
@@ -443,8 +486,15 @@
     webviewcustom.delegate1 = self;
     webviewcustom.strtitle = strtitle;
 	webviewcustom.strurl = requeststring;
+    webviewcustom.FCnewsid = strnewsid;//[dic objectForKey:@"id"];
+    webviewcustom.FCfromintype = strintype;//[dic objectForKey:@"in_type"];
 	[self.navigationController pushViewController:webviewcustom animated:YES];
 }
+
+//- (XIConversationMessageCellConfigurations *)conversationViewController:(XIConversationViewController *)viewController displayMessageViewNeedConfigurationsWithCellType:(XIConversationMessageCellType)messageCellType isSender:(BOOL)isSender
+//{
+//    
+//}
 
 -(void)DGClickHpFunctionView:(NSDictionary *)dicfuncitem
 {
@@ -464,6 +514,13 @@
             [self presentViewController:nctl animated:YES completion:nil];
         }
     }
+    else if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"msdialog"])//微软对话
+    {
+        [[self.navigationController.navigationBar viewWithTag:EnHpNctlViewTag] removeFromSuperview];
+        XIConversationViewController *xinconverstation = [[XIConversationViewController alloc] init];
+       // xinconverstation.uiDelegate = self;
+        [self.navigationController pushViewController:xinconverstation animated:YES];
+    }
     else if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"ar"])//ar/vr
     {
         ScanQRCodeARViewController *scanqrcode = [[ScanQRCodeARViewController alloc] init];
@@ -478,14 +535,14 @@
     }
 	else if([[dicfuncitem objectForKey:@"in_type"] isEqualToString:@"url"])
 	{
-		[self gotowkwebview:[dicfuncitem objectForKey:@"url"] StrTitle:[dicfuncitem objectForKey:@"title"]];
+		[self gotowkwebview:[dicfuncitem objectForKey:@"url"] StrTitle:[dicfuncitem objectForKey:@"title"] StrNewsid:[dicfuncitem objectForKey:@"id"] StrInType:[dicfuncitem objectForKey:@"in_type"]];
 	}
 }
 
--(void)DGGotoPopAdView:(NSString *)popadurl
+-(void)DGGotoPopAdView:(NSString *)popadurl Dic:(NSDictionary *)dic
 {
-//	[self gotowkwebview:popadurl];
-//	[[app.window viewWithTag:EnPopAdViewTag] removeFromSuperview];
+	[self gotowkwebview:popadurl StrTitle:@"详情" StrNewsid:[dic objectForKey:@"id"] StrInType:@"url"];
+	[[app.window viewWithTag:EnPopAdViewTag] removeFromSuperview];
 }
 
 -(void)DGClickgotoqrcode:(id)sender
@@ -497,7 +554,8 @@
 
 -(void)DGClickwkwebviewCustomview:(NSString *)clickurl
 {
-	[self gotowkwebview:clickurl StrTitle:@""];
+	[self gotowkwebview:clickurl StrTitle:@"" StrNewsid:@"" StrInType:@""];
+    [[app.window viewWithTag:EnPopAdViewTag] removeFromSuperview];
 }
 
 -(void)DGGotoGoodsDetailView:(NSDictionary *)sender
@@ -516,12 +574,19 @@
     }
 }
 
+-(void)DGClickTuiJianNews:(NSDictionary *)dictemp
+{
+    NSString *strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[dictemp objectForKey:@"feedID"]];
+    [self gotowkwebview:strurl StrTitle:@"新闻详情" StrNewsid:[dictemp objectForKey:@"feedID"] StrInType:@"news"];
+
+}
+
 -(void)DGClickMoreNewsUrl:(NSDictionary *)moredic
 {
     NSString *strmoreurl = [moredic objectForKey:@"more_url"];
     if([strmoreurl length]>0)
     {
-        [self gotowkwebview:strmoreurl StrTitle:@"列表"];
+        [self gotowkwebview:strmoreurl StrTitle:@"列表" StrNewsid:[moredic objectForKey:@"id"] StrInType:[moredic objectForKey:@"in_type"]];
     }
     else if([[moredic objectForKey:@"in_type"] isEqualToString:@"app"])
     {
@@ -549,7 +614,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"app_name"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"app_name"] StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGclickNewsZuPic:(NSDictionary *)sender
@@ -559,7 +624,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@""];
+    [self gotowkwebview:strurl StrTitle:@"" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGClickSingleTuJipic:(id)sender
@@ -569,7 +634,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@""];
+    [self gotowkwebview:strurl StrTitle:@"" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGClickActivityPic:(NSDictionary *)sender
@@ -579,7 +644,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"title"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"title"] StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGFocusClickNumberPic:(NSDictionary *)sender
@@ -589,7 +654,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@"焦点新闻详情"];
+    [self gotowkwebview:strurl StrTitle:@"焦点新闻详情" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGclickTuJiPic:(NSDictionary *)sender
@@ -601,7 +666,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@""];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"title"] StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGclickAddAppMachine:(NSDictionary *)sender
@@ -759,42 +824,76 @@
 
 -(void)DGClickOpenApplication:(NSString *)sender
 {
-	NSDictionary *clickapp=nil;
-	int flagclick = 0;
-	for(int i=0;i<[app.arrayaddapplication count];i++)
-	{
-		NSDictionary *dictemp = [app.arrayaddapplication objectAtIndex:i];
-		if([[dictemp objectForKey:@"id"] isEqualToString:sender])
-		{
-			flagclick = i;
-			UIScrollView *scrollview = bottomview.scrollview;
-			clickapp = dictemp;
-			[scrollview setContentOffset:CGPointMake(SCREEN_WIDTH/5*(i>2?i-1:0), 0) animated:YES];
-			break;
-		}
-	}
-	
-	//设置变大变小
-	int tagnow = flagclick;
+    NSDictionary *clickapp=nil;
+    int flagfixed = 0;
+    for(int i=0;i<[app.arrayfixedapplication count];i++)
+    {
+        NSDictionary *dictemp = [app.arrayfixedapplication objectAtIndex:i];
+        if([[dictemp objectForKey:@"id"] isEqualToString:sender])
+        {
+            flagfixed = i+1;
+            clickapp = dictemp;
+            break;
+        }
+    }
+    
+    if(flagfixed == 0)
+    {
+        int flagclick = 0;
+        for(int i=0;i<[app.arrayaddapplication count];i++)
+        {
+            NSDictionary *dictemp = [app.arrayaddapplication objectAtIndex:i];
+            if([[dictemp objectForKey:@"id"] isEqualToString:sender])
+            {
+                flagclick = i;
+                UIScrollView *scrollview = bottomview.scrollview;
+                clickapp = dictemp;
+                [scrollview setContentOffset:CGPointMake(SCREEN_WIDTH/5*(i>2?i-1:0), 0) animated:YES];
+                break;
+            }
+        }
+        
+        //设置变大变小
+        int tagnow = flagclick;
 
-	
-	UIImageView *clickimage = [bottomview.scrollview viewWithTag:EnBottomApplicationBtTag+100+tagnow];
-	for(int i=0;i<[app.arrayaddapplication count];i++)
-	{
-		UIImageView *imageview = [bottomview.scrollview viewWithTag:EnBottomApplicationImageviewTag+i];
-		[UIView transitionWithView:imageview duration:0.3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-			imageview.frame = CGRectMake((SCREEN_WIDTH/5-23)/2, 8, 23, 23);
-			imageview.alpha = 0.7;
-			clickimage.frame = CGRectMake((SCREEN_WIDTH/5-30)/2, 5, 30, 30);
-			clickimage.alpha = 1;
-		} completion:^(BOOL finished) {
-			//finished判断动画是否完成
-			if (finished) {
-				
-			}
-		}];
-	}
-	
+        
+        UIImageView *clickimage = [bottomview.scrollview viewWithTag:EnBottomApplicationBtTag+100+tagnow];
+        for(int i=0;i<[app.arrayaddapplication count];i++)
+        {
+            UIImageView *imageview = [bottomview.scrollview viewWithTag:EnBottomApplicationImageviewTag+i];
+            [UIView transitionWithView:imageview duration:0.3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                imageview.frame = CGRectMake((SCREEN_WIDTH/5-23)/2, 8, 23, 23);
+                imageview.alpha = 0.7;
+                clickimage.frame = CGRectMake((SCREEN_WIDTH/5-30)/2, 5, 30, 30);
+                clickimage.alpha = 1;
+            } completion:^(BOOL finished) {
+                //finished判断动画是否完成
+                if (finished) {
+                    
+                }
+            }];
+        }
+    }
+    else
+    {
+        UIImageView *clickimage = [bottomview viewWithTag:EnBottomApplicationLeftFixedImageviewTag+flagfixed-1];
+        for(int i=0;i<5;i++)
+        {
+            UIImageView *imageview = [bottomview viewWithTag:EnBottomApplicationLeftFixedImageviewTag+i];
+            [UIView transitionWithView:imageview duration:0.3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                imageview.frame = CGRectMake((SCREEN_WIDTH/5-23)/2, 8, 23, 23);
+                imageview.alpha = 0.7;
+                clickimage.frame = CGRectMake((SCREEN_WIDTH/5-30)/2, 5, 30, 30);
+                clickimage.alpha = 1;
+            } completion:^(BOOL finished) {
+                //finished判断动画是否完成
+                if (finished) {
+                    
+                }
+            }];
+        }
+
+    }
 	
 	if(clickapp!=nil)
 	{
@@ -808,10 +907,10 @@
 {
 	nowpage = 1;
 	[self gethpapplist:[NSString stringWithFormat:@"%d",nowpage] ChannelId:strchannelid City:app.diliweizhi.dilicity Header:@"YES" CW_Time:@""];
-	YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
-	[self.view addSubview:imageViewgif];
-	imageViewgif.tag = EnYLImageViewTag;
-	imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
+//	YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
+//	[self.view addSubview:imageViewgif];
+//	imageViewgif.tag = EnYLImageViewTag;
+//	imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
 	DLog(@"test");
 }
 
@@ -820,29 +919,54 @@
 	DLog(@"test");
 	
 	[self gethpapplist:[NSString stringWithFormat:@"%d",nowpage] ChannelId:strchannelid City:app.diliweizhi.dilicity Header:@"NO" CW_Time:strcw_time];
-	YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
-	[self.view addSubview:imageViewgif];
-	imageViewgif.tag = EnYLImageViewTag;
-	imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
+//	YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
+//	[self.view addSubview:imageViewgif];
+//	imageViewgif.tag = EnYLImageViewTag;
+//	imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
 }
 
 
 #pragma mark 广告点击 
 -(void)AdTappedpic:(UIGestureRecognizer*)sender
 {
-	
+    if([[dicadver objectForKey:@"url"] length]>0)
+    {
+        [self gotowkwebview:[dicadver objectForKey:@"url"] StrTitle:@"详情" StrNewsid:[dicadver objectForKey:@"id"] StrInType:@"url"];
+        [[app.window viewWithTag:EnHomePopAdViewTag] removeFromSuperview];
+    }
 }
-
 
 -(void)AddAdverTise:(NSDictionary *)dicad
 {
 	UIView *viewad = [app.window viewWithTag:EnHomePopAdViewTag];
-	UIImageView *imageview = [viewad viewWithTag:EnHomePOPAdImageViewTag];
-	[imageview setImageWithURL:URLSTRING([dicad objectForKey:@"pic"])];
-	imageview.userInteractionEnabled = YES;
-	UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(AdTappedpic:)];
-	[imageview addGestureRecognizer:singleTap];
-	int sec = [[dicad objectForKey:@"time"] intValue]/1000;
+    UIImageView *imageview = [viewad viewWithTag:EnHomePOPAdImageViewTag1];
+    NSString *straffix = [[dicad objectForKey:@"pic"] lastPathComponent];
+    if(([straffix rangeOfString:@".gif"].location !=NSNotFound))
+    {
+        YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:imageview.frame];
+        if([[dicad objectForKey:@"isfull"] isEqualToString:@"false"])
+            imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(XYViewLeft(imageview), XYViewTop(imageview), XYViewWidth(imageview), SCREEN_HEIGHT-100)];
+        imageViewgif.contentMode = UIViewContentModeScaleAspectFill;
+        [viewad insertSubview:imageViewgif belowSubview:imageview];
+        imageViewgif.tag = EnHomePOPAdImageViewTag1;
+        imageViewgif.image = [YLGIFImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[dicad objectForKey:@"pic"]]]];
+        imageViewgif.userInteractionEnabled = YES;
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(AdTappedpic:)];
+        [imageViewgif addGestureRecognizer:singleTap];
+        [imageview removeFromSuperview];
+    }
+    else
+    {
+        if([[dicad objectForKey:@"isfull"] isEqualToString:@"false"])
+            imageview.frame = CGRectMake(XYViewLeft(imageview), XYViewTop(imageview), XYViewWidth(imageview), SCREEN_HEIGHT-100);
+        [imageview setImageWithURL:URLSTRING([dicad objectForKey:@"pic"])];
+        imageview.userInteractionEnabled = YES;
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(AdTappedpic:)];
+        [imageview addGestureRecognizer:singleTap];
+    }
+    
+    
+    int sec =  [[dicad objectForKey:@"time"] intValue]/1000;
 	
 	UIButton *buttontime = [viewad viewWithTag:EnHomePopAdTimeLabelTag];
 	buttontime.alpha = 1;
@@ -957,6 +1081,10 @@
 	
 	for(UIView *view in cell.contentView.subviews)
 	{
+        if([view isKindOfClass:[ActivityNow class]])
+        {
+            DLog(@"4563434563456345634563456");
+        }
 		[view removeFromSuperview];
 	}
 	
@@ -976,6 +1104,7 @@
 	URLTypeView *urltype;
 	SingleTuJiView *singletuji;
 	GoodsCellView *cellview;
+    TuiJianNewsView *tuijiannews;
 	NSArray *arraygoodslist;
 	switch (celltype)
 	{
@@ -985,7 +1114,7 @@
 			[cell.contentView addSubview:focusnews];
 			break;
 		case EnCellTypeFunction:
-			functionview = [[FunctionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110) Focus:dictemp  EnFoledType:entypefoled];
+			functionview = [[FunctionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130) Focus:dictemp  EnFoledType:entypefoled];
 			functionview.delegate1 = self;
 			[cell.contentView addSubview:functionview];
 			break;
@@ -1044,6 +1173,11 @@
 			cellview.delegate1 = self;
 			[cell.contentView addSubview:cellview];
 			break;
+        case EnCellTypeNewsRecommend:
+            tuijiannews = [[TuiJianNewsView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50) Dicsrc:FCrecommentnews];
+            tuijiannews.delegate1 = self;
+            [cell.contentView addSubview:tuijiannews];
+            break;
 		default:
 			cell.textLabel.text = [NSString stringWithFormat:@"123+%d",(int)indexPath.row];
 			break;
@@ -1057,13 +1191,13 @@
 {
 	NSDictionary *dictemp = [arraydata objectAtIndex:indexPath.row];
     NSString *strurl;
-    if([[dictemp objectForKey:@"show_type"] isEqualToString:@"normal"])
+    if([[dictemp objectForKey:@"in_type"] isEqualToString:@"news"])
     {
         if([[dictemp objectForKey:@"url"] length]>0)
             strurl = [dictemp objectForKey:@"url"];
         else
             strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[dictemp objectForKey:@"id"]];
-        [self gotowkwebview:strurl StrTitle:@"新闻详情"];
+        [self gotowkwebview:strurl StrTitle:@"新闻详情" StrNewsid:[dictemp objectForKey:@"id"] StrInType:[dictemp objectForKey:@"in_type"]];
     }
     else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"more"])//当是显示更我推荐新闻cell是进
     {
@@ -1135,6 +1269,38 @@
 
 
 #pragma mark 接口
+-(void)getnewsrecommend
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@"综合" forKey:@"channel"];
+    [params setObject:@"" forKey:@"lastupdateTime"];
+    [params setObject:app.diliweizhi.dilicity forKey:@"cw_city"];
+    [params setObject:@"中国" forKey:@"cw_country"];
+    [params setObject:app.diliweizhi.diliprovince forKey:@"cw_province"];
+    [params setObject:app.diliweizhi.dililocality forKey:@"cw_area"];
+    [params setObject:[NSString stringWithFormat:@"%f",app.diliweizhi.longitude] forKey:@"cw_longitude"];
+    [params setObject:[NSString stringWithFormat:@"%f",app.diliweizhi.latitude] forKey:@"cw_latitude"];
+    [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceTuiJianNews ShowView:app.window alwaysdo:^{
+        
+    } Success:^(NSDictionary *dic) {
+        DLog(@"dic====%@",dic);
+        if([[dic objectForKey:@"code"] isEqualToString:@"ok"])
+        {
+            FCrecommentnews = dic;
+            [arrayheight removeAllObjects];
+            [self tableviewcellheight:arraydata];
+            [tableview reloadData];
+        }
+        else
+        {
+        //    [MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+        }
+    } Failur:^(NSString *strmsg) {
+        [self getnewsrecommend];
+     //   [MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
+    }];
+}
+
 //获取token
 -(void)getAppToken
 {
@@ -1194,13 +1360,24 @@
 		 DLog(@"dic====%@",dic);
 		 if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		 {
+             [[self.view viewWithTag:EnNoNetWorkPageTage] removeFromSuperview];
+             if([self.view viewWithTag:EnHomeBgWhiteImageviewTag]==nil)
+             {
+                 UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 140)];
+                 imageview.backgroundColor = [UIColor whiteColor];
+                 [self.view insertSubview:imageview atIndex:0];
+             }
+             
 			 strcw_time = [NSString stringWithFormat:@"%@",[dic objectForKey:@"cw_time"]];
 			 if([header isEqualToString:@"YES"])
 			 {
                  if([(NSArray *)[dic objectForKey:@"newsList"] count]>0)
                  {
+                     [tableview.mj_footer setHidden:NO];
                      nowpage = nowpage+1;
                      arraydata = [[NSMutableArray alloc] initWithArray:[dic objectForKey:@"newsList"]];
+                     //判断是否有news_recommend类型 如果有就请求对新的推荐类型
+                     [self havenewsremmend:arraydata];
                      
                      [arrayheight removeAllObjects];
                      
@@ -1231,6 +1408,8 @@
 			 else
 			 {
 				 NSArray *arraynew = [dic objectForKey:@"newsList"];
+                 if([arraynew count]==0)
+                     [tableview.mj_footer setHidden:YES];
 				 if([arraynew count]>0)   //当有新数据的时候页面加1
 					 nowpage = nowpage+1;
 				 for(int i=0;i<[arraynew count];i++)
@@ -1257,16 +1436,6 @@
 							 break;
 					 }
 				 }
-				 
-//				 if(([arrayheight count]>8)&&[arraynew count]>0)
-//				 {
-//					 if(iphone6p)
-//						 [tableview setContentOffset:CGPointMake(0, tableview.contentOffset.y+300) animated:YES];
-//					 else if(iphone6)
-//						 [tableview setContentOffset:CGPointMake(0, tableview.contentOffset.y+250) animated:YES];
-//					 else
-//						 [tableview setContentOffset:CGPointMake(0, tableview.contentOffset.y+240) animated:YES];
-//				 }
 				 
 			 }
 			 tableview.delegate = self;
@@ -1337,11 +1506,12 @@
 		 DLog(@"dic====%@",dic);
 		 if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		 {
+             [[self.view viewWithTag:EnNoNetWorkPageTage] removeFromSuperview];
 			 [[self.view viewWithTag:EnHpChannelViewTAG] removeFromSuperview];
 			 //判断当前应用是否有广告
 			 if([[dic objectForKey:@"ad"] length]>0)
 			 {
-				 [self addpopadview:[dic objectForKey:@"ad"] Appid:appid];
+				 [self addpopadview:dic Appid:appid];
 			 }
 			 
 			 arrayappchannellist = [dic objectForKey:@"channelList"];
@@ -1382,13 +1552,15 @@
 -(void)getDefaultlist:(NSString *)sender
 {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
-
+    UIButton *button = [self.view viewWithTag:EnNoNetWorkPageTage];
+    button.enabled = NO;
 	[RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceAppInit ShowView:app.window alwaysdo:^{
 		
 	} Success:^(NSDictionary *dic) {
 		DLog(@"dic====%@",dic);
 		if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		{
+            [[self.view viewWithTag:EnNoNetWorkPageTage] removeFromSuperview];
 			dicadver = [dic objectForKey:@"advertise"];
 			app.arrayaddapplication = [[NSMutableArray alloc] initWithArray: [dic objectForKey:@"appList"]];
 			app.arrayfixedapplication = [[NSMutableArray alloc] initWithArray:[dic objectForKey:@"fixList"]];
@@ -1426,19 +1598,18 @@
 		else
 		{
 			[MBProgressHUD showError:[dic objectForKey:@"msg"] toView:app.window];
+            button.enabled = YES;
 		}
 	} Failur:^(NSString *strmsg) {
-		[MBProgressHUD showError:@"请求失败,请检查网络" toView:self.view];
+        button.enabled = YES;
+		[MBProgressHUD showError:@"请求失败,请检查网络" toView:app.window];
 		UIView *viewad = [app.window viewWithTag:EnHomePopAdViewTag];
 		[viewad removeFromSuperview];
-		if(repatcount<10)
-		{
-			repatcount = repatcount+1;
-			[self getDefaultlist:app.Gmachid];
-		}
+        [self addnetworkaginrequest:nil];
 		[tableview.mj_header endRefreshing];
 		[tableview.mj_footer endRefreshing];
 		[[self.view viewWithTag:EnYLImageViewTag] removeFromSuperview];
+        [[app.window viewWithTag:EnHomePopAdViewTag] removeFromSuperview];
 	}];
 }
 
@@ -1478,12 +1649,11 @@
 				}];
 				
 				UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"现在更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-					NSString *postUrl = @"http://cwresource.ccwb.cn/Upload/ipa/download.html";
+                    
+					NSString *postUrl = @"https://itunes.apple.com/cn/app/chun-cheng-wan-bao-ke-hu-duan/id780126079?mt=8";
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:postUrl]];
 					DLog(@"posturl===%@",postUrl);
-					
-					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:postUrl]];
-					
-					
+
 				}];
 				
 				// Add the actions.

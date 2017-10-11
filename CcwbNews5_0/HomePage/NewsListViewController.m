@@ -194,10 +194,10 @@
 {
     nowpage = 1;
     [self gethpapplist:[NSString stringWithFormat:@"%d",nowpage] CW_Type:self.fccw_type City:app.diliweizhi.dilicity Header:@"YES" CW_Time:strcw_time];
-    YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
-    [self.view addSubview:imageViewgif];
-    imageViewgif.tag = EnYLImageViewTag;
-    imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
+//    YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
+//    [self.view addSubview:imageViewgif];
+//    imageViewgif.tag = EnYLImageViewTag;
+//    imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
     DLog(@"test");
 }
 
@@ -206,10 +206,10 @@
     DLog(@"test");
     [self gethpapplist:[NSString stringWithFormat:@"%d",nowpage] CW_Type:self.fccw_type City:app.diliweizhi.dilicity Header:@"NO" CW_Time:strcw_time];
 //    [self gethpapplist:[NSString stringWithFormat:@"%d",nowpage] ChannelId:strchannelid City:app.diliweizhi.dilicity Header:@"NO" CW_Time:strcw_time];
-    YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
-    [self.view addSubview:imageViewgif];
-    imageViewgif.tag = EnYLImageViewTag;
-    imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
+//    YLImageView* imageViewgif = [[YLImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, SCREEN_HEIGHT/2-160, 200, 200)];
+//    [self.view addSubview:imageViewgif];
+//    imageViewgif.tag = EnYLImageViewTag;
+//    imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
 }
 
 #pragma mark tableview 代理
@@ -367,7 +367,7 @@
             strurl = [dictemp objectForKey:@"url"];
         else
             strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[dictemp objectForKey:@"id"]];
-        [self gotowkwebview:strurl StrTitle:@"新闻详情"];
+        [self gotowkwebview:strurl StrTitle:@"新闻详情" StrNewsid:[dictemp objectForKey:@"id"] StrInType:[dictemp objectForKey:@"in_type"]];
     }
     else if([[dictemp objectForKey:@"show_type"] isEqualToString:@"more"])//当是显示更我推荐新闻cell是进
     {
@@ -391,7 +391,7 @@
 }
 
 #pragma mark actiondelegate代理
--(void)gotowkwebview:(NSString *)str StrTitle:(NSString *)strtitle
+-(void)gotowkwebview:(NSString *)str StrTitle:(NSString *)strtitle StrNewsid:(NSString *)strnewsid StrInType:(NSString *)strintype
 {
     WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
     NSString *requeststring = str;
@@ -414,7 +414,7 @@
     NSString *strmoreurl = [moredic objectForKey:@"more_url"];
     if([strmoreurl length]>0)
     {
-        [self gotowkwebview:strmoreurl StrTitle:@"列表"];
+        [self gotowkwebview:strmoreurl StrTitle:@"列表" StrNewsid:[moredic objectForKey:@"id"] StrInType:[moredic objectForKey:@"in_type"]];
     }
     else if([[moredic objectForKey:@"in_type"] isEqualToString:@"biz"])
     {
@@ -438,7 +438,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"app_name"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"app_name"] StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGclickNewsZuPic:(NSDictionary *)sender
@@ -448,7 +448,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@""];
+    [self gotowkwebview:strurl StrTitle:@"" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGClickSingleTuJipic:(id)sender
@@ -458,7 +458,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@""];
+    [self gotowkwebview:strurl StrTitle:@"" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGClickActivityPic:(NSDictionary *)sender
@@ -468,7 +468,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"title"]];
+    [self gotowkwebview:strurl StrTitle:[sender objectForKey:@"title"] StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGFocusClickNumberPic:(NSDictionary *)sender
@@ -478,7 +478,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@"焦点新闻详情"];
+    [self gotowkwebview:strurl StrTitle:@"焦点新闻详情" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 -(void)DGclickTuJiPic:(NSDictionary *)sender
@@ -490,7 +490,7 @@
         strurl = [sender objectForKey:@"url"];
     else
         strurl = [NSString stringWithFormat:@"%@%@",URLNewsDetailHref,[sender objectForKey:@"id"]];
-    [self gotowkwebview:strurl StrTitle:@""];
+    [self gotowkwebview:strurl StrTitle:@"" StrNewsid:[sender objectForKey:@"id"] StrInType:[sender objectForKey:@"in_type"]];
 }
 
 #pragma mark 接口

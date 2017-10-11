@@ -384,7 +384,14 @@
 
 -(void)clickimagehegoods:(UIGestureRecognizer*)sender
 {
-//	int tagnow = (int)[[sender view] tag];
+	int tagnow = (int)[[sender view] tag]-EnSingleTujiItemImageViewTag;
+    NSArray *arrayfocuslist = [dicsrc objectForKey:@"list"];
+    NSDictionary *dictemp = [arrayfocuslist objectAtIndex:tagnow];
+    if([self.delegate1 respondsToSelector:@selector(DGGotoGoodsDetailView:)])
+    {
+        [self.delegate1 DGGotoGoodsDetailView:dictemp];
+    }
+  //  DLog(@"tagnow====%d",tagnow);
 }
 
 -(void)ClicGoodsViewAction:(UIGestureRecognizer*)sender
@@ -396,8 +403,13 @@
 	{
 		[self.delegate1 DGGotoGoodsDetailView:dictemp];
 	}
-	DLog(@"tagnow====%d",tagnow);
+//	DLog(@"tagnow====%d",tagnow);
 	
+}
+
+-(void)changepicdescript:(int)currentindex
+{
+    
 }
 
 -(void)gotomoreandmorenews:(id)sender

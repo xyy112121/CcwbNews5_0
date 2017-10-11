@@ -503,7 +503,7 @@ float durationWithSourceAtIndex(CGImageSourceRef source, NSUInteger index) {
 	
 	if([self.xlsn0wDelegate respondsToSelector:@selector(changepicdescript:)])
 	{
-		[self.xlsn0wDelegate changepicdescript:self.currIndex];
+		[self.xlsn0wDelegate changepicdescript:(int)self.currIndex];
 	}
 	
 }

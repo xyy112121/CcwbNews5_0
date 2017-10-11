@@ -16,8 +16,8 @@
     if (view == nil) view = [UIApplication sharedApplication].keyWindow;
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.detailsLabelText = text;
-    hud.detailsLabelFont = [UIFont systemFontOfSize:16];
+    hud.detailsLabel.text = text;
+    hud.detailsLabel.font = [UIFont systemFontOfSize:16];
     // 设置图片
     hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/%@", icon]]];
     // 再设置模式
@@ -27,7 +27,7 @@
     hud.removeFromSuperViewOnHide = YES;
     
     // 1秒之后再消失
-    [hud hide:YES afterDelay:1.0];
+    [hud hideAnimated:YES afterDelay:1.0];
 }
 
 #pragma mark 显示错误信息
@@ -41,8 +41,8 @@
 }
 - (void)showSuccess:(NSString *)success
 {
-    self.detailsLabelText = success;
-    self.detailsLabelFont = [UIFont systemFontOfSize:16];
+    self.detailsLabel.text = success;
+    self.detailsLabel.font = [UIFont systemFontOfSize:16];
     // 设置图片
     self.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/%@", @"success.png"]]];
     // 再设置模式
@@ -52,12 +52,12 @@
     self.removeFromSuperViewOnHide = YES;
     
     // 1秒之后再消失
-    [self hide:YES afterDelay:2.0];
+    [self hideAnimated:YES afterDelay:2.0];
 }
 - (void)showError:(NSString *)error
 {
-    self.detailsLabelText = error;
-    self.detailsLabelFont = [UIFont systemFontOfSize:16];
+    self.detailsLabel.text = error;
+    self.detailsLabel.font = [UIFont systemFontOfSize:16];
     // 设置图片
     self.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/%@", @"error.png"]]];
     // 再设置模式
@@ -67,15 +67,15 @@
     self.removeFromSuperViewOnHide = YES;
     
     // 1秒之后再消失
-    [self hide:YES afterDelay:2.0];
+    [self hideAnimated:YES afterDelay:2.0];
 }
 + (void)showMessage:(NSString *)message toView:(UIView *)view
 {
     if (view == nil) view = [UIApplication sharedApplication].keyWindow;
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.detailsLabelFont = [UIFont systemFontOfSize:16];
-    hud.detailsLabelText = message;
+    hud.detailsLabel.font = [UIFont systemFontOfSize:16];
+    hud.detailsLabel.text = message;
     
 
     // 再设置模式
@@ -83,9 +83,10 @@
     
     // 隐藏时候从父控件中移除
     hud.removeFromSuperViewOnHide = YES;
-    hud.dimBackground = NO;
+    hud.backgroundColor = [UIColor clearColor];
+ //   hud.dimBackground = NO;
     // 1秒之后再消失
-    [hud hide:YES afterDelay:2.0];
+    [hud hideAnimated:YES afterDelay:2.0];
 }
 
 + (void)showMessage:(NSString *)message toView:(UIView *)view delay:(NSTimeInterval)timeInterval
@@ -93,17 +94,17 @@
     if (view == nil) view = [UIApplication sharedApplication].keyWindow;
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.detailsLabelFont = [UIFont systemFontOfSize:16];
-    hud.detailsLabelText = message;
+    hud.detailsLabel.font = [UIFont systemFontOfSize:16];
+    hud.detailsLabel.text = message;
     
     // 再设置模式
     hud.mode = MBProgressHUDModeText;
     
     // 隐藏时候从父控件中移除
     hud.removeFromSuperViewOnHide = YES;
-    hud.dimBackground = NO;
+    hud.backgroundColor = [UIColor clearColor];
     // 1秒之后再消失
-    [hud hide:YES afterDelay:timeInterval];
+    [hud hideAnimated:YES afterDelay:timeInterval];
 }
 
 #pragma mark 显示一些信息
@@ -111,11 +112,11 @@
     if (view == nil) view = [UIApplication sharedApplication].keyWindow;
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.detailsLabelText = message;
+    hud.detailsLabel.text = message;
     // 隐藏时候从父控件中移除
     hud.removeFromSuperViewOnHide = YES;
     // YES代表需要蒙版效果
-    hud.dimBackground = NO;
+    hud.backgroundColor = [UIColor clearColor];
     return hud;
 }
 @end

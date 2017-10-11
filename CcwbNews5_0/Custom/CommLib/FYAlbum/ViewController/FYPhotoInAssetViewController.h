@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
-#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
-#define kScreenWidth  [[UIScreen mainScreen] bounds].size.width
+//#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
+//#define kScreenWidth  [[UIScreen mainScreen] bounds].size.width
 #define COLORRGB(a,b,c)  [UIColor colorWithRed:a/255.0 green:b/255.0 blue:c/255.0 alpha:1]
 typedef void(^complateBlock)(NSArray *imagesArray) ;
 @interface FYPhotoInAssetViewController : UIViewController

@@ -34,6 +34,7 @@
 #define InterfaceScanCodeRecord  @"/api/AppApi/scanRecord.html"  //扫码请求接口
 #define InterfaceScanCode  @"/api/AppApi/scan.html" //扫码
 #define InterfaceCommitComment @"/api/AppApi/addReply.html" //发表评论
+#define InterfaceTuiJianNews @"/api/MicroApi/GetListItems.html" //获取推荐新闻
 
 
 #define InterfaceStoreGetToken  @"/api/login/getToken"  //获取token

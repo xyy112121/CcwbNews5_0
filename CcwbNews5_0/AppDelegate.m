@@ -169,6 +169,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
 	
+    FCreceivepushflag = @"1";
 	//初始化machineid
 	[self initGmachineid];
 	
@@ -182,13 +183,17 @@
     [self initcwtoken];
     
     DLog(@"cwtoken===%@",self.cwtoken);
-    
+    //设置内存
+    [self getmemory];
 
 	//极光推送
 	[self initJPush:launchOptions];
     
     //极光IM JMessage
     [self initJMessage:launchOptions];
+    
+    //设置微软小冰userid
+    [XIConversationManager sharedManager].userId = self.Gmachid;
     
 	//友盟分享
 	/* 设置友盟appkey */
@@ -197,6 +202,9 @@
 	//微信支付
 	 [WXApi registerApp:@"wx40e15e8bcce18854" withDescription:@"ios wxpay"];
 	
+    //获取手机类型
+    self.Gdevicename =  [AddInterface getdeviceModelName];
+    
 	self.allowRotation = 0;
 	CGRect rect = [[UIScreen mainScreen] bounds];
 	self.window = [[UIWindow alloc] initWithFrame:rect];
@@ -206,8 +214,16 @@
 	self.window.rootViewController = nctl;
 	self.gnctl = nctl;
 	[self.window makeKeyAndVisible];
+    
+    NSTimeInterval time=[[NSDate date] timeIntervalSince1970];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSString stringWithFormat:@"%.1f",time] forKey:TYNowTime];
+    [userDefaults synchronize];
+    
 	return YES;
 }
+
+
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
@@ -232,7 +248,7 @@
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString *timenow = [userDefaults stringForKey:TYNowTime];
 	DLog(@"time_Foreground====%f,%d,%f",time,[timenow intValue],time-[timenow intValue]);
-	if((time-[timenow floatValue]>60*30)&&[timenow intValue]>1494316000)
+	if((time-[timenow floatValue]>60*60)&&([timenow intValue]>1494316000)&&[FCreceivepushflag isEqualToString:@"1"])
 	{
 		HomePageViewController *homepage = [[HomePageViewController alloc] init];
 		UINavigationController *nctl = [[UINavigationController alloc] initWithRootViewController:homepage];
@@ -353,6 +369,7 @@
 // iOS 10 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
 	// Required
+    
 	NSDictionary * userInfo = notification.request.content.userInfo;
 	DLog(@"cccccc===%@",userInfo);
 	if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
@@ -362,15 +379,16 @@
 }
 
 // iOS 10 Support  //程序 在后台的时候调用此函数
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
 	// Required
+    FCreceivepushflag = @"0";
 	NSDictionary * userInfo = response.notification.request.content.userInfo;
 	DLog(@"bbbbbbbb===%@",userInfo);
 	if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
 		[JPUSHService handleRemoteNotification:userInfo];
 	}
 	completionHandler();  // 系统要求执行这个方法
-	
+	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 	[self getjpushinfo:[userInfo objectForKey:@"cw_id"] cwtype:[userInfo objectForKey:@"cw_type"]];
 }
 
@@ -380,21 +398,8 @@
 	[JPUSHService handleRemoteNotification:userInfo];
 	DLog(@"saaaaaa===%@",userInfo);
 	completionHandler(UIBackgroundFetchResultNewData);
-//	if([self.pushflag isEqualToString:@"1"])
-//	{
-//		NSString *urlnow = [URLHeader stringByAppendingString:[userInfo objectForKey:@"url"]];
-//		urlnow = [URLHeader stringByAppendingString:[userInfo objectForKey:@"url"]];
-//		urlnow = [urlnow stringByAppendingString:[NSString stringWithFormat:@"&user_id=%@",self.struserid]];
-//		PushDetailView *newsweb = [[PushDetailView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Urlstr:urlnow];
-//		newsweb.tag = 98890;
-//		[self.window addSubview:newsweb];
-//	}
-//	else
-//	{
-//		self.pushflag = @"0";
-//		self.strpushurl = [URLHeader stringByAppendingString:[userInfo objectForKey:@"url"]];
-//	}
-	
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+
 	
 }
 
@@ -408,11 +413,22 @@
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
 	//6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响。
-	BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
-	if (!result) {
-		// 其他如支付等SDK的回调
-	}
-	return result;
+    NSString *urlStr = [url absoluteString];
+    if ([urlStr hasPrefix:@"ccwbapp://"]) {
+        DLog(@"ursstr====%@",urlStr);
+        urlStr = [urlStr stringByReplacingOccurrencesOfString:@"ccwbapp://" withString:@""];//参数就在url，传值也在里面
+        return NO;
+    }
+    else
+    {
+        BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
+        if (!result) {
+            // 其他如支付等SDK的回调
+            
+        }
+
+        return result;
+    }
 }
 
 #endif
@@ -426,6 +442,16 @@
 
 		// 其他如支付等SDK的回调
 	}
+    else
+    {
+//        NSString *urlStr = [url absoluteString];
+//        if ([urlStr hasPrefix:@"ccwbapp://"]) {
+//            DLog(@"ursstr====%@",urlStr);
+//            urlStr = [urlStr stringByReplacingOccurrencesOfString:@"ccwbapp://" withString:@""];//参数就在url，传值也在里面
+//            
+//        }
+        return NO;
+    }
 	return result;
 }
 
@@ -560,10 +586,11 @@
 
 
 #pragma mark 接口
--(void)gotowkwebview:(NSString *)str
+-(void)gotowkwebview:(NSDictionary *)dic
 {
 	WkWebViewCustomViewController *webviewcustom = [[WkWebViewCustomViewController alloc] init];
-	NSString *requeststring = str;
+	NSString *requeststring = [dic objectForKey:@"url"];
+    
 	if([requeststring rangeOfString:@"?"].location !=NSNotFound)
 	{
 		requeststring = [NSString stringWithFormat:@"%@&cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,self.Gmachid,self.userinfo.userid!=nil?self.userinfo.userid:@""];
@@ -573,6 +600,9 @@
 		requeststring = [NSString stringWithFormat:@"%@?cw_version=%@&cw_device=%@&cw_machine_id=%@&cw_user_id=%@",requeststring,CwVersion,CwDevice,self.Gmachid,self.userinfo.userid!=nil?self.userinfo.userid:@""];
 	}
 	webviewcustom.strurl = requeststring;
+    webviewcustom.strtitle = [dic objectForKey:@"title"];
+    webviewcustom.FCnewsid = [dic objectForKey:@"id"];
+    webviewcustom.FCfromintype = [dic objectForKey:@"in_type"];
 	[self.gnctl pushViewController:webviewcustom animated:YES];
 }
 
@@ -591,7 +621,7 @@
 		 DLog(@"dic====%@",dic);
 		 if([[dic objectForKey:@"success"] isEqualToString:@"true"])
 		 {
-			 [self gotowkwebview:[dic objectForKey:@"url"]];
+			 [self gotowkwebview:dic];
 		 }
 		 else
 		 {

@@ -17,16 +17,19 @@
     
     // 设置普通状态的动画图片
     NSMutableArray *idleImages = [NSMutableArray array];
-    for (int i = 1; i<=2; i++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_loading1_0%d", i]];
+    for (int i = 1; i<=12; i++) {
+        NSString *strpic = [NSString stringWithFormat:@"topfresh%d", i];
+        UIImage *image =  LOADIMAGE(strpic, @"png");// [UIImage imageNamed:];
         [idleImages addObject:image];
     }
      [self setImages:idleImages forState:MJRefreshStateIdle];
     
     // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
     NSMutableArray *refreshingImages = [NSMutableArray array];
-    for (int i = 1; i<=2; i++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_loading1_0%d", i]];
+    for (int i = 1; i<=12; i++) {
+        NSString *strpic = [NSString stringWithFormat:@"topfresh%d", i];
+        UIImage *image =  LOADIMAGE(strpic, @"png");
+ //       UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_loading1_0%d", i]];
         [refreshingImages addObject:image];
     }
     [self setImages:refreshingImages forState:MJRefreshStatePulling];

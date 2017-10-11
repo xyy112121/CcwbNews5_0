@@ -33,16 +33,18 @@
 
 -(void)initviewfolded:(NSArray *)focus
 {
-	
 	float widthspace = (SCREEN_WIDTH-50-160)/3;
 	float nowwidth = 25;//(SCREEN_WIDTH-50)/4;
 	float heightnow = 15;
 	int countfocus = (int)[focus count];
-	if(countfocus>4)
-		countfocus = 4;
+    int arrayfocus = 0;
+    if(countfocus>4)
+        arrayfocus = 4;
+    else
+        arrayfocus = countfocus;
 	
 	
-	for(int i=0;i<countfocus;i++)
+	for(int i=0;i<arrayfocus;i++)
 	{
 		NSDictionary *dictemp = [focus objectAtIndex:i];
 		UIButton *buttonfunction = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -114,7 +116,7 @@
 			buttonfunction.layer.borderColor = [UIColor clearColor].CGColor;
 			buttonfunction.frame= CGRectMake(nowwidth+j*(40+widthspace), heightnow, 40, 40);
 			NSURL *urlstr = [NSURL URLWithString:[dictemp objectForKey:@"pic_path"]];
-			buttonfunction.tag = EnHpFunctionButtonTag+i;
+			buttonfunction.tag = EnHpFunctionButtonTag+i*4+j;
 			[buttonfunction addTarget:self action:@selector(clickfunction:) forControlEvents:UIControlEventTouchUpInside];
             [buttonfunction setImageForState:UIControlStateNormal withURL:urlstr];
             //	[buttonfunction setImageForState:UIControlStateNormal withURL:urlstr];

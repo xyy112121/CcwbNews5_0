@@ -287,7 +287,7 @@
 #pragma mark actiondelegate
 -(void)DGClickwkwebviewCustomview:(NSString *)clickurl
 {
-    [self gotowkwebview:clickurl StrTitle:@""];
+    [self gotowkwebview:clickurl StrTitle:@"" ];
 }
 
 -(void)DGUpLoadBrokeContentItem:(NSString *)fromtype FileURL:(NSString *)fileurl FileId:(NSString *)fileid Content:(NSString *)content TimeLength:(NSString *)timelength
@@ -306,7 +306,7 @@
 	[params setObject:fileid forKey:@"cw_file_id"];
 	[params setObject:timelength forKey:@"cw_timelength"];
 	[params setObject:videopicpath forKey:@"cw_video_picpath"];
-	
+    [params setObject:app.userinfo.username forKey:@"cw_user_name"];
 	
 	[RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceUploadBrokeInfo ShowView:self.view alwaysdo:^
 	 {

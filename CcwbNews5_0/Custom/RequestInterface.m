@@ -13,7 +13,7 @@
 //获取普通管理器
 +(AFHTTPSessionManager *)getHTTPManager{
 	AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-	manager.requestSerializer.timeoutInterval = 10.0f;
+	manager.requestSerializer.timeoutInterval = 15.0f;
 //	AFJSONResponseSerializer *response = [AFJSONResponseSerializer serializer];
 //	response.removesKeysWithNullValues = YES;
 //	manager.responseSerializer = response;
@@ -31,14 +31,19 @@
 }
 
 //普通 接口没有请求动画效果的
-+(void)doGetJsonWithParametersNoAn:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)())always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
++(void)doGetJsonWithParametersNoAn:(NSMutableDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)(void))always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
 {
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+    
 	AFHTTPSessionManager *manager = [RequestInterface getHTTPManager];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",app.cwtoken] forHTTPHeaderField:@"authorization"];
 	NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:parameters];
-	params[@"cw_version"] = CwVersion;
+	params[@"cw_version"] = currentVersion;
 	params[@"cw_device"] = CwDevice;
 	params[@"cw_machine_id"]= app.Gmachid;
+    params[@"cw_device_brand"]  = @"ios";
+    params[@"cw_device_name"] = app.Gdevicename;
 	params[@"cw_user_id"] = [app.userinfo.userid length]==0?@"":app.userinfo.userid;
     params[@"cw_city"] = app.diliweizhi.dilicity;
 	
@@ -48,8 +53,6 @@
 //							   @"exp": @1425391188545,
 //							   @"socketId": @"socketId"
 //							   };
-	
-	
 	NSError *error;
 	NSString *token = [Jwt encodeWithPayload:params andKey:TYJWTKey andAlgorithm:HS256 andError:&error];
 	NSDictionary *decoded = [Jwt decodeWithToken:token andKey:TYJWTKey andVerify:true andError:&error];
@@ -67,7 +70,7 @@
 			 always();
 		 }
 		 NSString *str = [[NSString alloc] initWithData:responseObject  encoding:NSUTF8StringEncoding];
-//		 DLog(@"str====%@",str);
+		 DLog(@"str====%@",str);
 		 
 		 NSDictionary *jsonvalue = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 		 success(jsonvalue);
@@ -80,15 +83,19 @@
 }
 
 //普通 接口没有请求动画效果的  //用户接口
-+(void)doGetJsonWithParametersForUser:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)())always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
++(void)doGetJsonWithParametersForUser:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)(void))always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
 {
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
     AFHTTPSessionManager *manager = [RequestInterface getHTTPManager];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",app.cwtoken] forHTTPHeaderField:@"authorization"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:parameters];
-    params[@"cw_version"] = CwVersion;
+    params[@"cw_version"] = currentVersion;
     params[@"cw_device"] = CwDevice;
     params[@"cw_machine_id"]= app.Gmachid;
-    params[@"cw_user_id"] = app.userinfo.userid;
+    params[@"cw_device_brand"]  = @"ios";
+    params[@"cw_device_name"] = app.Gdevicename;
+    params[@"cw_user_id"] = [app.userinfo.userid length]==0?@"":app.userinfo.userid;
     params[@"cw_city"] = app.diliweizhi.dilicity;
     
     //	NSDictionary * payload = @{
@@ -115,7 +122,7 @@
          if(always){
              always();
          }
-         NSString *str = [[NSString alloc] initWithData:responseObject  encoding:NSUTF8StringEncoding];
+    //     NSString *str = [[NSString alloc] initWithData:responseObject  encoding:NSUTF8StringEncoding];
          //	 DLog(@"str====%@",str);
          
          NSDictionary *jsonvalue = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -129,15 +136,19 @@
 }
 
 //普通 接口没有请求动画效果的  //商城接口
-+(void)doGetJsonWithParametersForStore:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)())always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
++(void)doGetJsonWithParametersForStore:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)(void))always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
 {
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
     AFHTTPSessionManager *manager = [RequestInterface getHTTPManager];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",app.cwtoken] forHTTPHeaderField:@"authorization"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:parameters];
-    params[@"cw_version"] = CwVersion;
+    params[@"cw_version"] = currentVersion;
     params[@"cw_device"] = CwDevice;
     params[@"cw_machine_id"]= app.Gmachid;
-    params[@"cw_user_id"] = app.userinfo.userid;
+    params[@"cw_device_brand"]  = @"ios";
+    params[@"cw_device_name"] = app.Gdevicename;
+    params[@"cw_user_id"] = [app.userinfo.userid length]==0?@"":app.userinfo.userid;
     params[@"cw_city"] = app.diliweizhi.dilicity;
     
     //	NSDictionary * payload = @{
@@ -164,7 +175,7 @@
          if(always){
              always();
          }
-         NSString *str = [[NSString alloc] initWithData:responseObject  encoding:NSUTF8StringEncoding];
+     //    NSString *str = [[NSString alloc] initWithData:responseObject  encoding:NSUTF8StringEncoding];
          //	 DLog(@"str====%@",str);
          
          NSDictionary *jsonvalue = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -178,15 +189,19 @@
 }
 
 //普通接口请求 完整url
-+(void)doGetJsonWithParameterscompleteurl:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)())always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
++(void)doGetJsonWithParameterscompleteurl:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)(void))always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
 {
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
 	AFHTTPSessionManager *manager = [RequestInterface getHTTPManager];
 	NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:parameters];
-	params[@"cw_version"] = CwVersion;
+	params[@"cw_version"] = currentVersion;
 	params[@"cw_device"] = CwDevice;
 	params[@"cw_machine_id"]= app.Gmachid;
+    params[@"cw_device_brand"]  = @"ios";
+    params[@"cw_device_name"] = app.Gdevicename;
 	params[@"cw_user_id"] = [app.userinfo.userid length]==0?app.Gmachid:app.userinfo.userid;
-	
+	params[@"cw_city"] = app.diliweizhi.dilicity;
 	
 	[manager POST:requrl parameters:params progress:^(NSProgress * _Nonnull uploadProgress)
 	{
@@ -209,15 +224,20 @@
 }
 
 //上传图片接口
-+(void)doGetJsonWithArraypic:(NSArray * )arrayimage Parameter:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)())always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
++(void)doGetJsonWithArraypic:(NSArray * )arrayimage Parameter:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)(void))always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
 {
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
 	AFHTTPSessionManager *manager = [RequestInterface getHTTPManager];
 	NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:parameters];
-	params[@"cw_version"] = CwVersion;
+	params[@"cw_version"] = currentVersion;
 	params[@"cw_device"] = CwDevice;
 	params[@"cw_machine_id"]= app.Gmachid;
-	params[@"cw_user_id"] = app.userinfo.userid;
-	
+    params[@"cw_device_brand"]  = @"ios";
+    params[@"cw_device_name"] = app.Gdevicename;
+	params[@"cw_user_id"] = [app.userinfo.userid length]==0?app.Gmachid:app.userinfo.userid;
+	params[@"cw_city"] = app.diliweizhi.dilicity;
+    
 	[manager POST:[URLResouceUpLoadHeader stringByAppendingString:requrl] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 		
 		for (int i=0;i<[arrayimage count];i++)
@@ -246,14 +266,19 @@
 
 
 //上传视频接口
-+(void)doGetJsonWithvideo:(NSString * )videopath Parameter:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)())always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
++(void)doGetJsonWithvideo:(NSString * )videopath Parameter:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)(void))always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
 {
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
 	AFHTTPSessionManager *manager = [RequestInterface getHTTPManager];
 	NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:parameters];
-	params[@"cw_version"] = CwVersion;
+	params[@"cw_version"] = currentVersion;
 	params[@"cw_device"] = CwDevice;
 	params[@"cw_machine_id"]= app.Gmachid;
-	params[@"cw_user_id"] = app.userinfo.userid;
+    params[@"cw_device_brand"]  = @"ios";
+    params[@"cw_device_name"] = app.Gdevicename;
+    params[@"cw_user_id"] = [app.userinfo.userid length]==0?app.Gmachid:app.userinfo.userid;
+    params[@"cw_city"] = app.diliweizhi.dilicity;
 
 //	AppDelegate *app =  [RequestInterface getAppdelegate];
 //	JQIndicatorView *indicator = [[JQIndicatorView alloc] initWithType:JQIndicatorTypeBounceSpot1 tintColor:COLORNOW(200, 200, 200)];
@@ -301,14 +326,19 @@
 }
 
 //上传音频接口
-+(void)doGetJsonWithAudio:(NSString * )audiopath Parameter:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)())always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
++(void)doGetJsonWithAudio:(NSString * )audiopath Parameter:(NSDictionary * )parameters App:(AppDelegate *)app ReqUrl:(NSString *)requrl ShowView:(UIView *)showview alwaysdo:(void(^)(void))always Success:(void (^)(NSDictionary * dic))success Failur:(void (^)(NSString * strmsg))failure
 {
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
 	AFHTTPSessionManager *manager = [RequestInterface getHTTPManager];
 	NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:parameters];
-	params[@"cw_version"] = CwVersion;
+	params[@"cw_version"] = currentVersion;
 	params[@"cw_device"] = CwDevice;
 	params[@"cw_machine_id"]= app.Gmachid;
-	params[@"cw_user_id"] = app.userinfo.userid;
+    params[@"cw_device_brand"]  = @"ios";
+    params[@"cw_device_name"] = app.Gdevicename;
+    params[@"cw_user_id"] = [app.userinfo.userid length]==0?app.Gmachid:app.userinfo.userid;
+    params[@"cw_city"] = app.diliweizhi.dilicity;
 
 	[manager POST:[URLResouceHeader stringByAppendingString:requrl] parameters:params constructingBodyWithBlock:^(id  _Nonnull formData) {
 		NSURL *url = [NSURL fileURLWithPath:audiopath];

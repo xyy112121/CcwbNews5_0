@@ -35,67 +35,11 @@
 		[self.editView addSubview:self.editTextField];
 		
         [self configure];
+        
+        
 		
     }
     return self;
-}
-
-- (instancetype)initWithFrame1:(CGRect)frame
-{
-	self = [super initWithFrame:frame];
-	if (self) {
-		[[NSBundle mainBundle] loadNibNamed:@"CLBottomCommentView" owner:self options:nil];
-		[self.contentView setFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
-		[self addSubview:self.contentView];
-		
-		//添加元素在上面
-		UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(8, 13, 20, 20)];
-		imageview.image = LOADIMAGE(@"36icon写", @"png");
-		[self.contentView addSubview:imageview];
-		
-		self.editView = [[UIView alloc] initWithFrame:CGRectMake(imageview.frame.origin.x+imageview.frame.size.width+8, 8, self.frame.size.width-48, 30)];
-		self.editView.backgroundColor = [UIColor whiteColor];
-		[self.contentView addSubview:self.editView];
-		
-		self.editTextField = [[UITextField alloc] initWithFrame:CGRectMake(5, 3, self.editView.frame.size.width-10, self.editView.frame.size.height-6)];
-		self.editTextField.placeholder = @"说点什么";
-		self.editTextField.font = FONTN(15.0f);
-		self.editTextField.backgroundColor = [UIColor clearColor];
-		[self.editView addSubview:self.editTextField];
-		
-		
-		[self configure];
-	}
-	return self;
-}
-
-- (instancetype)initWithFrame2:(CGRect)frame
-{
-	self = [super initWithFrame:frame];
-	if (self) {
-		[[NSBundle mainBundle] loadNibNamed:@"CLBottomCommentView" owner:self options:nil];
-		[self.contentView setFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
-		[self addSubview:self.contentView];
-		
-		//添加元素在上面
-		UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(8, 13, 20, 20)];
-		imageview.image = LOADIMAGE(@"36icon写", @"png");
-		[self.contentView addSubview:imageview];
-		
-		self.editView = [[UIView alloc] initWithFrame:CGRectMake(imageview.frame.origin.x+imageview.frame.size.width+8, 8, self.frame.size.width-90, 30)];
-		self.editView.backgroundColor = [UIColor whiteColor];
-		[self.contentView addSubview:self.editView];
-		
-		self.editTextField = [[UITextField alloc] initWithFrame:CGRectMake(5, 3, self.editView.frame.size.width-10, self.editView.frame.size.height-6)];
-		self.editTextField.placeholder = @"说点什么";
-		self.editTextField.font = FONTN(15.0f);
-		self.editTextField.backgroundColor = [UIColor clearColor];
-		[self.editView addSubview:self.editTextField];
-		
-		
-		[self configure];
-	}
-	return self;
 }
 
 -(void)gethancollection
@@ -108,6 +52,8 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 
     [self addSubview:self.clTextView];
+    
+    
     
     if (textField.text.length > 4) {
         NSMutableString *string = [[NSMutableString alloc] initWithString:textField.text];

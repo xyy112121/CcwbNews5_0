@@ -23,7 +23,7 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
-static NSString *appKey = @"0172df3fcf9c44f950b00eeb";//@"a9511ac380c5bf1cec9ea50f";  //测试用推送appkey
+static NSString *appKey =  @"0172df3fcf9c44f950b00eeb";//@"a9511ac380c5bf1cec9ea50f"; //测试用推送appkey //
 static NSString *channel = @"Publish channel";
 static BOOL isProduction = TRUE;
 
@@ -32,7 +32,7 @@ static BOOL isProduction = TRUE;
 	BMKLocationService* locService;
 	BMKMapManager* mapManager;
 	BMKGeoCodeSearch* geocodesearch;
-	
+    NSString *FCreceivepushflag; //是否收到推送
 }
 @property(nonatomic,strong)NSString *cwtoken;   //apptoken
 @property(nonatomic,strong)NSString *Gstoretoken;//商城token
@@ -43,6 +43,7 @@ static BOOL isProduction = TRUE;
 @property(nonatomic,strong)DiliWeiZhi *diliweizhi;
 @property(nonatomic,strong)UserInfo *userinfo;
 @property(nonatomic,strong)NSString *Gmachid;  //machid
+@property(nonatomic,strong)NSString *Gdevicename;  //machid
 @property(nonatomic,strong)NSMutableArray *arrapprecommend;  //首页的应用推荐列表   用于存储首页应用推荐
 @property(nonatomic,strong)NSMutableArray *arrayallapplication;
 @property(nonatomic,strong)NSMutableArray *arrayaddapplication; //用户添加的应用列表

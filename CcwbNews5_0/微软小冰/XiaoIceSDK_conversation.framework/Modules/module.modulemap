@@ -1,0 +1,6 @@
+framework module XiaoIceSDK_conversation {
+  umbrella header "XiaoIceSDK_conversation.h"
+
+  export *
+  module * { export * }
+}

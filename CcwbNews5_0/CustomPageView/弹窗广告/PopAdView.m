@@ -10,7 +10,7 @@
 
 @implementation PopAdView
 
--(id)initWithFrame:(CGRect)frame Requeststr:(NSString *)requeststring
+-(id)initWithFrame:(CGRect)frame Requeststr:(NSString *)requeststring Dic:(NSDictionary *)dic
 {
 	self = [super initWithFrame:frame];
 	if (self)
@@ -19,6 +19,7 @@
 		app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 		fromurl = requeststring;
 		flagloading = 0;
+        dicfrom = dic;
 		[self initWKWebView:requeststring];
 	}
 	return self;
@@ -150,9 +151,9 @@
 		decisionHandler(WKNavigationActionPolicyCancel);
 		if([requestString length]>0)
 		{
-			if([self.delegate1 respondsToSelector:@selector(DGGotoPopAdView:)])
+			if([self.delegate1 respondsToSelector:@selector(DGGotoPopAdView:Dic:)])
 			{
-				[self.delegate1 DGGotoPopAdView:requestString];
+                [self.delegate1 DGGotoPopAdView:requestString Dic:dicfrom];
 			}
 		}
 	}

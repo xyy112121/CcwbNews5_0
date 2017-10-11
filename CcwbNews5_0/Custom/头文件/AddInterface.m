@@ -99,6 +99,10 @@
     {
         return EnCellTypeAdUrl;
     }
+    else if([strtype isEqualToString:@"news_recommend"])
+    {
+        return EnCellTypeNewsRecommend;
+    }
 	return EnCellTypeNews;
 }
 
@@ -240,7 +244,7 @@
 
 +(float)folderSizeAtPath:(NSString *)path{
 	NSFileManager *fileManager=[NSFileManager defaultManager];
-	float folderSize;
+	float folderSize=0;
 	if ([fileManager fileExistsAtPath:path]) {
 		NSArray *childerFiles=[fileManager subpathsAtPath:path];
 		for (NSString *fileName in childerFiles)
@@ -526,5 +530,16 @@
 	return CGRectMake(x, y, v.frame.size.width, v.frame.size.height);
 }
 
+
++(NSString *)getdeviceModelName
+{
+    struct utsname systemInfo;
+    
+    uname(&systemInfo);
+    
+    NSString *deviceModel = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    
+    return deviceModel;
+}
 
 @end

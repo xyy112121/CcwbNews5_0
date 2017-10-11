@@ -22,7 +22,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	app.gnctl = self.navigationController;
-	[self.navigationController setNavigationBarHidden:YES];
+	[self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewDidLoad
@@ -31,36 +31,52 @@
 	if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
 		self.edgesForExtendedLayout = UIRectEdgeNone;
 	}
-	self.navigationController.navigationBar.translucent = NO;
-	[self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-	self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-	self.view.backgroundColor = COLORNOW(237, 237, 237);
+    self.view.backgroundColor = [UIColor whiteColor];
+    [[self.navigationController.navigationBar viewWithTag:EnHpNctlViewTag] removeFromSuperview];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+    contentView.backgroundColor = [UIColor clearColor];
+    UIButton *button = [[UIButton alloc] initWithFrame:contentView.bounds];
+    button.layer.borderColor = [UIColor clearColor].CGColor;
+    button.backgroundColor = [UIColor clearColor];
+    [button setImage:LOADIMAGE(@"arrowleftred", @"png") forState:UIControlStateNormal];
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    [button addTarget:self action: @selector(returnback) forControlEvents: UIControlEventTouchUpInside];
+    [contentView addSubview:button];
+    UIBarButtonItem *nagetiveSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                                   target:nil action:nil];
+    nagetiveSpacer.width = -10;//这个值可以根据自己需要自己调整
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:contentView];
+    self.navigationItem.leftBarButtonItems = @[nagetiveSpacer, barButtonItem];
+//    self.navigationController.navigationBar.translucent = NO;
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+//    self.view.backgroundColor = COLORNOW(237, 237, 237);
+//    
+//    
+//    
+//    UIImageView *imagenctl = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+//    imagenctl.backgroundColor = COLORNOW(253, 253, 253);
+//    [self.view addSubview:imagenctl];
+//    
+//    UILabel *labeltitle = [[UILabel alloc] initWithFrame:CGRectMake(100,32,SCREEN_WIDTH-200,20)];
+//    labeltitle.font = FONTB(16.0f);
+//    labeltitle.text = @"设置";
+//    labeltitle.textAlignment = NSTextAlignmentCenter;
+//    labeltitle.backgroundColor = [UIColor clearColor];
+//    labeltitle.textColor = COLORNOW(48, 48, 48);
+//    [self.view addSubview:labeltitle];
+//    
+//    UIImageView *imageline = [[UIImageView alloc] initWithFrame:CGRectMake(0, 63.5, SCREEN_WIDTH, 0.5)];
+//    imageline.backgroundColor = COLORNOW(230, 230, 230);
+//    [self.view addSubview:imageline];
 	
-	
-	
-	UIImageView *imagenctl = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-	imagenctl.backgroundColor = COLORNOW(253, 253, 253);
-	[self.view addSubview:imagenctl];
-	
-	UILabel *labeltitle = [[UILabel alloc] initWithFrame:CGRectMake(100,32,SCREEN_WIDTH-200,20)];
-	labeltitle.font = FONTB(16.0f);
-	labeltitle.text = @"设置";
-	labeltitle.textAlignment = NSTextAlignmentCenter;
-	labeltitle.backgroundColor = [UIColor clearColor];
-	labeltitle.textColor = COLORNOW(48, 48, 48);
-	[self.view addSubview:labeltitle];
-	
-	UIImageView *imageline = [[UIImageView alloc] initWithFrame:CGRectMake(0, 63.5, SCREEN_WIDTH, 0.5)];
-	imageline.backgroundColor = COLORNOW(230, 230, 230);
-	[self.view addSubview:imageline];
-	
-	//返回按钮
-	UIButton *btreturn = [UIButton buttonWithType:UIButtonTypeCustom];
-	btreturn.layer.borderColor = [UIColor clearColor].CGColor;
-	btreturn.frame = CGRectMake(10, 22, 40, 40);
-	[btreturn setImage:LOADIMAGE(@"arrowleftred", @"png") forState:UIControlStateNormal];
-	[btreturn addTarget:self action:@selector(returnback) forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:btreturn];
+//    //返回按钮
+//    UIButton *btreturn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btreturn.layer.borderColor = [UIColor clearColor].CGColor;
+//    btreturn.frame = CGRectMake(10, 22, 40, 40);
+//    [btreturn setImage:LOADIMAGE(@"arrowleftred", @"png") forState:UIControlStateNormal];
+//    [btreturn addTarget:self action:@selector(returnback) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btreturn];
 	
 	[self initparament:nil];
 	
@@ -70,7 +86,7 @@
 -(void)initparament:(id)sender
 {
 	app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
+	tableview = [[UITableView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
 	tableview.backgroundColor = [UIColor clearColor];
 	tableview.delegate = self;
 	tableview.dataSource = self;

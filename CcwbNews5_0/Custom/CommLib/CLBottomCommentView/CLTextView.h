@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "CLBottomCommentViewDelegate.h"
+#import "ExpressionViewBar.h"
+@interface CLTextView : UIView<ActionDelegate>
 
-@interface CLTextView : UIView
 
+@property (nonatomic,strong)  ExpressionViewBar *expressionview;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;

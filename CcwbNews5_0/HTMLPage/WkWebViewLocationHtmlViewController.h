@@ -12,7 +12,6 @@
 #import <AVKit/AVKit.h>
 @interface WkWebViewLocationHtmlViewController : UIViewController<AVPlayerViewControllerDelegate,WXApiManagerDelegate,UMSocialShareMenuViewDelegate,ActionDelegate,AVAudioPlayerDelegate,AVAudioSessionDelegate>
 {
-    AppDelegate *app;
     UIButton *playButton;
     AVAudioSession *session;
     NSURL *recordedFile;

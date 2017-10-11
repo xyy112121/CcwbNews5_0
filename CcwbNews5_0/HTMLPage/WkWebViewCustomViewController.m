@@ -19,6 +19,8 @@ static CGFloat const kBottomViewHeight = 46.0;
 -(void)returnback:(id)sender
 {
 	self.app.allowRotation = 0;
+
+    [[self.app.window viewWithTag:EnNewsDetailPlayVideoTag] removeFromSuperview];
 	if([[self.strurl lowercaseString] rangeOfString:[@"/User/Login/index" lowercaseString]].location !=NSNotFound)
 	{
 		[self.navigationController popViewControllerAnimated:YES];
@@ -29,7 +31,7 @@ static CGFloat const kBottomViewHeight = 46.0;
 	}
 	else
 	{
-		
+        [wkwebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@""]]];
 		[self.navigationController popViewControllerAnimated:YES];
 	}
 }
@@ -79,6 +81,23 @@ static CGFloat const kBottomViewHeight = 46.0;
     self.navigationItem.leftBarButtonItems = @[nagetiveSpacer, barButtonItem];
 
 	
+    if([self.FCfromintype isEqualToString:@"url"])
+    {
+        UIImage* img=LOADIMAGE(@"shareicon", @"png");
+        UIView *contentViewright = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-90, 20, 80, 44)];
+        UIButton *buttonright = [[UIButton alloc] initWithFrame:contentViewright.bounds];
+        buttonright.layer.borderColor = [UIColor clearColor].CGColor;
+        [buttonright setImage:img forState:UIControlStateNormal];
+        [buttonright addTarget:self action: @selector(clickopenshare:) forControlEvents: UIControlEventTouchUpInside];
+        [contentViewright addSubview:buttonright];
+        
+        UIBarButtonItem *nagetiveSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                                       target:nil action:nil];
+        nagetiveSpacer.width = -20;//这个值可以根据自己需要自己调整
+        UIBarButtonItem *barButtonItemright = [[UIBarButtonItem alloc] initWithCustomView:contentViewright];
+        self.navigationItem.rightBarButtonItems = @[nagetiveSpacer,barButtonItemright];
+    }
+    
 	
 	self.title = self.strtitle;
 	flagloading = 0;
@@ -87,14 +106,22 @@ static CGFloat const kBottomViewHeight = 46.0;
 	self.app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	[self initWKWebView];
 	[self.view addSubview:self.bottomView];
-	UISwipeGestureRecognizer *recognizer;
-	recognizer = [[ UISwipeGestureRecognizer alloc ] initWithTarget : self action : @selector (handleSwipeFrom:)];
-	[recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-	[self.view addGestureRecognizer:recognizer];
-	
-	recognizer = [[ UISwipeGestureRecognizer alloc ] initWithTarget : self action : @selector (handleSwipeFrom:)];
-	[recognizer setDirection :( UISwipeGestureRecognizerDirectionLeft)];
-	[self.view addGestureRecognizer :recognizer];
+    
+
+    if(([self.strurl rangeOfString:@"minisite"].location ==NSNotFound))
+    {
+        UISwipeGestureRecognizer *recognizer;
+        recognizer = [[ UISwipeGestureRecognizer alloc ] initWithTarget : self action : @selector (handleSwipeFrom:)];
+        [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+        [self.view addGestureRecognizer:recognizer];
+        
+        recognizer = [[ UISwipeGestureRecognizer alloc ] initWithTarget : self action : @selector (handleSwipeFrom:)];
+        [recognizer setDirection :( UISwipeGestureRecognizerDirectionLeft)];
+        [self.view addGestureRecognizer :recognizer];
+        
+//        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+//        [self.view addGestureRecognizer:singleTap];//这个可以加到任何控件上,比如你只想响应WebView，我正好填满整个屏幕
+    }
 }
 
 - (void)initWKWebView
@@ -102,8 +129,9 @@ static CGFloat const kBottomViewHeight = 46.0;
 	userContentController = [[WKUserContentController alloc] init];
 	WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
  //   configuration.keyboardDisplayRequiresUserAction = NO;
-//    configuration.allowsInlineMediaPlayback = YES;
+    configuration.allowsInlineMediaPlayback = YES;
 	configuration.userContentController = userContentController;
+    
     
 	[userContentController addScriptMessageHandler:self name:@"commonBack"];
 	[userContentController addScriptMessageHandler:self name:@"getAppUserInfo"];
@@ -156,11 +184,16 @@ static CGFloat const kBottomViewHeight = 46.0;
 		strongSelf.wkwebview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 													 configuration:configuration];
 		NSURL *fileURL = [NSURL URLWithString:strongSelf.strurl];
-		NSURLRequest *request  = [NSURLRequest requestWithURL:fileURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+        
+		NSURLRequest *request  = [NSURLRequest requestWithURL:fileURL cachePolicy:1 timeoutInterval:30];
+        //NSURLRequestUseProtocolCachePolicy
+//        NSURLRequest * urlReuqest = [[NSURLRequest alloc] initWithURL:fileURL cachePolicy:1 timeoutInterval:30.0f];
+//        [_webView loadRequest:urlReuqest];
+        
 		[strongSelf.wkwebview loadRequest:request];
-		strongSelf.wkwebview.navigationDelegate = self;
-		strongSelf.wkwebview.UIDelegate = self;
-		[strongSelf.view addSubview:self.wkwebview];
+		strongSelf.wkwebview.navigationDelegate = strongSelf;
+		strongSelf.wkwebview.UIDelegate = strongSelf;
+		[strongSelf.view addSubview:strongSelf.wkwebview];
 		
 		UIScrollView *scroller = [strongSelf.wkwebview.subviews objectAtIndex:0];
 		if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
@@ -174,6 +207,9 @@ static CGFloat const kBottomViewHeight = 46.0;
 		imageViewgif.tag = EnYLImageViewTag;
 		imageViewgif.image = [YLGIFImage imageNamed:@"ccwb_common_write.gif"];
 		[strongSelf.view insertSubview:imageViewgif aboveSubview:self.wkwebview];
+        
+        if([self.strurl rangeOfString:@"isKVO=true"].location !=NSNotFound)
+            [self.wkwebview addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
 	}];
 	
 	self.wkwebview.backgroundColor = [UIColor clearColor];
@@ -181,19 +217,34 @@ static CGFloat const kBottomViewHeight = 46.0;
 	self.wkwebview.scrollView.showsVerticalScrollIndicator = YES;
 	self.wkwebview.scrollView.showsHorizontalScrollIndicator = YES;
     self.wkwebview.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0,  0, 0);
-//	UIScrollView *scroller = [self.wkwebview.subviews objectAtIndex:0];
-//	if ([scroller isKindOfClass:[UIScrollView class]]&&scroller)
-//	{
-//		scroller.bounces = YES;
-//		scroller.alwaysBounceVertical = YES;
-//		scroller.alwaysBounceHorizontal = YES;
-//	}
+    
+//    FBKVOController *fbKVO = [FBKVOController controllerWithObserver:self];
+//    [fbKVO observe:self.wkwebview keyPath:@"title" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+//        DLog(@"change====%@",change);
+//        self.title = change[NSKeyValueChangeNewKey];
+//    }];
 
+
+
+}
+
+#pragma mark KVO的监听代理
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+   if ([keyPath isEqualToString:@"title"]){
+        if (object == self.wkwebview) {
+            self.title = self.wkwebview.title;
+        }else{
+            [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        }
+    }
 }
 
 - (void)dealloc
 {
 	NSLog(@"%s",__FUNCTION__);
+    if([self.strurl rangeOfString:@"isKVO=true"].location !=NSNotFound)
+        [self.wkwebview removeObserver:self forKeyPath:@"title"];
 	[userContentController removeScriptMessageHandlerForName:@"commonBack"];
 	[userContentController removeScriptMessageHandlerForName:@"getAppUserInfo"];
 	[userContentController removeScriptMessageHandlerForName:@"addApp"];
@@ -232,6 +283,13 @@ static CGFloat const kBottomViewHeight = 46.0;
 	{
 		
 	}
+}
+
+- (void)handleSingleTap:( UISwipeGestureRecognizer *)sender
+{
+    CGPoint point = [sender locationInView:self.view];
+    NSLog(@"handleSingleTap!pointx:%f,y:%f",point.x,point.y);
+    
 }
 
 #pragma mark - WKScriptMessageHandler
@@ -448,8 +506,8 @@ static CGFloat const kBottomViewHeight = 46.0;
 	NSLog(@"%@",navigationAction.request.URL.absoluteString);
 	NSString *requestString = navigationAction.request.URL.absoluteString;
 	
-    
-	if((webviewtype == EnWebViewSingle)||([requestString rangeOfString:@"cw_redirect=true"].location !=NSNotFound))
+    //&&([requestString rangeOfString:@"AppPage/comment.html"].location ==NSNotFound)
+	if(((webviewtype == EnWebViewSingle)||([requestString rangeOfString:@"cw_redirect=true"].location !=NSNotFound)))
 	{
 		if(([requestString rangeOfString:@"favicon"].location !=NSNotFound))
         {
@@ -473,10 +531,7 @@ static CGFloat const kBottomViewHeight = 46.0;
 		{
 			decisionHandler(WKNavigationActionPolicyAllow);
 		}
-//		[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:requestString]]];
-		
 	}
-
 	else
 	{
 		NSArray *arraystr = [requestString componentsSeparatedByString:@"html"];
@@ -578,6 +633,7 @@ static CGFloat const kBottomViewHeight = 46.0;
 -(void)setclickcomment:(NSString *)sid
 {
     [self.bottomView.editTextField becomeFirstResponder];
+    
 }
 
 #pragma mark - CLBottomCommentViewDelegate
@@ -603,9 +659,11 @@ static CGFloat const kBottomViewHeight = 46.0;
     {
 
         [self commitcomment :textView.commentTextView.text NewsId:strnewsid];
+        textView.commentTextView.text=@"";
     }
     DLog(@"123123");
 }
+
 
 #pragma mark - Private Method
 
@@ -620,14 +678,32 @@ static CGFloat const kBottomViewHeight = 46.0;
         _bottomView = [[CLBottomCommentView alloc] initWithFrame:CGRectMake(0, cl_ScreenHeight, cl_ScreenWidth, kBottomViewHeight)];
         _bottomView.delegate = self;
         _bottomView.delegate1 = self;
-//        _bottomView.strnewsid = self.strnewsid;
         _bottomView.clTextView.delegate = self;
         [_bottomView gethancollection];
+        
+        
     }
     return _bottomView;
 }
 
 #pragma mark IBAction
+
+-(void)clickopenshare:(id)sender
+{
+    if([self.strurl rangeOfString:@"isKVO"].location !=NSNotFound)
+    {
+        NSMutableDictionary *dictemp = [[NSMutableDictionary alloc] init];
+        [dictemp setObject:[[NSBundle mainBundle] pathForResource:@"CWHeader" ofType:@"png"] forKey:@"share_pic_path"];
+        [dictemp setObject:self.title forKey:@"title"];
+        [dictemp setObject:self.title forKey:@"summary"];
+        [dictemp setObject:self.strurl forKey:@"share_url"];
+        [dictemp setObject:@"" forKey:@"share_id"];
+        [self setUMshare];
+        [self showshareinfo:dictemp];
+    }
+    else
+        [self getShareInfo:self.FCnewsid];
+}
 
 -(void)setnactlvisible:(id)sender
 {
@@ -686,6 +762,7 @@ static CGFloat const kBottomViewHeight = 46.0;
 
 -(void)returnback
 {
+    [[self.app.window viewWithTag:EnNewsDetailPlayVideoTag] removeFromSuperview];
 	[[self.view viewWithTag:EnYLImageViewTag] removeFromSuperview];
 	[self.navigationController popViewControllerAnimated:YES];
 	
@@ -726,25 +803,17 @@ static CGFloat const kBottomViewHeight = 46.0;
 
 -(void)playvideo:(NSString *)playvideourl
 {
-	NSURL * videoURL = [NSURL URLWithString:playvideourl];
-	AVPlayerViewController *avPlayer = [[AVPlayerViewController alloc] init];
-	avPlayer.player = [[AVPlayer alloc] initWithURL:videoURL];
-	/*
-	 可以设置的值及意义如下：
-	 AVLayerVideoGravityResizeAspect   不进行比例缩放 以宽高中长的一边充满为基准
-	 AVLayerVideoGravityResizeAspectFill 不进行比例缩放 以宽高中短的一边充满为基准
-	 AVLayerVideoGravityResize     进行缩放充满屏幕
-	 */
-	avPlayer.videoGravity = AVLayerVideoGravityResizeAspect;
-//	avPlayer.view.bounds = CGRectMake(0, 0, 350, 300);
-//	avPlayer.view.center = CGPointMake(CGRectGetMidX(self.view.bounds), 64 + CGRectGetMidY(avPlayer.view.bounds) + 30);
-	[avPlayer.player play];
-	avPlayer.delegate = self;
-//	[self addChildViewController:avPlayer];
-//	[self.view addSubview:avPlayer.view];
+//	NSURL * videoURL = [NSURL URLWithString:playvideourl];
 	
-	[self presentViewController:avPlayer animated:YES completion:nil];
-	
+    [self.wkwebview.scrollView setContentOffset:CGPointMake(0,self.wkwebview.scrollView.contentOffset.y+200) animated:NO];
+    
+    CGFloat deviceWith = [UIScreen mainScreen].bounds.size.width;
+    [[self.app.window viewWithTag:EnNewsDetailPlayVideoTag] removeFromSuperview];
+    ZGLVideoPlyer *player = [[ZGLVideoPlyer alloc] initWithFrame:CGRectMake(0, 64, deviceWith, 200)];
+    player.tag = EnNewsDetailPlayVideoTag;
+    player.videoUrlStr = playvideourl;//@"http://res.ccwb.cn/Upload/ccwb_app/video/news/20170917/20170917220355MK5N7J.mp4";
+    
+    [self.app.window addSubview:player];
 }
 
 -(void)webviewuploadpic:(id)sender
@@ -965,7 +1034,16 @@ static CGFloat const kBottomViewHeight = 46.0;
 	
 	//创建网页内容对象
 	NSString* thumbURL =  [dicfrom objectForKey:@"share_pic_path"];
-	UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:[dicfrom objectForKey:@"title"] descr:[dicfrom objectForKey:@"summary"] thumImage:thumbURL];
+    UMShareWebpageObject *shareObject;
+    if([thumbURL rangeOfString:@"CWHeader"].location !=NSNotFound)
+    {
+       shareObject = [UMShareWebpageObject shareObjectWithTitle:[dicfrom objectForKey:@"title"] descr:[dicfrom objectForKey:@"summary"] thumImage:LOADIMAGE(@"CWHeader", @"png")];
+    }
+    else
+    {
+        shareObject = [UMShareWebpageObject shareObjectWithTitle:[dicfrom objectForKey:@"title"] descr:[dicfrom objectForKey:@"summary"] thumImage:thumbURL];
+    }
+//    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:[dicfrom objectForKey:@"title"] descr:[dicfrom objectForKey:@"summary"] thumImage:thumbURL];
 	//设置网页地址
     
     
@@ -1048,7 +1126,7 @@ static CGFloat const kBottomViewHeight = 46.0;
 			}
 		}
 		if (error) {
-			result = [NSString stringWithFormat:@"分享出错,错误码: %d\n%@",(int)error.code, str];
+			result = @"取消分享";//[NSString stringWithFormat:@"分享出错,错误码: %d\n%@",(int)error.code, str];
 		}
 		else{
 			result = [NSString stringWithFormat:@"分享失败"];

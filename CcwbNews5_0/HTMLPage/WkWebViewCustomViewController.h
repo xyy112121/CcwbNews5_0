@@ -10,7 +10,7 @@
 #import <UShareUI/UShareUI.h>
 #import "WXApiManager.h"
 #import <AVKit/AVKit.h>
-@interface WkWebViewCustomViewController : UIViewController<AVPlayerViewControllerDelegate,WXApiManagerDelegate,UMSocialShareMenuViewDelegate,ActionDelegate,AVAudioPlayerDelegate,AVAudioSessionDelegate,CLBottomCommentViewDelegate>
+@interface WkWebViewCustomViewController : UIViewController<AVPlayerViewControllerDelegate,WXApiManagerDelegate,UMSocialShareMenuViewDelegate,ActionDelegate,AVAudioPlayerDelegate,AVAudioSessionDelegate,CLBottomCommentViewDelegate,UIScrollViewDelegate>
 {
 	UIButton *playButton;
 	AVAudioSession *session;
@@ -40,4 +40,6 @@
 @property(nonatomic,strong)AppDelegate *app;
 @property(nonatomic,strong)NSString *strurl;
 @property(nonatomic,strong)NSString *strtitle;
+@property(nonatomic,strong)NSString *FCfromintype;
+@property(nonatomic,strong)NSString *FCnewsid;
 @end

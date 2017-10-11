@@ -18,25 +18,25 @@
 //相册(多张)
 + (void)JphotoGetFromLibrayInController:(UIViewController *)viewController
                                 finish:(void(^)(NSArray <UIImage *> * images))finish
-                                cancel:(void(^)())cancel;
+                                cancel:(void(^)(void))cancel;
 
 //相册（单张）
 + (void)JphotoGetFromSystemInController:(UIViewController *)viewController
                                  finish:(void(^)(UIImage *image))finish
-                                 cancel:(void(^)())cancel;
+                                 cancel:(void(^)(void))cancel;
 
 //拍照
 + (void)JphotoTakePhotoInController:(UIViewController *)viewController
                              finish:(void(^)(UIImage *image))finish
-                             cancel:(void(^)())cancel;
+                             cancel:(void(^)(void))cancel;
 
 // 拍照、相册（多张）
 + (void)getImageInController:(UIViewController *)viewController
                       finish:(void(^)(NSArray <UIImage *> * images))finish
-                      cancel:(void(^)())cancel;
+                      cancel:(void(^)(void))cancel;
 
 //拍照单张
 + (void)getOneImageInController:(UIViewController *)viewController
                       finish:(void(^)( UIImage *images))finish
-                      cancel:(void(^)())cancel;
+                      cancel:(void(^)(void))cancel;
 @end

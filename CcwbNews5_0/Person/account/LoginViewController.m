@@ -482,6 +482,9 @@
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
+    UIButton *button = [self.view viewWithTag:EnNoNetWorkPageTage];
+    button.enabled = NO;
+    
     [RequestInterface doGetJsonWithParametersNoAn:params App:app ReqUrl:InterfaceAppInit ShowView:app.window alwaysdo:^{
         
     } Success:^(NSDictionary *dic) {

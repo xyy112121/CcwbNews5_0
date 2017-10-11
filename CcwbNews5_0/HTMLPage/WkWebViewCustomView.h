@@ -20,5 +20,5 @@
 @property(nonatomic,strong)id<ActionDelegate>delegate1;
 @property (strong, nonatomic)WKWebView  *webView;
 -(id)initWithFrame:(CGRect)frame StrUrl:(NSString *)strurl;
--(void)loadData:(NSString *)strurl;
+//-(void)loadData:(NSString *)strurl;
 @end

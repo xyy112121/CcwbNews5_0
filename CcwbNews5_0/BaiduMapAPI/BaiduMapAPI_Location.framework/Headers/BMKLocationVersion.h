@@ -21,12 +21,12 @@
  *当前location组件版本 : 3.0.0
  *return  返回当前API location组件 的版本号
  */
-UIKIT_EXTERN NSString* BMKGetMapApiLocationComponentVersion();
+UIKIT_EXTERN NSString* BMKGetMapApiLocationComponentVersion(void);
 
 /**
  *检查location组件的版本号是否和base组件的版本号一致
  *return    版本号一致返回YES
  */
-UIKIT_EXTERN BOOL BMKCheckLocationComponentIsLegal();
+UIKIT_EXTERN BOOL BMKCheckLocationComponentIsLegal(void);
 
 #endif /* BMKLocationVersion_h */

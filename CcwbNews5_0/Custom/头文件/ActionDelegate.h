@@ -39,7 +39,7 @@
 -(void)DGSetvideopath:(NSString *)sender Thumbimg:(UIImage *)thumbing;  //爆料视频回调
 -(void)DGPlayVideo:(NSString *)videopath;//爆料播放视频
 -(void)DGClickgotoqrcode:(id)sender;//点击跳转到二维码
--(void)DGGotoPopAdView:(NSString *)popadurl;//弹窗点击跳转
+-(void)DGGotoPopAdView:(NSString *)popadurl Dic:(NSDictionary *)dic;//弹窗点击跳转
 -(void)DGGotoGoodsDetailView:(NSDictionary *)goodsurl;//点击进入商品页面
 -(void)DGClickShare:(NSString *)sender;//点击分享
 -(void)DGclickNewsZuPic:(NSDictionary *)sender;//点击新闻组
@@ -51,6 +51,9 @@
 -(void)DGClickWebViewAddApp:(NSString *)dictemp;
 -(void)DGLoginSuccess:(NSString *)success;
 -(void)DGClickApplicationListSearch:(id)sender;//点击应用搜索
+-(void)DGClickTuiJianNews:(NSDictionary *)dic;
+-(void)DGClickSelectExpression:(NSString *)strexpression; //选择表情
+-(void)DGClicknewrecommend:(id)sender;//换一批新闻
 
 
 

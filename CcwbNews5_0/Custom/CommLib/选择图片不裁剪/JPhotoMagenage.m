@@ -12,7 +12,7 @@
 
 @interface JPhotoMagenage ()<UIActionSheetDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property(nonatomic, copy) void(^completeBlock)(NSArray <UIImage *> * images);
-@property(nonatomic, copy) void(^cancelBlock)();
+@property(nonatomic, copy) void(^cancelBlock)(void);
 @property(nonatomic, copy) void(^completeOneBlock)(UIImage *image);
 @property(nonatomic, assign) BOOL single;
 @property(nonatomic, assign) BOOL isTakePhoto;
@@ -34,7 +34,7 @@
 
 + (void)JphotoGetFromLibrayInController:(UIViewController *)viewController
                                  finish:(void(^)(NSArray <UIImage *> * images))finish
-                                 cancel:(void(^)())cancel
+                                 cancel:(void(^)(void))cancel
 {
     JPhotoMagenage *manage = [self shareInstance];
     [manage showPhotosInViewController:viewController];
@@ -45,7 +45,7 @@
 
 + (void)JphotoGetFromSystemInController:(UIViewController *)viewController
                                  finish:(void(^)(UIImage *image))finish
-                                 cancel:(void(^)())cancel
+                                 cancel:(void(^)(void))cancel
 {
     JPhotoMagenage *manage = [self shareInstance];
     [manage getSystemPhotoInViewController:viewController];
@@ -56,7 +56,7 @@
 //拍照
 + (void)JphotoTakePhotoInController:(UIViewController *)viewController
                              finish:(void(^)(UIImage *image))finish
-                             cancel:(void(^)())cancel;
+                             cancel:(void(^)(void))cancel;
 {
     JPhotoMagenage *manage = [self shareInstance];
     [manage takePhotoInViewController:viewController];
@@ -68,7 +68,7 @@
 // 拍照、相册
 + (void)getImageInController:(UIViewController *)viewController
                       finish:(void(^)(NSArray <UIImage *> * images))finish
-                      cancel:(void(^)())cancel
+                      cancel:(void(^)(void))cancel
 {
     JPhotoMagenage *manage = [self shareInstance];
     manage.single = NO;
@@ -79,7 +79,7 @@
 
 + (void)getOneImageInController:(UIViewController *)viewController
                          finish:(void(^)( UIImage *images))finish
-                         cancel:(void(^)())cancel
+                         cancel:(void(^)(void))cancel
 {
     JPhotoMagenage *manage = [self shareInstance];
     manage.single = YES;

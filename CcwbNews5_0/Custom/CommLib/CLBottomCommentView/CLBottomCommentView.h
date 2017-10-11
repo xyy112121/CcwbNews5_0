@@ -24,7 +24,7 @@
 - (void)showTextView;
 
 - (void)clearComment;
-- (instancetype)initWithFrame1:(CGRect)frame;
-- (instancetype)initWithFrame2:(CGRect)frame;
+//- (instancetype)initWithFrame1:(CGRect)frame;
+//- (instancetype)initWithFrame2:(CGRect)frame;
 -(void)gethancollection;
 @end
